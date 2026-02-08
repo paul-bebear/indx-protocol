@@ -11,10 +11,14 @@ import { AuditTimerBubble } from './AuditTimerBubble';
 type ScanStatus = 'idle' | 'initiating' | 'scanning' | 'complete' | 'verified';
 
 const SCAN_STEPS = [
-    "Locating .well-known/ucp.json...",
-    "Analyzing Agent-Accessibility...",
-    "Checking MCP Handshake latency...",
-    "FINALIZING REPORT..."
+    "Checking UCP Identity Protocol...",
+    "Scanning AI Manifest & Policy...",
+    "Detecting AP2 Payment Endpoints...",
+    "Probing MCP Context Protocol...",
+    "Testing A2A Dialogue Channels...",
+    "Verifying Proof of Origin...",
+    "Discovering Service Capabilities...",
+    "FINALIZING 7-POINT AUDIT..."
 ];
 
 const RAW_LOGS = [
@@ -132,6 +136,9 @@ export function BrandScanner() {
         }
     }, [visibleLogCount, status]);
 
+    // n8n webhook for 7-point protocol audit
+    const N8N_WEBHOOK_URL = 'https://PLACEHOLDER_FOR_N8N';
+
     const startScan = useCallback(async () => {
         if (!url) return;
         setStatus('initiating');
@@ -143,12 +150,25 @@ export function BrandScanner() {
         let domain = url.trim().toLowerCase();
         domain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '');
 
-        console.log('[INDX] Querying domain:', domain);
+        console.log('[INDX] Starting 7-Point Protocol Audit for:', domain);
+
+        // Trigger n8n webhook for audit pipeline
+        try {
+            console.log('[INDX] Sending domain to n8n webhook...');
+            await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain }),
+            });
+            console.log('[INDX] n8n webhook triggered successfully');
+        } catch (err) {
+            console.warn('[INDX] n8n webhook failed (continuing with local check):', err);
+        }
 
         try {
             // Check registry_nodes table for verified domain (skip if no supabase client)
             if (supabase) {
-                console.log('[INDX] Supabase client active, querying registry_nodes...');
+                console.log('[INDX] Checking registry for existing verification...');
 
                 const { data, error } = await supabase
                     .from('registry_nodes')
@@ -164,12 +184,12 @@ export function BrandScanner() {
                         setConnectionError('CONNECTION_ERROR: Auth/Permission issue');
                     } else if (error.code === 'PGRST116') {
                         // No rows found - this is expected for unverified domains
-                        console.log('[INDX] Domain not found in registry');
+                        console.log('[INDX] Domain not found in registry (new audit)');
                     } else {
                         setConnectionError(`DB_ERROR: ${error.code}`);
                     }
                 } else if (data && data.status === 'verified') {
-                    console.log('[INDX] Domain VERIFIED!');
+                    console.log('[INDX] Domain already VERIFIED!');
                     setIsVerified(true);
                 }
             } else {
@@ -181,8 +201,7 @@ export function BrandScanner() {
         }
 
         // Notification phase then start scanning
-        // Use shorter delay for verified domains (1s) vs unverified (3s)
-        const scanDelay = 1000; // Consistent 1s delay for Discovery Lab aesthetic
+        const scanDelay = 1000;
         setTimeout(() => {
             setStatus('scanning');
         }, scanDelay);
@@ -250,16 +269,22 @@ export function BrandScanner() {
                                     <div className="absolute inset-0 border-t-2 border-brand-cyan rounded-full animate-spin" />
                                 </div>
 
-                                <div className="space-y-4 max-w-md">
+                                <div className="space-y-4 max-w-md w-full">
                                     <h3 className="text-xl font-bold text-white">
-                                        Initiating Deep Trace...
+                                        Conducting 7-Point Protocol Audit...
                                     </h3>
+
+                                    {/* Animated Progress Bar */}
+                                    <div className="w-full h-2 bg-black/40 rounded-full overflow-hidden border border-brand-cyan/20">
+                                        <div className="h-full bg-gradient-to-r from-brand-cyan/50 to-brand-cyan rounded-full animate-pulse" style={{ width: '30%', animation: 'pulse 1s ease-in-out infinite, grow 3s ease-out forwards' }} />
+                                    </div>
+
                                     <div className="p-4 bg-brand-cyan/5 border border-brand-cyan/10 rounded-lg">
                                         <p className="text-brand-cyan font-mono text-sm mb-2">
-                                            [ i ] ESTIMATED TIME: 2-5 MINUTES
+                                            [ i ] SCANNING: Identity • Policy • Payments • Context • Dialogue • Origin • Services
                                         </p>
                                         <p className="text-gray-400 text-sm">
-                                            Traffic is high. Establishing secure handshake with the Global Registry.
+                                            Sending domain to audit pipeline and checking all protocol endpoints...
                                         </p>
                                     </div>
                                     <p className="text-gray-500 text-xs font-mono uppercase tracking-wider animate-pulse">

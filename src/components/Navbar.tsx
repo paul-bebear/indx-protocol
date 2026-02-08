@@ -89,7 +89,9 @@ export function Navbar() {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8">
                     <NavLink to="/">Protocol</NavLink>
+                    <NavLink to="/why-indx">Why INDX?</NavLink>
                     <NavLink to="/use-cases">Use Cases</NavLink>
+                    <NavLink to="/ledger">Registry</NavLink>
                     <NavLink to="/verification">Security</NavLink>
                 </div>
 
@@ -138,7 +140,9 @@ export function Navbar() {
                     >
                         <div className="flex flex-col gap-6 text-xl font-medium">
                             <NavLink to="/" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Protocol</NavLink>
+                            <NavLink to="/why-indx" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Why INDX?</NavLink>
                             <NavLink to="/use-cases" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Use Cases</NavLink>
+                            <NavLink to="/ledger" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Registry</NavLink>
                             <NavLink to="/verification" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Security</NavLink>
 
                             {/* Mobile CTA - always visible in mobile menu */}

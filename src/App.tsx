@@ -6,6 +6,8 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { Verification } from './pages/Verification';
 import { UseCases } from './pages/UseCases';
+import { Ledger } from './pages/Ledger';
+import { WhyIndx } from './pages/WhyIndx';
 
 function App() {
   const location = useLocation();
@@ -21,6 +23,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/verification" element={<Verification />} />
               <Route path="/use-cases" element={<UseCases />} />
+              <Route path="/ledger" element={<Ledger />} />
+              <Route path="/why-indx" element={<WhyIndx />} />
             </Routes>
           </ErrorBoundary>
         </AnimatePresence>
