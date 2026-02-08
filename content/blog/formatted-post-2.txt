@@ -1,0 +1,183 @@
+(TITLE)
+58% of Customers Use AI to Find You (But 90% of Restaurants Are Invisible)
+
+(SUBTITLE)
+The way customers find restaurants has fundamentally changed—and most restaurant owners haven't noticed.
+
+---
+
+(H2)
+The Discovery Shift
+
+Five years ago, customers opened Google, typed "Italian restaurant near me," and scrolled through results.
+
+Today? They ask Alexa. They ask Siri. They ask ChatGPT.
+
+(QUOTE)
+The data shows this shift is already massive:
+
+• 58% of customers now use voice search and AI assistants to find local businesses
+• $80 billion in purchases will happen through voice commerce by 2026
+• 90% of restaurant websites are invisible to these AI platforms
+(END QUOTE)
+
+The majority of your potential customers are asking AI for recommendations. But if you're like 90% of restaurants, AI doesn't know you exist.
+
+---
+
+(H2)
+How AI Makes Recommendations
+
+(H3)
+Old Way (2019):
+
+1. Customer searches Google
+2. Google shows 10 results
+3. Customer visits 3-4 websites
+4. Customer makes decision
+
+(H3)
+New Way (2026):
+
+1. Customer asks AI assistant
+2. AI queries structured data sources
+3. AI returns 1-2 recommendations
+4. Customer makes decision
+
+Your goal used to be: Be in the top 10
+Your goal now is: Be one of the 1-2
+
+---
+
+(H2)
+Why 90% of Restaurants Are Invisible
+
+AI doesn't browse websites like humans.
+
+(H3)
+What AI Sees vs. What Humans See
+
+(BOLD) Human sees: (END BOLD)
+• Beautiful photos of your dishes
+• Elegant PDF menu
+• Stylish design
+• Smooth animations
+
+(BOLD) AI sees: (END BOLD)
+• "IMG_0472.jpg" (unlabeled image)
+• "menu_spring_2025.pdf" (unreadable file)
+• "No structured data found"
+
+(QUOTE)
+The beautiful website you paid $5,000 for is essentially blank to AI.
+(END QUOTE)
+
+---
+
+(H2)
+The Confidence Score
+
+AI assistants use confidence scoring to determine recommendations. Here's what matters:
+
+(H3)
+High Confidence (+points):
+✓ Schema markup present
+✓ Consistent NAP (Name, Address, Phone)
+✓ Machine-readable menu
+✓ FAQ content
+✓ Recent activity
+
+(H3)
+Low Confidence (-points):
+✗ PDF menu
+✗ Image-only content
+✗ Inconsistent information
+✗ No schema markup
+
+Most AI assistants use a threshold of 0.7 for recommendations.
+
+• Score 0.7+: Included in recommendations
+• Score <0.4: Invisible—never mentioned
+
+Your competitor at 0.92 gets recommended. You at 0.3 don't exist.
+
+---
+
+(H2)
+The First-Mover Window
+
+We're in a unique moment:
+
+(QUOTE)
+AI adoption is high (58%) but optimization is low (10%).
+(END QUOTE)
+
+Restaurants that optimize in 2026 will:
+• Dominate AI recommendations
+• Build authority that compounds
+• Establish presence before saturation
+
+Restaurants that wait until 2027 will:
+• Compete with optimized competitors
+• Pay more for the same results
+• Lose the first-mover advantage
+
+---
+
+(H2)
+The Fix: Becoming AI-Visible
+
+Becoming AI-visible requires four technical implementations:
+
+1. (BOLD) Structured Data Markup (END BOLD) — Add JSON-LD schema to your site
+2. (BOLD) Machine-Readable Menus (END BOLD) — Convert PDF to HTML with MenuItem markup
+3. (BOLD) Consistent Information (END BOLD) — Sync NAP across all platforms
+4. (BOLD) Answer-Focused Content (END BOLD) — Create FAQ sections
+
+---
+
+(H2)
+We Do This in 5 Days
+
+The Indexable.Pro 5-Day Sprint:
+
+(BOLD) Day 1: (END BOLD) Free audit showing your exact AI visibility score
+(BOLD) Day 2-3: (END BOLD) Implement structured data and machine-readable content
+(BOLD) Day 4: (END BOLD) Configure AI discovery files and test results
+(BOLD) Day 5: (END BOLD) Go live with before/after verification
+
+Cost: $1,500 one-time
+Time: 5 days
+Guarantee: 100% refund if you don't show up in AI queries
+
+---
+
+(H2)
+Don't Be Invisible Anymore
+
+58% of your customers are asking AI for recommendations.
+
+90% of restaurants are invisible.
+
+Be in the 10% that AI can see.
+
+---
+
+(H2)
+Get Your Free AI Visibility Score
+
+Find out if you're in the visible 10% or invisible 90%:
+• Specific visibility score across all major AI platforms
+• Competitor comparison
+• Lost revenue estimate
+• 5-day fix roadmap
+
+(LINK)
+Get Your Free Audit: https://indexable.pro/audit
+(END LINK)
+
+---
+
+Subscribe for weekly AI readiness insights for restaurants.
+
+(FEATURED IMAGE: Person using voice search on phone, restaurant in background)

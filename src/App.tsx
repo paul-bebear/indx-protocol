@@ -4,33 +4,36 @@ import { Navbar } from './components/Navbar';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
-import { Verification } from './pages/Verification';
-import { UseCases } from './pages/UseCases';
-import { Ledger } from './pages/Ledger';
-import { WhyIndx } from './pages/WhyIndx';
+import { useState } from 'react';
+import { LeadCaptureModal } from './components/LeadCaptureModal';
 
 function App() {
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-text font-sans antialiased overflow-hidden flex flex-col relative selection:bg-brand-cyan/20 selection:text-brand-cyan">
-      <Navbar />
+    <div className="min-h-screen bg-background text-text font-sans antialiased flex flex-col relative">
+      <Navbar onOpenModal={() => setIsModalOpen(true)} />
 
       <main className="flex-1 flex flex-col relative">
         <AnimatePresence mode="wait">
           <ErrorBoundary>
             <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/verification" element={<Verification />} />
-              <Route path="/use-cases" element={<UseCases />} />
-              <Route path="/ledger" element={<Ledger />} />
-              <Route path="/why-indx" element={<WhyIndx />} />
+              <Route path="/" element={<Home onOpenModal={() => setIsModalOpen(true)} />} />
+              <Route path="*" element={<Home onOpenModal={() => setIsModalOpen(true)} />} />
             </Routes>
           </ErrorBoundary>
         </AnimatePresence>
       </main>
 
       <Footer />
+
+      {/* Global Lead Capture Modal */}
+      <LeadCaptureModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialUrl=""
+      />
     </div>
   );
 }

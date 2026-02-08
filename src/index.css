@@ -1,17 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Clinical Dark Mode */
-  --color-background: #050505;
-  --color-border: #1A1A1A;
-  --color-text: #F0F0F0;
-  --color-brand-cyan: #00E5E5;
-  /* Surgical Cyan */
+  /* Restaurant-Friendly: Navy, Coral, Cream Palette */
+  --color-background: #fafaf9;
+  --color-background-alt: #ffffff;
+  --color-background-muted: #f8fafc;
+  --color-border: #e5e7eb;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-text-light: #9ca3af;
+  
+  /* Primary: Deep Navy (Trust, Professionalism) */
+  --color-brand-primary: #1e3a5f;
+  --color-brand-primary-hover: #152a45;
+  
+  /* Accent: Warm Coral (Hospitality, Appetite) */
+  --color-brand-accent: #f97316;
+  --color-brand-accent-hover: #ea580c;
+  
+  /* Supporting */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
-
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 :root {
@@ -25,56 +38,43 @@
 }
 
 @layer components {
+  /* Primary Button - Coral for action */
   .btn-primary {
-    @apply h-12 px-8 rounded-full bg-brand-cyan text-black font-semibold text-sm hover:bg-cyan-200 transition-all shadow-[0_0_20px_#00FFFF4D] hover:shadow-[0_0_30px_#00FFFF80] active:scale-95 cursor-pointer flex items-center justify-center;
+    @apply h-12 px-8 rounded-lg bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-hover transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center;
   }
 
-  .glass-card {
-    @apply bg-black/40 border border-white/10 backdrop-blur-md;
+  /* Secondary Button - Navy for trust */
+  .btn-secondary {
+    @apply h-12 px-8 rounded-lg border-2 border-brand-primary text-brand-primary font-semibold text-sm hover:bg-brand-primary hover:text-white transition-all active:scale-95 cursor-pointer flex items-center justify-center bg-white;
   }
 
-  /* Header CTA - Hidden state (default) */
-  .header-cta {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(8px);
-    max-width: 0;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: hidden;
-    transition: opacity 200ms ease-out,
-      transform 200ms ease-out,
-      max-width 200ms ease-out,
-      padding 200ms ease-out;
+  .section-padding {
+    @apply py-20 md:py-28 px-6;
   }
 
-  /* Header CTA - Visible state (after scrolling past hero) */
-  .site-header--with-cta .header-cta {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-    max-width: 200px;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .container-max {
+    @apply max-w-6xl mx-auto;
   }
 
-  /* Cyan pulse animation for Talk to Expert highlight */
-  .animate-pulse-cyan {
-    animation: pulse-cyan 0.5s ease-in-out 4;
+  .card {
+    @apply bg-white rounded-xl border border-border shadow-sm p-6;
   }
 
-  @keyframes pulse-cyan {
-
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(0, 229, 229, 0);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    50% {
-      box-shadow: 0 0 20px 4px rgba(0, 229, 229, 0.4);
-      border-color: rgba(0, 229, 229, 0.5);
-    }
+  .card-highlighted {
+    @apply bg-white rounded-xl border-2 border-brand-accent shadow-lg p-6 relative;
+  }
+  
+  /* Score display for audit */
+  .score-high {
+    @apply text-success;
+  }
+  
+  .score-medium {
+    @apply text-warning;
+  }
+  
+  .score-low {
+    @apply text-danger;
   }
 }
 
@@ -85,10 +85,4 @@ body {
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
-}
-
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
 }

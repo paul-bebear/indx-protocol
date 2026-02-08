@@ -1,518 +1,390 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from './Card';
-import { useScanningAnimation } from '../hooks/useScanningAnimation';
+import { Search, CheckCircle, AlertCircle, XCircle, ArrowRight, Loader2, Calendar } from 'lucide-react';
 import { useExitIntent } from '../hooks/useExitIntent';
 import { ExitIntentModal } from './ExitIntentModal';
 import { supabase } from '../lib/supabaseClient';
 
-import { AuditTimerBubble } from './AuditTimerBubble';
+type ScanStatus = 'idle' | 'scanning' | 'complete' | 'verified';
 
-type ScanStatus = 'idle' | 'initiating' | 'scanning' | 'complete' | 'verified';
+interface ScanResult {
+  score: number;
+  findings: Finding[];
+}
 
-const SCAN_STEPS = [
-    "Checking UCP Identity Protocol...",
-    "Scanning AI Manifest & Policy...",
-    "Detecting AP2 Payment Endpoints...",
-    "Probing MCP Context Protocol...",
-    "Testing A2A Dialogue Channels...",
-    "Verifying Proof of Origin...",
-    "Discovering Service Capabilities...",
-    "FINALIZING 7-POINT AUDIT..."
-];
+interface Finding {
+  type: 'good' | 'warning' | 'error';
+  message: string;
+}
 
-const RAW_LOGS = [
-    "GET /robots.txt ... 200 OK",
-    "SEARCHING /.well-known/ucp.json ... 404 NOT FOUND",
-    "INSPECTING HEADERS ... X-Frame-Options: SAMEORIGIN",
-    "ANALYZING SITEMAP ... 1284 ENTRIES",
-    "CHECKING OPENGRAPH TAGS ... DETECTED",
-    "ESTABLISHING AGENT HANDSHAKE ... TIMEOUT",
-    "LATENCY TEST ... 852ms (AGENT_REJECTED)",
-    "VERIFYING INDEXING PERMISSIONS ... BLOCKED",
-    "GENERATING SCORECARD ... DONE"
-];
+// Sample findings for demo - in real app, these come from actual scan
+const generateFindings = (isVerified: boolean): Finding[] => {
+  if (isVerified) {
+    return [
+      { type: 'good', message: 'Business hours properly formatted' },
+      { type: 'good', message: 'Menu is AI-readable (not PDF)' },
+      { type: 'good', message: 'Location data is structured' },
+      { type: 'good', message: 'FAQ section helps AI understand your offerings' },
+    ];
+  }
+  
+  return [
+    { type: 'error', message: 'Menu is a PDF - AI cannot read it' },
+    { type: 'warning', message: 'Missing structured business hours' },
+    { type: 'error', message: 'No FAQ section for common questions' },
+    { type: 'warning', message: 'Contact info not properly formatted' },
+    { type: 'error', message: 'Not appearing in AI assistant results' },
+  ];
+};
 
-const VERIFIED_LOGS = [
-    "GET /robots.txt ... 200 OK",
-    "SEARCHING /.well-known/ucp.json ... 200 OK",
-    "PARSING UCP MANIFEST ... VALID",
-    "VERIFYING IDENTITY TOKEN ... AUTHENTICATED",
-    "ESTABLISHING AGENT HANDSHAKE ... SUCCESS",
-    "LATENCY TEST ... 42ms (OPTIMAL)",
-    "INDEXING PERMISSIONS ... GRANTED",
-    "IDENTITY VERIFICATION ... COMPLETE"
-];
+const calculateScore = (findings: Finding[]): number => {
+  const goodCount = findings.filter(f => f.type === 'good').length;
+  return Math.round((goodCount / findings.length) * 100);
+};
 
 export function BrandScanner() {
-    const [status, setStatus] = useState<ScanStatus>('idle');
-    const [url, setUrl] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [email, setEmail] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isVerified, setIsVerified] = useState(false);
-    const [connectionError, setConnectionError] = useState<string | null>(null);
+  const [status, setStatus] = useState<ScanStatus>('idle');
+  const [url, setUrl] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [result, setResult] = useState<ScanResult | null>(null);
+  const [isVerified, setIsVerified] = useState(false);
+  const [, setConnectionError] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // Refs
-    const logsEndRef = useRef<HTMLDivElement>(null);
-    const emailInputRef = useRef<HTMLInputElement>(null);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
-    // Exit Intent - triggers after scan completes and user hasn't submitted
-    const { showModal, closeModal, resetTriggers } = useExitIntent({
-        isEnabled: status === 'complete' && !isSubmitted,
-        inactivityTimeout: 60000, // 60 seconds
-    });
+  // Exit Intent
+  const { showModal, closeModal, resetTriggers } = useExitIntent({
+    isEnabled: status === 'complete' && !isSubmitted,
+    inactivityTimeout: 60000,
+  });
 
-    // Handle Secure My Node click from modal
-    const handleSecureNode = useCallback(() => {
-        if (emailInputRef.current) {
-            emailInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-                emailInputRef.current?.focus();
-            }, 500);
+  const handleSecureNode = useCallback(() => {
+    if (emailInputRef.current) {
+      emailInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => emailInputRef.current?.focus(), 500);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === 'complete' && emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  }, [status]);
+
+  // Progress animation during scanning
+  useEffect(() => {
+    if (status === 'scanning') {
+      setProgress(0);
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 60);
+      return () => clearInterval(interval);
+    }
+  }, [status]);
+
+  // Complete scan when progress reaches 100
+  useEffect(() => {
+    if (status === 'scanning' && progress >= 100) {
+      setTimeout(() => {
+        const findings = generateFindings(isVerified);
+        setResult({
+          score: calculateScore(findings),
+          findings
+        });
+        setStatus(isVerified ? 'verified' : 'complete');
+      }, 500);
+    }
+  }, [progress, status, isVerified]);
+
+  const startScan = useCallback(async () => {
+    if (!url) return;
+    setStatus('scanning');
+    setProgress(0);
+    resetTriggers();
+    setIsVerified(false);
+    setConnectionError(null);
+    setResult(null);
+
+    let domain = url.trim().toLowerCase();
+    domain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '');
+
+    try {
+      if (supabase) {
+        const { data, error } = await supabase
+          .from('registry_nodes')
+          .select('status')
+          .eq('domain', domain)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          console.error('Database error:', error);
+        } else if (data && data.status === 'verified') {
+          setIsVerified(true);
         }
-    }, []);
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+    }
+  }, [url, resetTriggers]);
 
-    // Autofocus email input when scan completes
-    useEffect(() => {
-        if (status === 'complete' && emailInputRef.current) {
-            emailInputRef.current.focus();
-        }
-    }, [status]);
+  const handleEmailSubmit = useCallback(() => {
+    if (!email) return;
+    setIsSubmitted(true);
+    // Simulate API call
+    setTimeout(() => {
+      // Success state
+    }, 600);
+  }, [email]);
 
-    // Dynamic Logs Logic - Memoized
-    const dynamicLogs = useMemo(() => {
-        // Use verified logs if domain is verified
-        if (isVerified) {
-            return [...VERIFIED_LOGS];
-        }
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-success';
+    if (score >= 50) return 'text-warning';
+    return 'text-danger';
+  };
 
-        const logs = [...RAW_LOGS];
-        const lowerUrl = url.toLowerCase();
+  const getScoreBg = (score: number) => {
+    if (score >= 80) return 'bg-success';
+    if (score >= 50) return 'bg-warning';
+    return 'bg-danger';
+  };
 
-        if (['google.com', 'apple.com', 'amazon.com'].some(d => lowerUrl.includes(d))) {
-            logs.splice(6, 0, "[!] CRITICAL: Legacy headers detected. Agent discovery hindered.");
-        } else if (['nivea.com', 'nike.com', 'coca-cola.com'].some(d => lowerUrl.includes(d))) {
-            logs.splice(6, 0, "[!] CRITICAL: High-latency legacy redirects found. Agent access blocked.");
-        }
-        return logs;
-    }, [url, isVerified]);
+  const getScoreLabel = (score: number) => {
+    if (score >= 80) return 'Good';
+    if (score >= 50) return 'Needs Work';
+    return 'Critical';
+  };
 
-    const handleScanComplete = useCallback(() => {
-        if (isVerified) {
-            setStatus('verified');
-        } else {
-            setStatus('complete');
-        }
-    }, [isVerified]);
+  return (
+    <div className="w-full max-w-2xl mx-auto my-16 px-4">
+      <AnimatePresence mode="wait">
+        {/* IDLE STATE */}
+        {status === 'idle' && (
+          <motion.div
+            key="idle"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="bg-white rounded-2xl shadow-xl border border-border p-8"
+          >
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-primary/10 flex items-center justify-center">
+                <Search className="w-8 h-8 text-brand-primary" />
+              </div>
+              <h3 className="text-2xl font-bold text-text mb-2">
+                Check Your Restaurant's AI Visibility
+              </h3>
+              <p className="text-text-muted">
+                Find out if ChatGPT, Siri, and Alexa can find your restaurant
+              </p>
+            </div>
 
-    // Custom Hook for Animation
-    const { stepIndex, visibleLogCount } = useScanningAnimation(
-        status,
-        SCAN_STEPS,
-        dynamicLogs,
-        handleScanComplete,
-        20000 // 20 seconds
-    );
+            <div className="flex flex-col gap-4">
+              <div>
+                <label className="block text-sm font-medium text-text mb-2">
+                  Enter your restaurant website
+                </label>
+                <input
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://yourrestaurant.com"
+                  className="w-full h-14 border border-border rounded-lg px-4 text-text placeholder:text-text-light focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                />
+              </div>
+              <motion.button
+                onClick={startScan}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                disabled={!url}
+                className="h-14 w-full rounded-lg bg-brand-accent text-white font-semibold hover:bg-brand-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
+              >
+                Check My Visibility
+              </motion.button>
+            </div>
 
-    // Derived logs array
-    const activeLogs = dynamicLogs.slice(0, visibleLogCount);
+            <p className="text-center text-xs text-text-muted mt-4">
+              Free analysis • Takes under 5 minutes • No signup required
+            </p>
+          </motion.div>
+        )}
 
-    // Auto-scroll logs
-    // Auto-scroll logs (removed nudging page scroll, handled via CSS/overflow if needed, but keeping simple scrollIntoView for now confined to container if possible, 
-    // actually user asked to "Stop log auto-scroll from nudging page". 
-    // The previous implementation used scrollIntoView on the logsEndRef which might scroll the whole page if the logs container isn't handling scroll properly.
-    // Better to just set scrollTop of the container. But useScanningAnimation updates visibleLogCount.
-    // Let's replace this useEffect with a direct ref manipulation of the container if possible, or just remove the page-scroll inducing behavior.
-    // For now, I'll remove the logsEndRef scrollIntoView completely as per request "Stop log auto-scroll".
-    // Instead I'll just let the logs stack up. Or I can scroll the CONTAINER only.
-    // To scroll container only: logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight
-    useEffect(() => {
-        if (status === 'scanning' && logsEndRef.current) {
-            // Use scrollIntoView with block: 'nearest' to avoid jumping, or better yet, don't use it at all if it annoys the user.
-            // User said "Stop log auto-scroll from nudging page".
-            // I will implement a container-only scroll in the JSX.
-        }
-    }, [visibleLogCount, status]);
+        {/* SCANNING STATE */}
+        {status === 'scanning' && (
+          <motion.div
+            key="scanning"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="bg-white rounded-2xl shadow-xl border border-border p-8"
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6">
+                <Loader2 className="w-16 h-16 text-brand-accent animate-spin" />
+              </div>
+              <h3 className="text-xl font-semibold text-text mb-2">
+                Analyzing your website...
+              </h3>
+              <p className="text-text-muted mb-8">
+                Checking if AI assistants can read your restaurant information
+              </p>
 
-    // n8n webhook for 7-point protocol audit
-    const N8N_WEBHOOK_URL = 'https://PLACEHOLDER_FOR_N8N';
+              {/* Progress Bar */}
+              <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden mb-2">
+                <motion.div
+                  className="h-full bg-brand-accent rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
+              <p className="text-sm text-text-muted">{progress}% complete</p>
+            </div>
+          </motion.div>
+        )}
 
-    const startScan = useCallback(async () => {
-        if (!url) return;
-        setStatus('initiating');
-        resetTriggers();
-        setIsVerified(false);
-        setConnectionError(null);
+        {/* COMPLETE STATE - Results */}
+        {(status === 'complete' || status === 'verified') && result && (
+          <motion.div
+            key="complete"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          >
+            <div className="bg-white rounded-2xl shadow-xl border border-border overflow-hidden">
+              {/* Header with Score */}
+              <div className="p-8 border-b border-border bg-gradient-to-br from-background to-white">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  {/* Score Circle */}
+                  <div className={`w-24 h-24 rounded-full border-4 flex items-center justify-center ${getScoreBg(result.score)} bg-opacity-10 border-current`}>
+                    <div className="text-center">
+                      <span className={`text-3xl font-bold ${getScoreColor(result.score)}`}>
+                        {result.score}
+                      </span>
+                      <span className="text-xs text-text-muted block">out of 100</span>
+                    </div>
+                  </div>
 
-        // Normalize domain: trim, lowercase, remove protocol/www/paths
-        let domain = url.trim().toLowerCase();
-        domain = domain.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '');
+                  <div className="text-center md:text-left flex-1">
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium mb-2 ${getScoreBg(result.score)} bg-opacity-10 ${getScoreColor(result.score)}`}>
+                      {result.score >= 80 ? <CheckCircle className="w-4 h-4" /> : 
+                       result.score >= 50 ? <AlertCircle className="w-4 h-4" /> : 
+                       <XCircle className="w-4 h-4" />}
+                      {getScoreLabel(result.score)}
+                    </div>
+                    <h3 className="text-xl font-bold text-text">
+                      Here's What We Found
+                    </h3>
+                    <p className="text-text-muted">
+                      {url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '')}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-        console.log('[INDX] Starting 7-Point Protocol Audit for:', domain);
-
-        // Trigger n8n webhook for audit pipeline
-        try {
-            console.log('[INDX] Sending domain to n8n webhook...');
-            await fetch(N8N_WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ domain }),
-            });
-            console.log('[INDX] n8n webhook triggered successfully');
-        } catch (err) {
-            console.warn('[INDX] n8n webhook failed (continuing with local check):', err);
-        }
-
-        try {
-            // Check registry_nodes table for verified domain (skip if no supabase client)
-            if (supabase) {
-                console.log('[INDX] Checking registry for existing verification...');
-
-                const { data, error } = await supabase
-                    .from('registry_nodes')
-                    .select('status')
-                    .eq('domain', domain)
-                    .single();
-
-                console.log('[INDX] Supabase response:', { data, error });
-
-                if (error) {
-                    console.error('[INDX] Database error:', error.code, error.message);
-                    if (error.code === '401' || error.code === '403' || error.code === 'PGRST301') {
-                        setConnectionError('CONNECTION_ERROR: Auth/Permission issue');
-                    } else if (error.code === 'PGRST116') {
-                        // No rows found - this is expected for unverified domains
-                        console.log('[INDX] Domain not found in registry (new audit)');
-                    } else {
-                        setConnectionError(`DB_ERROR: ${error.code}`);
-                    }
-                } else if (data && data.status === 'verified') {
-                    console.log('[INDX] Domain already VERIFIED!');
-                    setIsVerified(true);
-                }
-            } else {
-                console.warn('[INDX] No Supabase client - env vars missing');
-            }
-        } catch (err) {
-            console.error('[INDX] Unexpected error:', err);
-            setConnectionError('UNEXPECTED_ERROR');
-        }
-
-        // Notification phase then start scanning
-        const scanDelay = 1000;
-        setTimeout(() => {
-            setStatus('scanning');
-        }, scanDelay);
-    }, [url, resetTriggers]);
-
-    const handleEmailSubmit = useCallback(() => {
-        if (!email) return;
-        setIsSubmitting(true);
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSubmitted(true);
-            setIsModalOpen(true); // Use modal state to show success message
-        }, 600);
-    }, [email]);
-
-    return (
-        <div className="w-full max-w-2xl mx-auto my-16 px-4">
-            <AnimatePresence mode="wait">
-
-                {/* IDLE STATE */}
-                {status === 'idle' && (
-                    <motion.div
-                        key="idle"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="flex flex-col gap-4"
+              {/* Findings List */}
+              <div className="p-8">
+                <h4 className="font-semibold text-text mb-4">Opportunities to Improve</h4>
+                <div className="space-y-3">
+                  {result.findings.map((finding, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-background-muted"
                     >
-                        <div className="relative">
-                            <input
-                                type="text"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
-                                placeholder="Enter your brand URL (e.g., coffee-circle.com)..."
-                                className="w-full h-14 bg-black/40 border border-brand-cyan/40 rounded-lg px-6 text-white placeholder:text-gray-600 focus:outline-none focus:border-brand-cyan transition-colors shadow-[0_0_20px_rgba(0,229,229,0.15)] focus:shadow-[0_0_30px_rgba(0,229,229,0.3)]"
-                            />
-                        </div>
-                        <button
-                            onClick={startScan}
-                            className="h-14 w-full rounded-lg bg-brand-cyan text-black font-bold font-mono tracking-wider hover:bg-cyan-200 transition-all shadow-[0_0_25px_rgba(0,229,229,0.4)] hover:shadow-[0_0_40px_rgba(0,229,229,0.5)]"
-                        >
-                            [ RUN DIAGNOSTIC ]
-                        </button>
-                    </motion.div>
-                )}
+                      {finding.type === 'good' && <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />}
+                      {finding.type === 'warning' && <AlertCircle className="w-5 h-5 text-warning shrink-0 mt-0.5" />}
+                      {finding.type === 'error' && <XCircle className="w-5 h-5 text-danger shrink-0 mt-0.5" />}
+                      <span className="text-sm text-text">{finding.message}</span>
+                    </div>
+                  ))}
+                </div>
 
+                {/* Impact Statement */}
+                <div className="mt-6 p-4 bg-brand-primary/5 rounded-lg border border-brand-primary/20">
+                  <p className="text-sm text-text">
+                    <strong>Estimated impact:</strong> Restaurants with these issues lose approximately{' '}
+                    <span className="text-brand-accent font-semibold">$2,000-5,000/month</span> in AI-discovered customers.
+                  </p>
+                </div>
+              </div>
 
-
-                {/* INITIATING STATE */}
-                {status === 'initiating' && (
-                    <motion.div
-                        key="initiating"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.05 }}
-                        className="w-full"
+              {/* CTA Section */}
+              <div className="p-8 border-t border-border bg-background-muted">
+                {!isSubmitted ? (
+                  <>
+                    <h4 className="font-semibold text-text mb-2 text-center">
+                      Want us to fix these issues?
+                    </h4>
+                    <p className="text-sm text-text-muted text-center mb-6">
+                      Schedule a free 15-minute call. We'll explain exactly what needs fixing and how we can help.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <input
+                        ref={emailInputRef}
+                        type="email"
+                        placeholder="your@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="flex-1 h-12 border border-border rounded-lg px-4 text-text placeholder:text-text-light focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                      />
+                      <motion.button
+                        onClick={handleEmailSubmit}
+                        disabled={!email}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="h-12 px-6 rounded-lg bg-brand-primary text-white font-semibold hover:bg-brand-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+                      >
+                        <Calendar className="w-4 h-4" />
+                        Schedule Free Call
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.button>
+                    </div>
+                  </>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-4"
+                  >
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-success/10 flex items-center justify-center">
+                      <CheckCircle className="w-8 h-8 text-success" />
+                    </div>
+                    <h4 className="font-semibold text-text mb-2">You're All Set!</h4>
+                    <p className="text-text-muted text-sm mb-4">
+                      We'll email you within 24 hours to schedule your free call.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setStatus('idle');
+                        setIsSubmitted(false);
+                        setEmail('');
+                        setUrl('');
+                      }}
+                      className="text-brand-primary text-sm font-medium hover:underline"
                     >
-                        <Card className="p-8 border-brand-cyan/30 shadow-[0_0_30px_rgba(0,229,229,0.1)]">
-                            <div className="flex flex-col items-center text-center space-y-6">
-                                <div className="relative">
-                                    <div className="w-16 h-16 rounded-full border-2 border-brand-cyan/20 flex items-center justify-center animate-pulse">
-                                        <div className="w-8 h-8 rounded-full bg-brand-cyan/20" />
-                                    </div>
-                                    <div className="absolute inset-0 border-t-2 border-brand-cyan rounded-full animate-spin" />
-                                </div>
-
-                                <div className="space-y-4 max-w-md w-full">
-                                    <h3 className="text-xl font-bold text-white">
-                                        Conducting 7-Point Protocol Audit...
-                                    </h3>
-
-                                    {/* Animated Progress Bar */}
-                                    <div className="w-full h-2 bg-black/40 rounded-full overflow-hidden border border-brand-cyan/20">
-                                        <div className="h-full bg-gradient-to-r from-brand-cyan/50 to-brand-cyan rounded-full animate-pulse" style={{ width: '30%', animation: 'pulse 1s ease-in-out infinite, grow 3s ease-out forwards' }} />
-                                    </div>
-
-                                    <div className="p-4 bg-brand-cyan/5 border border-brand-cyan/10 rounded-lg">
-                                        <p className="text-brand-cyan font-mono text-sm mb-2">
-                                            [ i ] SCANNING: Identity • Policy • Payments • Context • Dialogue • Origin • Services
-                                        </p>
-                                        <p className="text-gray-400 text-sm">
-                                            Sending domain to audit pipeline and checking all protocol endpoints...
-                                        </p>
-                                    </div>
-                                    <p className="text-gray-500 text-xs font-mono uppercase tracking-wider animate-pulse">
-                                        PLEASE STAY ON THIS PAGE...
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                    </motion.div>
+                      Check another website
+                    </button>
+                  </motion.div>
                 )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-                {/* SCANNING STATE */}
-                {status === 'scanning' && (
-                    <motion.div
-                        key="scanning"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.05 }}
-                        className="flex flex-col items-center justify-center"
-                    >
-                        <div className="flex flex-col items-center gap-6 w-full">
-                            <div className="flex flex-col items-center gap-2">
-                                <div className="w-8 h-8 border-2 border-brand-cyan/30 border-t-brand-cyan rounded-full animate-spin" />
-                                <p className="font-mono text-sm text-brand-cyan/80 animate-pulse uppercase tracking-wider">
-                                    {SCAN_STEPS[stepIndex]}
-                                </p>
-                            </div>
-
-                            {/* Timer Bubble */}
-                            <AuditTimerBubble isVisible={status === 'scanning'} duration={20000} />
-
-                            {/* Deep Scan Logs */}
-                            <div
-                                className="w-full h-32 bg-black/80 border border-white/10 rounded-md p-3 overflow-hidden font-mono text-[10px] text-gray-500 relative"
-                                aria-live="polite"
-                                aria-label="Diagnostic scan progress"
-                            >
-                                <div className="absolute top-0 right-0 px-2 py-0.5 bg-white/5 text-gray-600 text-[9px] uppercase tracking-widest border-l border-b border-white/5">
-                                    Deep Scan
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    {activeLogs.map((log, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            className="whitespace-pre-wrap break-all"
-                                        >
-                                            <span className="text-gray-600 mr-2">{'>'}</span>
-                                            {log.includes('ERROR') || log.includes('TIMEOUT') || log.includes('BLOCKED') || log.includes('REJECTED') || log.includes('NOT FOUND') ? (
-                                                <span className="text-red-400/80">{log}</span>
-                                            ) : (
-                                                <span className="text-emerald-400/60">{log}</span>
-                                            )}
-                                        </motion.div>
-                                    ))}
-                                    {connectionError && (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            className="text-red-500 font-bold"
-                                        >
-                                            <span className="text-gray-600 mr-2">{'>'}</span>
-                                            [!] {connectionError}
-                                        </motion.div>
-                                    )}
-                                    <div ref={logsEndRef} />
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-
-                {/* VERIFIED STATE - Success Message */}
-                {status === 'verified' && (
-                    <motion.div
-                        key="verified"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    >
-                        <Card className="p-8 border-brand-cyan/50 shadow-[0_0_40px_rgba(0,229,229,0.3)]">
-                            {/* Success Status Header */}
-                            <div className="flex flex-col items-center text-center mb-8">
-                                <div className="w-16 h-16 rounded-full bg-brand-cyan/20 border-2 border-brand-cyan flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(0,229,229,0.4)]">
-                                    <span className="text-3xl">✓</span>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="px-4 py-2 rounded bg-brand-cyan/20 border border-brand-cyan/40 inline-block shadow-[0_0_20px_rgba(0,229,229,0.3)]">
-                                        <p className="text-brand-cyan font-mono font-bold text-sm tracking-wider">
-                                            [✓] STATUS: IDENTITY_VERIFIED
-                                        </p>
-                                    </div>
-                                    <p className="text-gray-400 text-sm">
-                                        This node has a valid UCP manifest and is registered in the INDX Protocol.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Verification Details */}
-                            <div className="space-y-4 mb-8">
-                                <div className="flex items-center justify-between p-3 rounded bg-brand-cyan/5 border border-brand-cyan/20">
-                                    <span className="text-gray-400 font-mono text-xs uppercase tracking-wider">Domain:</span>
-                                    <span className="text-brand-cyan font-mono text-xs font-bold">{url}</span>
-                                </div>
-                                <div className="flex items-center justify-between p-3 rounded bg-brand-cyan/5 border border-brand-cyan/20">
-                                    <span className="text-gray-400 font-mono text-xs uppercase tracking-wider">UCP Status:</span>
-                                    <span className="text-emerald-400 font-mono text-xs font-bold uppercase">ACTIVE</span>
-                                </div>
-                                <div className="flex items-center justify-between p-3 rounded bg-brand-cyan/5 border border-brand-cyan/20">
-                                    <span className="text-gray-400 font-mono text-xs uppercase tracking-wider">Agent Handshake:</span>
-                                    <span className="text-emerald-400 font-mono text-xs font-bold uppercase">VERIFIED</span>
-                                </div>
-                            </div>
-
-                            {/* Success Message */}
-                            <p className="text-center text-gray-400 text-sm">
-                                This domain is fully indexed and discoverable by AI agents. No action required.
-                            </p>
-                        </Card>
-                    </motion.div>
-                )}
-
-                {/* COMPLETE STATE - Diagnostic Gate */}
-                {status === 'complete' && (
-                    <motion.div
-                        key="complete"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    >
-                        <Card className="p-8 border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.1)]">
-
-                            {/* Critical Status Header */}
-                            <div className="flex flex-col items-center text-center mb-8">
-                                <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mb-6">
-                                    <span className="text-3xl">⚠️</span>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="px-4 py-2 rounded bg-red-500/20 border border-red-500/40 inline-block shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-                                        <p className="text-red-500 font-mono font-bold text-sm tracking-wider">
-                                            [!] STATUS: CRITICAL FAILURES DETECTED
-                                        </p>
-                                    </div>
-                                    <div className="px-4 py-2 rounded bg-white/5 border border-white/10 inline-block">
-                                        <p className="text-brand-cyan font-mono font-bold text-sm tracking-wider">
-                                            [!] TRACE COMPLETE: 12-PAGE AUDIT GENERATED
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Sub-stat */}
-                                <div className="mt-6 flex items-center gap-2">
-                                    <span className="text-gray-500 font-mono text-xs uppercase tracking-wider">Potential Discovery Loss:</span>
-                                    <span className="text-red-400 font-mono text-xs font-bold uppercase tracking-wider animate-pulse">HIGH</span>
-                                </div>
-                            </div>
-
-                            {/* Email Capture Form */}
-                            {!isModalOpen ? (
-                                <div className="space-y-4">
-                                    <p className="text-center text-gray-400 text-sm">
-                                        Request a manual node verification audit from our team.
-                                    </p>
-                                    <div className="flex flex-col sm:flex-row gap-3">
-                                        <input
-                                            ref={emailInputRef}
-                                            type="email"
-                                            placeholder="engineer@company.com"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className="flex-1 h-12 bg-black/40 border border-white/10 rounded-lg px-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-brand-cyan/50 transition-colors font-mono"
-                                        />
-                                        <button
-                                            onClick={handleEmailSubmit}
-                                            disabled={!email || isSubmitting}
-                                            className="h-12 px-6 rounded-lg bg-brand-cyan text-black font-bold font-mono tracking-wider hover:bg-brand-cyan/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(0,229,229,0.3)] hover:shadow-[0_0_30px_rgba(0,229,229,0.5)] flex items-center justify-center gap-2"
-                                        >
-                                            {isSubmitting ? (
-                                                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                            ) : (
-                                                '[ SEND MY RESULTS ]'
-                                            )}
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className="text-center py-6"
-                                >
-                                    <div className="w-full bg-black/80 border border-emerald-500/20 p-4 rounded-md font-mono text-xs text-left mb-4">
-                                        <p className="text-emerald-500 mb-2">{'>'} HANDSHAKE INITIATED.</p>
-                                        <p className="text-emerald-500 mb-2">{'>'} TARGET: {url}</p>
-                                        <p className="text-emerald-500 mb-2">{'>'} RECIPIENT: {email}</p>
-                                        <p className="text-gray-400 mt-4">
-                                            Your audit is being compiled by our on-call engineers.
-                                        </p>
-                                        <p className="text-white animate-pulse">
-                                            Check your inbox in 5-10 mins.
-                                        </p>
-                                    </div>
-                                    <button
-                                        onClick={() => {
-                                            setStatus('idle');
-                                            setIsModalOpen(false);
-                                            setEmail('');
-                                        }}
-                                        className="px-6 py-2 bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 rounded-lg hover:bg-emerald-900/50 transition-colors text-sm font-medium uppercase tracking-wider font-mono"
-                                    >
-                                        [ RUN ANOTHER DIAGNOSTIC ]
-                                    </button>
-                                </motion.div>
-                            )}
-
-                        </Card>
-                    </motion.div>
-                )}
-
-            </AnimatePresence>
-
-            {/* Exit Intent Modal */}
-            <ExitIntentModal
-                isOpen={showModal}
-                onClose={closeModal}
-                onSecureNode={handleSecureNode}
-            />
-        </div>
-    );
+      {/* Exit Intent Modal */}
+      <ExitIntentModal
+        isOpen={showModal}
+        onClose={closeModal}
+        onSecureNode={handleSecureNode}
+      />
+    </div>
+  );
 }

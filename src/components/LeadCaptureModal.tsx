@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight } from 'lucide-react';
-import { Card } from './Card';
+import { X, ArrowRight, Lock, Zap, Sparkles, ChevronDown } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { supabase } from '../lib/supabaseClient';
 
 interface LeadCaptureModalProps {
     isOpen: boolean;
@@ -10,44 +10,122 @@ interface LeadCaptureModalProps {
     initialUrl: string;
 }
 
+interface FormErrors {
+    businessName?: string;
+    contactName?: string;
+    email?: string;
+    websiteUrl?: string;
+}
+
 export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureModalProps) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [errors, setErrors] = useState<FormErrors>({});
     const [formData, setFormData] = useState({
-        url: initialUrl,
+        businessName: '',
+        contactName: '',
         email: '',
-        concern: 'Discovery'
+        websiteUrl: initialUrl,
+        businessType: 'Restaurant'
     });
 
-    // Reset state when modal closes
-    // Reset state logic
     useEffect(() => {
         if (isOpen) {
-            // Reset immediately on open and sync URL
             setIsSubmitted(false);
             setIsLoading(false);
-            setFormData(prev => ({ ...prev, url: initialUrl }));
+            setSubmitError(null);
+            setErrors({});
+            setFormData(prev => ({ ...prev, websiteUrl: initialUrl }));
         } else {
-            // Optional: delayed reset on close (cleanup) if needed, 
-            // but immediate reset on open handles the "re-open quickly" case better.
             const timer = setTimeout(() => {
                 setIsSubmitted(false);
                 setIsLoading(false);
+                setSubmitError(null);
+                setErrors({});
             }, 500);
             return () => clearTimeout(timer);
         }
     }, [isOpen, initialUrl]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const validateEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validateUrl = (url: string): boolean => {
+        return url.startsWith('http://') || url.startsWith('https://');
+    };
+
+    const validateForm = (): boolean => {
+        const newErrors: FormErrors = {};
+
+        if (!formData.businessName.trim()) {
+            newErrors.businessName = 'Business name is required';
+        }
+
+        if (!formData.contactName.trim()) {
+            newErrors.contactName = 'Your name is required';
+        }
+
+        if (!formData.email.trim()) {
+            newErrors.email = 'Email is required';
+        } else if (!validateEmail(formData.email)) {
+            newErrors.email = 'Please enter a valid email';
+        }
+
+        if (!formData.websiteUrl.trim()) {
+            newErrors.websiteUrl = 'Website URL is required';
+        } else if (!validateUrl(formData.websiteUrl)) {
+            newErrors.websiteUrl = 'URL must start with http:// or https://';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitError(null);
+
+        if (!validateForm()) {
+            return;
+        }
+
         setIsLoading(true);
 
-        // Simulate API call
-        setTimeout(() => {
-            setIsLoading(false);
+        try {
+            if (supabase) {
+                const { error } = await supabase.from('leads').insert({
+                    business_name: formData.businessName.trim(),
+                    contact_name: formData.contactName.trim(),
+                    email: formData.email.trim().toLowerCase(),
+                    website_url: formData.websiteUrl.trim(),
+                    business_type: formData.businessType,
+                    created_at: new Date().toISOString()
+                });
+
+                if (error) {
+                    throw error;
+                }
+            }
+
             setIsSubmitted(true);
-        }, 1500);
+        } catch (error) {
+            console.error('Error submitting lead:', error);
+            setSubmitError('Something went wrong. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     };
+
+    const inputClassName = (fieldError?: string) =>
+        cn(
+            "w-full h-11 bg-white border rounded-lg px-4 text-text focus:outline-none focus:ring-2 transition-all",
+            fieldError
+                ? "border-red-300 focus:border-red-400 focus:ring-red-100"
+                : "border-border focus:border-brand-primary focus:ring-brand-primary/20"
+        );
 
     return (
         <AnimatePresence>
@@ -59,7 +137,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+                        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
                     />
 
                     {/* Modal */}
@@ -70,16 +148,21 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             className="pointer-events-auto w-full max-w-md"
                         >
-                            <Card className={cn("p-6 border-brand-cyan/20 shadow-[0_0_50px_rgba(0,255,255,0.15)]", isSubmitted ? "border-emerald-500/30" : "")}>
-
+                            <div className={cn(
+                                "bg-white rounded-2xl border shadow-xl p-6",
+                                isSubmitted ? "border-green-200" : "border-border"
+                            )}>
                                 {/* Header */}
                                 <div className="flex items-center justify-between mb-6">
-                                    <h3 className={cn("text-lg font-bold tracking-tight uppercase", isSubmitted ? "text-emerald-400" : "text-white")}>
-                                        {isSubmitted ? "Audit Request Received" : "Request Deep Trace Audit"}
+                                    <h3 className={cn(
+                                        "text-xl font-bold",
+                                        isSubmitted ? "text-green-600" : "text-text"
+                                    )}>
+                                        {isSubmitted ? "Audit Scheduled!" : "Get Your Free AI Audit"}
                                     </h3>
                                     <button
                                         onClick={onClose}
-                                        className="p-1 rounded-md text-gray-500 hover:text-white hover:bg-white/10 transition-colors"
+                                        className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-gray-100 transition-colors"
                                     >
                                         <X size={20} />
                                     </button>
@@ -94,20 +177,21 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                                             animate={{ opacity: 1, y: 0 }}
                                             className="flex flex-col items-center text-center py-6 gap-4"
                                         >
-                                            <div className="w-full bg-black/80 border border-emerald-500/20 p-4 rounded-md font-mono text-xs text-left">
-                                                <p className="text-emerald-500 mb-2">{'>'} INITIATING_HANDSHAKE_PROTOCOL...</p>
-                                                <p className="text-emerald-500 mb-2">{'>'} TARGET: {formData.url}</p>
-                                                <p className="text-emerald-500 mb-2">{'>'} CONTACT: {formData.email}</p>
-                                                <p className="text-white mt-4 animate-pulse">
-                                                    HANDSHAKE INITIATED. Our engineering team has been notified.
-                                                </p>
+                                            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                                                <Sparkles className="w-8 h-8 text-green-600" />
                                             </div>
+                                            <p className="text-lg text-text font-medium">
+                                                Audit scheduled! Check your email in 24 hours.
+                                            </p>
+                                            <p className="text-sm text-text-muted">
+                                                We'll analyze {formData.websiteUrl} and send your personalized AI readiness report.
+                                            </p>
 
                                             <button
                                                 onClick={onClose}
-                                                className="mt-4 px-6 py-2 bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 rounded-lg hover:bg-emerald-900/50 transition-colors text-sm font-medium uppercase tracking-wider"
+                                                className="mt-4 px-6 py-2 bg-green-50 border border-green-200 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium"
                                             >
-                                                [ Close Terminal ]
+                                                Close
                                             </button>
                                         </motion.div>
                                     ) : (
@@ -119,65 +203,140 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                                             onSubmit={handleSubmit}
                                             className="flex flex-col gap-4"
                                         >
-                                            <div className="space-y-1">
-                                                <label className="text-xs text-gray-400 uppercase tracking-wider font-mono">Target URL</label>
+                                            {/* Business Name */}
+                                            <div className="space-y-1.5">
+                                                <label className="text-sm font-medium text-text">
+                                                    Business Name <span className="text-red-500">*</span>
+                                                </label>
                                                 <input
                                                     type="text"
-                                                    value={formData.url}
-                                                    onChange={e => setFormData({ ...formData, url: e.target.value })}
-                                                    className="w-full h-10 bg-black/40 border border-white/10 rounded px-3 text-white focus:border-brand-cyan/50 focus:outline-none transition-colors"
+                                                    value={formData.businessName}
+                                                    onChange={e => setFormData({ ...formData, businessName: e.target.value })}
+                                                    placeholder="Rossi's Trattoria"
+                                                    className={inputClassName(errors.businessName)}
                                                 />
+                                                {errors.businessName && (
+                                                    <p className="text-xs text-red-500">{errors.businessName}</p>
+                                                )}
                                             </div>
 
-                                            <div className="space-y-1">
-                                                <label className="text-xs text-gray-400 uppercase tracking-wider font-mono">Work Email</label>
+                                            {/* Your Name */}
+                                            <div className="space-y-1.5">
+                                                <label className="text-sm font-medium text-text">
+                                                    Your Name <span className="text-red-500">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.contactName}
+                                                    onChange={e => setFormData({ ...formData, contactName: e.target.value })}
+                                                    placeholder="Maria Rossi"
+                                                    className={inputClassName(errors.contactName)}
+                                                />
+                                                {errors.contactName && (
+                                                    <p className="text-xs text-red-500">{errors.contactName}</p>
+                                                )}
+                                            </div>
+
+                                            {/* Email */}
+                                            <div className="space-y-1.5">
+                                                <label className="text-sm font-medium text-text">
+                                                    Email <span className="text-red-500">*</span>
+                                                </label>
                                                 <input
                                                     type="email"
-                                                    required
                                                     value={formData.email}
                                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                                    placeholder="engineer@company.com"
-                                                    className="w-full h-10 bg-black/40 border border-white/10 rounded px-3 text-white focus:border-brand-cyan/50 focus:outline-none transition-colors"
+                                                    placeholder="maria@rossistrattoria.com"
+                                                    className={inputClassName(errors.email)}
                                                 />
+                                                {errors.email && (
+                                                    <p className="text-xs text-red-500">{errors.email}</p>
+                                                )}
                                             </div>
 
-                                            <div className="space-y-1">
-                                                <label className="text-xs text-gray-400 uppercase tracking-wider font-mono">Primary Concern</label>
+                                            {/* Website URL */}
+                                            <div className="space-y-1.5">
+                                                <label className="text-sm font-medium text-text">
+                                                    Website URL <span className="text-red-500">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.websiteUrl}
+                                                    onChange={e => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                                    placeholder="https://rossistrattoria.com"
+                                                    className={inputClassName(errors.websiteUrl)}
+                                                />
+                                                {errors.websiteUrl && (
+                                                    <p className="text-xs text-red-500">{errors.websiteUrl}</p>
+                                                )}
+                                            </div>
+
+                                            {/* Business Type */}
+                                            <div className="space-y-1.5">
+                                                <label className="text-sm font-medium text-text">
+                                                    Business Type
+                                                </label>
                                                 <div className="relative">
                                                     <select
-                                                        value={formData.concern}
-                                                        onChange={e => setFormData({ ...formData, concern: e.target.value })}
-                                                        className="w-full h-10 bg-black/40 border border-white/10 rounded px-3 text-white focus:border-brand-cyan/50 focus:outline-none appearance-none transition-colors"
+                                                        value={formData.businessType}
+                                                        onChange={e => setFormData({ ...formData, businessType: e.target.value })}
+                                                        className="w-full h-11 bg-white border border-border rounded-lg px-4 text-text focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 focus:outline-none appearance-none transition-all"
                                                     >
-                                                        <option value="Discovery">Agent Discovery & Indexing</option>
-                                                        <option value="Checkout">Autonomous Checkout Friction</option>
-                                                        <option value="Accuracy">Hallucination / Data Accuracy</option>
+                                                        <option value="Restaurant">Restaurant</option>
+                                                        <option value="E-commerce">E-commerce</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
-                                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                                                        <ArrowRight size={14} className="rotate-90" />
+                                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
+                                                        <ChevronDown size={16} />
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            {/* Error message */}
+                                            {submitError && (
+                                                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+                                                    {submitError}
+                                                </div>
+                                            )}
+
+                                            {/* Submit Button */}
                                             <button
                                                 type="submit"
                                                 disabled={isLoading}
-                                                className="mt-2 h-12 w-full bg-brand-cyan hover:bg-brand-cyan/90 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold uppercase tracking-wide rounded transition-all shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,255,255,0.5)] flex items-center justify-center gap-2"
+                                                className="mt-2 h-12 w-full bg-brand-primary hover:bg-brand-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                                             >
                                                 {isLoading ? (
                                                     <>
-                                                        <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                                        <span>Initiating Handshake...</span>
+                                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                        <span>Submitting...</span>
                                                     </>
                                                 ) : (
-                                                    <span>[ Schedule Audit Handshake ]</span>
+                                                    <>
+                                                        <span>Get My Free Audit</span>
+                                                        <ArrowRight size={18} />
+                                                    </>
                                                 )}
                                             </button>
+
+                                            {/* Trust signals */}
+                                            <div className="flex flex-wrap items-center justify-center gap-4 mt-2 text-xs text-text-muted">
+                                                <div className="flex items-center gap-1.5">
+                                                    <Lock size={12} className="text-brand-primary" />
+                                                    <span>No credit card required</span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5">
+                                                    <Zap size={12} className="text-brand-primary" />
+                                                    <span>Results in 24 hours</span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5">
+                                                    <Sparkles size={12} className="text-brand-primary" />
+                                                    <span>Free forever</span>
+                                                </div>
+                                            </div>
                                         </motion.form>
                                     )}
                                 </AnimatePresence>
-
-                            </Card>
+                            </div>
                         </motion.div>
                     </div>
                 </>

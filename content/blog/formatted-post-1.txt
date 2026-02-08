@@ -1,0 +1,134 @@
+(TITLE)
+The $36,000 Invisibility Tax: Why Your Restaurant is Losing Money to AI
+
+(SUBTITLE)
+Most restaurant owners don't realize they're paying a hidden tax—one that costs them over $36,000 per year.
+
+---
+
+(H2)
+The Shocking Statistics
+
+Let's start with the numbers that should keep every restaurant owner awake at night:
+
+• (BOLD) 58% of customers (END BOLD) now use voice search and AI assistants to find restaurants
+• (BOLD) 90% of restaurant websites (END BOLD) are invisible to these AI platforms  
+• (BOLD) $80 billion (END BOLD) in purchases will be made via voice commerce by 2026
+
+More than half of your potential customers are asking AI assistants where to eat. But if your website isn't AI-ready, those customers never even know you exist.
+
+The AI assistant simply recommends your competitor instead.
+
+---
+
+(H2)
+The Math: How Invisibility Costs You $36,000 Per Year
+
+A typical 150-seat restaurant:
+• Average table turn: 2x per night
+• Average party size: 3 people
+• Average ticket: $45/person
+• Operating nights: 300/year
+
+Annual capacity: ~90,000 potential customers
+
+Industry research shows that (BOLD) 60% of restaurant discovery (END BOLD) now happens through AI-mediated channels—voice search, ChatGPT recommendations, Siri suggestions, Google AI Overviews.
+
+If your restaurant is invisible to AI (like 90% of restaurants), you're competing for only 40% of the market.
+
+(QUOTE)
+The brutal math:
+• 15% lost discovery = ~13,500 lost potential customers/year
+• At $45 average ticket = ~$607,500 in lost revenue
+• At 6% restaurant margin = $36,450 in lost annual profit
+(END QUOTE)
+
+That's (BOLD) $3,000 per month (END BOLD) you're leaving on the table.
+
+---
+
+(H2)
+Why You're Invisible (Even With a Beautiful Website)
+
+Your website might look gorgeous to human visitors. But AI assistants aren't human.
+
+They don't "see" your website. They parse code, read structured data, and query databases.
+
+(H3)
+The Three Killers of AI Visibility
+
+1. (BOLD) PDF Menus (END BOLD)
+
+That beautiful PDF menu you paid a designer to create? AI can't read it. To an AI assistant, it's just an image file.
+
+When someone asks Alexa "Does [Your Restaurant] have gluten-free pasta?" AI has no answer. It recommends a competitor with HTML text instead.
+
+2. (BOLD) No Structured Data (END BOLD)
+
+Structured data (schema markup) is invisible code that tells AI exactly what your content means. Without it, AI can't distinguish between your restaurant's name, a menu item, or your hours.
+
+3. (BOLD) Image-Only Content (END BOLD)
+
+Photos of your dishes look great to humans. To AI, they're unlabeled image files. That photo of your signature lasagna? AI sees "image_047.jpg"—not "homemade lasagna with bolognese sauce, $24."
+
+---
+
+(H2)
+The Fix: From Invisible to Recommended
+
+(QUOTE)
+AI invisibility is fixable—and fast.
+(END QUOTE)
+
+Our 5-Day AI Readiness Sprint takes restaurants from invisible to AI-ready:
+
+(BOLD) Day 1: (END BOLD) Free audit showing exactly what you're losing
+(BOLD) Day 2-3: (END BOLD) Implement structured data and machine-readable content
+(BOLD) Day 4: (END BOLD) Configure AI discovery files and test results
+(BOLD) Day 5: (END BOLD) Go live with before/after verification
+
+Cost: $1,500 (one-time)
+ROI: Most restaurants see results within 30 days
+Guarantee: If you don't show up in AI queries, we refund 100%
+
+---
+
+(H2)
+Don't Pay Another Day of the Tax
+
+Every day you remain AI-invisible costs you approximately $100 in lost profit.
+
+The $1,500 investment to fix it pays for itself in 15 days.
+
+(QUOTE)
+The question isn't whether you can afford to become AI-ready. The question is whether you can afford not to.
+(END QUOTE)
+
+---
+
+(H2)
+Get Your Free AI Visibility Audit
+
+Find out exactly how much the Invisibility Tax is costing your restaurant:
+• Specific AI visibility issues on your site
+• Personalized lost revenue calculation  
+• Competitor comparison
+• 5-day fix roadmap
+
+No obligation. No credit card required.
+
+(LINK)
+Get Your Free Audit: https://indexable.pro/audit
+(END LINK)
+
+---
+
+(SMALL TEXT)
+About the Author: Indexable.Pro helps restaurants become discoverable to AI assistants. We've made 47+ businesses AI-ready since 2025.
+(END SMALL TEXT)
+
+---
+
+(FEATURED IMAGE: Restaurant owner looking at empty tables OR split image showing empty vs busy restaurant)
+
+(OPTIONAL INLINE IMAGE AFTER "The Math" SECTION: Simple infographic showing "PDF Menu → AI Can't Read → Lost Customers")

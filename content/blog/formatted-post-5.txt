@@ -1,0 +1,177 @@
+(TITLE)
+The 5-Day AI Readiness Sprint: From Invisible to Recommended
+
+(SUBTITLE)
+You don't need 6 months. You don't need a developer on staff. You don't need a massive budget.
+
+You need 5 days.
+
+---
+
+(H2)
+Why 5 Days?
+
+Traditional SEO takes 6-12 months to show results. Agencies tell you to "be patient" while charging $2,000/month.
+
+(QUOTE)
+AI readiness is different.
+(END QUOTE)
+
+It's not about building authority over time. It's about implementing technical infrastructure that either exists or doesn't.
+
+Once the schema markup is in place, AI assistants can read your site immediately. There's no ramping up. No waiting for Google to index.
+
+(BOLD) Day 5: You go live. Day 6: You're visible. (END BOLD)
+
+---
+
+(H2)
+The 5-Day Breakdown
+
+(H3)
+Day 1: Free AI Visibility Audit
+
+You get:
+• Complete AI visibility score (0-100)
+• Specific issues (missing schema, PDF menus, inconsistent NAP)
+• Lost revenue estimate
+• Competitor comparison
+• Prioritized fix list
+
+Cost: Free
+Time: 24 hours
+
+(H3)
+Day 2-3: Structured Data Implementation
+
+We add:
+• Restaurant schema (name, address, phone, hours, cuisine)
+• Menu schema (every dish with prices, descriptions, dietary tags)
+• Review schema (aggregate ratings)
+
+Your PDF menu becomes: Machine-readable HTML with MenuItem markup
+
+(H3)
+Day 4: AI Discovery Files & Testing
+
+We create:
+• llms.txt for large language models
+• ai.json for AI crawlers
+• FAQ page with 20+ answers and schema
+
+We test:
+• Google Rich Results validation
+• ChatGPT query responses
+• Siri/Alexa answer capability
+
+(H3)
+Day 5: Go Live & Verification
+
+We deploy:
+• All changes go live
+• Live testing across all platforms
+• Before/after comparison
+• Documentation and maintenance guide
+
+(QUOTE)
+You're done. You're visible.
+(END QUOTE)
+
+---
+
+(H2)
+What You Get
+
+(H3)
+Immediate (Day 5)
+✓ Schema markup on all key pages
+✓ Machine-readable menu
+✓ FAQ section with 20+ answers
+✓ AI discovery files deployed
+✓ Before/after visibility report
+
+(H3)
+Short-Term (30 Days)
+📈 4-7x increase in AI mentions
+📈 More "near me" voice search results
+📈 Google AI Overview appearances
+📈 ChatGPT recommendations
+
+(H3)
+Long-Term (90 Days)
+📈 Established authority with AI platforms
+📈 Compounding recommendation momentum
+📈 Higher review velocity
+📈 Competitive advantage
+
+---
+
+(H2)
+The Investment
+
+(BOLD) 5-Day AI Readiness Sprint: $1,500 (END BOLD)
+
+What's Included:
+• Free initial audit (Day 1)
+• Complete technical implementation (Days 2-4)
+• Go-live support and testing (Day 5)
+• Documentation and maintenance guide
+• 30-day monitoring and support
+
+Optional: Ongoing monitoring $200/month
+
+(QUOTE)
+ROI Guarantee: If you don't show up in AI queries 30 days after implementation, we refund 100%.
+(END QUOTE)
+
+---
+
+(H2)
+Is 5 Days Really Enough?
+
+Yes. Here's why:
+
+Traditional SEO = Building authority (takes months)
+AI readiness = Technical infrastructure (exists or doesn't)
+
+Once schema is implemented, AI can read it immediately.
+
+(QUOTE)
+The 5-day timeline:
+• 1 day for audit and planning
+• 3 days for implementation
+• 1 day for testing and deployment
+(END QUOTE)
+
+We've optimized 47+ restaurants. We know what works.
+
+---
+
+(H2)
+Ready to Become AI-Visible?
+
+Every day you wait costs you ~$100 in lost profit.
+
+In 5 days, you could be capturing that revenue instead of losing it.
+
+The sprint starts with a free audit. No commitment required.
+
+---
+
+(H2)
+Start Your 5-Day Sprint
+
+(BOLD) Step 1: (END BOLD) Free AI Visibility Audit (24 hours)
+(BOLD) Step 2: (END BOLD) Review findings and approve implementation
+(BOLD) Step 3: (END BOLD) 5-day sprint execution
+(BOLD) Step 4: (END BOLD) Go live and start winning AI recommendations
+
+(LINK)
+Get Your Free Audit: https://indexable.pro/audit
+(END LINK)
+
+---
+
+Subscribe for weekly AI readiness tips for restaurants.
+
+(FEATURED IMAGE: 5-day calendar with checkmarks, or before/after split showing invisible vs visible restaurant)

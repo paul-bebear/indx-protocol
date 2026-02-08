@@ -1,134 +1,99 @@
 import { useState, useEffect } from 'react';
-import type { ComponentProps } from 'react';
-import { NavLink as RouterNavLink, useLocation } from 'react-router-dom';
+import { NavLink as RouterNavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { useScrollPastHero } from '../hooks/useScrollPastHero';
 
-interface NavLinkProps extends ComponentProps<typeof RouterNavLink> {
-    children: React.ReactNode;
+interface NavbarProps {
+    onOpenModal?: () => void;
 }
 
-function NavLink({ children, className, ...props }: NavLinkProps) {
-    return (
-        <RouterNavLink
-            className={({ isActive }) => cn(
-                "text-sm font-medium transition-colors duration-200 hover:text-brand-cyan",
-                isActive ? "text-brand-cyan" : "text-gray-400",
-                className
-            )}
-            {...props}
-        >
-            {children}
-        </RouterNavLink>
-    );
-}
-
-export function Navbar() {
+export function Navbar({ onOpenModal }: NavbarProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
-    const hasScrolledPastHero = useScrollPastHero();
+    const navigate = useNavigate();
 
-    // Dynamic engineer count based on time of day
-    const getEngineerCount = () => {
-        const hour = new Date().getHours();
-        // 9 AM - 6 PM: 3-5 engineers
-        if (hour >= 9 && hour < 18) {
-            return Math.floor(Math.random() * 3) + 3; // 3-5
-        }
-        // After hours: 1-2 engineers
-        return Math.floor(Math.random() * 2) + 1; // 1-2
-    };
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-    const [engineerCount] = useState(getEngineerCount);
-
-    // Close mobile menu when route changes
     useEffect(() => {
         setIsOpen(false);
     }, [location.pathname]);
 
-    // Handle Talk to an Expert click
-    const handleTalkToExpert = (e: React.MouseEvent) => {
-        e.preventDefault();
+    const handleCTAClick = () => {
+        setIsOpen(false);
+        onOpenModal?.();
+    };
 
-        // Check if scan has been run by looking for email input in scanner end-state
-        const emailInput = document.querySelector('input[placeholder="engineer@company.com"]');
+    const scrollToSection = (sectionId: string) => {
+        setIsOpen(false);
 
-        if (emailInput) {
-            // Scan has been run, scroll to email input
-            emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            (emailInput as HTMLInputElement).focus();
+        if (location.pathname !== '/') {
+            navigate('/');
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         } else {
-            // No scan yet, scroll to scanner input and highlight
-            const scannerInput = document.querySelector('input[placeholder*="brand URL"]');
-            if (scannerInput) {
-                scannerInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                (scannerInput as HTMLInputElement).focus();
-                // Add pulse animation
-                scannerInput.classList.add('animate-pulse-cyan');
-                setTimeout(() => {
-                    scannerInput.classList.remove('animate-pulse-cyan');
-                }, 2000);
-            }
+            const element = document.getElementById(sectionId);
+            element?.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     return (
         <>
             <nav className={cn(
-                "fixed top-0 left-0 right-0 z-50 h-[60px] border-b border-white/10 bg-black/80 backdrop-blur-md flex items-center justify-between px-6 lg:px-8",
-                hasScrolledPastHero && "site-header--with-cta"
+                "fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 lg:px-8 transition-all duration-200",
+                scrolled ? "bg-white/95 backdrop-blur-sm border-b border-border shadow-sm" : "bg-white"
             )}>
+                {/* Logo */}
                 <div className="flex items-center gap-2 z-50">
-                    <RouterNavLink to="/" className="font-mono text-brand-cyan font-semibold tracking-wider hover:opacity-80 transition-opacity">
-                        [ INDX ]
+                    <RouterNavLink to="/" className="text-xl font-bold text-brand-primary hover:opacity-80 transition-opacity">
+                        Indexable
                     </RouterNavLink>
+                    <span className="text-xs text-text-muted font-medium bg-gray-100 px-2 py-0.5 rounded-full">Pro</span>
                 </div>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8">
-                    <NavLink to="/">Protocol</NavLink>
-                    <NavLink to="/why-indx">Why INDX?</NavLink>
-                    <NavLink to="/use-cases">Use Cases</NavLink>
-                    <NavLink to="/ledger">Registry</NavLink>
-                    <NavLink to="/verification">Security</NavLink>
+                    <button
+                        onClick={() => scrollToSection('how-it-works')}
+                        className="text-sm font-medium transition-colors duration-200 hover:text-brand-primary text-text-muted"
+                    >
+                        How It Works
+                    </button>
+                    <button
+                        onClick={() => scrollToSection('pricing')}
+                        className="text-sm font-medium transition-colors duration-200 hover:text-brand-primary text-text-muted"
+                    >
+                        Pricing
+                    </button>
                 </div>
 
+                {/* CTA Button */}
                 <div className="flex items-center gap-4">
-                    {/* Talk to an Expert CTA - appears after scrolling past hero */}
                     <button
-                        onClick={handleTalkToExpert}
-                        className="header-cta hidden md:flex items-center justify-center h-10 rounded-full bg-brand-cyan text-black font-semibold text-sm hover:bg-cyan-200 transition-all shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] active:scale-95 whitespace-nowrap cursor-pointer"
-                        aria-label="Talk to an Expert"
+                        onClick={handleCTAClick}
+                        className="hidden md:flex h-10 px-6 rounded-lg bg-brand-accent text-white font-medium text-sm hover:bg-brand-accent-hover transition-all items-center justify-center shadow-sm hover:shadow-md"
                     >
-                        Talk to an Expert
+                        Free Visibility Check
                     </button>
-
-                    {/* Lab Status Widget */}
-                    <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono">
-                        <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
-                        <span className="text-emerald-400">LAB STATUS: <span className="text-white">ACTIVE</span></span>
-                        <span className="text-gray-600">|</span>
-                        <span className="text-gray-400">UPTIME: <span className="text-emerald-400">99.98%</span></span>
-                        <span className="text-gray-600">|</span>
-                        <span className="text-gray-400">ENGINEERS: <span className="text-white">{engineerCount}</span></span>
-                    </div>
-
-                    {/* Status Indicator */}
-                    <div className="hidden md:block lg:hidden h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_8px_rgba(0,255,255,0.5)] animate-pulse-slow"></div>
 
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden p-2 text-gray-400 hover:text-white transition-colors z-50 focus:outline-none"
+                        className="md:hidden p-2 text-text-muted hover:text-text transition-colors z-50 focus:outline-none"
                     >
                         {isOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </nav>
 
-            {/* Mobile Menu Dropdown */}
+            {/* Mobile Menu */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -136,31 +101,28 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 bg-black pt-24 px-6 md:hidden"
+                        className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden shadow-xl"
                     >
-                        <div className="flex flex-col gap-6 text-xl font-medium">
-                            <NavLink to="/" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Protocol</NavLink>
-                            <NavLink to="/why-indx" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Why INDX?</NavLink>
-                            <NavLink to="/use-cases" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Use Cases</NavLink>
-                            <NavLink to="/ledger" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Registry</NavLink>
-                            <NavLink to="/verification" onClick={() => setIsOpen(false)} className="py-2 border-b border-white/10">Security</NavLink>
-
-                            {/* Mobile CTA - always visible in mobile menu */}
-                            <a
-                                href="/contact"
-                                className="mt-4 h-12 px-8 rounded-full bg-brand-cyan text-black font-semibold text-sm hover:bg-cyan-200 transition-all shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] active:scale-95 flex items-center justify-center"
-                                onClick={() => setIsOpen(false)}
+                        <div className="flex flex-col gap-6 text-lg font-medium">
+                            <button
+                                onClick={() => scrollToSection('how-it-works')}
+                                className="py-2 border-b border-border text-left text-text-muted hover:text-brand-primary"
                             >
-                                Talk to an Expert
-                            </a>
-                        </div>
+                                How It Works
+                            </button>
+                            <button
+                                onClick={() => scrollToSection('pricing')}
+                                className="py-2 border-b border-border text-left text-text-muted hover:text-brand-primary"
+                            >
+                                Pricing
+                            </button>
 
-                        <div className="mt-12 p-4 rounded bg-white/5 border border-white/10">
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_8px_rgba(0,255,255,0.5)] animate-pulse-slow"></div>
-                                <span className="text-sm font-mono text-brand-cyan">SYSTEM OPERATIONAL</span>
-                            </div>
-                            <p className="text-xs text-gray-500">v0.9.4-beta</p>
+                            <button
+                                onClick={handleCTAClick}
+                                className="mt-4 h-12 px-8 rounded-lg bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-hover transition-all flex items-center justify-center"
+                            >
+                                Free Visibility Check
+                            </button>
                         </div>
                     </motion.div>
                 )}
