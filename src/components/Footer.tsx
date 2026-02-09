@@ -18,11 +18,11 @@ export function Footer() {
     };
 
     return (
-        <footer className="py-12 px-6 border-t border-border bg-gray-50">
+        <footer className="py-12 px-6 border-t border-border bg-background-muted">
             <div className="container-max">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-brand-primary">Indexable</span>
+                        <span className="text-lg font-serif font-semibold text-brand-primary">Indexable</span>
                         <span className="text-xs text-text-muted font-medium bg-white px-2 py-0.5 rounded-full border border-border">Pro</span>
                     </div>
 

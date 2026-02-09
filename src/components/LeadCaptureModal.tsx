@@ -94,7 +94,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
         setIsLoading(true);
 
         try {
-            const response = await fetch('https://bernardine-nonneural-glacially.ngrok-free.dev/webhook/audit-request', {
+            const response = await fetch('https://bernardine-nonneural-glacially.ngrok-free.app/webhook/audit-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -112,11 +112,11 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
             if (response.ok) {
                 setIsSubmitted(true);
             } else {
-                setSubmitError('Something went wrong. Please try again or email us at hello@indexable.pro');
+                setSubmitError('Something went wrong. Please try again.');
             }
         } catch (error) {
             console.error('Error submitting lead:', error);
-            setSubmitError('Connection error. Please email us at hello@indexable.pro');
+            setSubmitError('Something went wrong. Please try again.');
         } finally {
             setIsLoading(false);
         }
@@ -184,7 +184,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                                                 <Sparkles className="w-8 h-8 text-green-600" />
                                             </div>
                                             <p className="text-lg text-text font-medium">
-                                                Audit scheduled! Check your email in 24 hours.
+                                                Audit submitted! Check your email for results.
                                             </p>
                                             <p className="text-sm text-text-muted">
                                                 We'll analyze {formData.websiteUrl} and send your personalized AI readiness report.

@@ -7,7 +7,7 @@ interface FinalCTAProps {
 
 export function FinalCTA({ onCTAClick }: FinalCTAProps) {
     return (
-        <section className="py-24 md:py-32 px-6 bg-gradient-to-b from-background to-brand-primary/5">
+        <section className="py-24 md:py-32 px-6 bg-warm-gradient">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -20,9 +20,9 @@ export function FinalCTA({ onCTAClick }: FinalCTAProps) {
                     <Calendar className="w-8 h-8 text-brand-accent" />
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-text">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold mb-6 text-text">
                     Don't Let ChatGPT Send{' '}
-                    <span className="text-brand-accent">Customers</span>{' '}
+                    <span className="text-brand-accent italic">Customers</span>{' '}
                     to Your Competitors
                 </h2>
 

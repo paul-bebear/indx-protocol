@@ -30,7 +30,7 @@ export function ConsultingHero({ onGetAudit, onSeeHowItWorks }: ConsultingHeroPr
   const currentModel = AI_MODELS[currentIndex];
 
   return (
-    <section className="min-h-[90vh] w-full flex items-center px-6 pt-20 pb-12 relative bg-gradient-to-br from-background via-white to-background">
+    <section className="min-h-[90vh] w-full flex items-center px-6 pt-20 pb-12 relative bg-warm-gradient">
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Content */}
@@ -52,7 +52,7 @@ export function ConsultingHero({ onGetAudit, onSeeHowItWorks }: ConsultingHeroPr
             </motion.div>
 
             {/* Main Headline with Animated AI Model */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight text-text">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold mb-6 leading-tight tracking-tight text-text">
               Are Customers Finding Your Restaurant on{' '}
               <span className="relative inline-block min-w-[200px] md:min-w-[280px]">
                 <AnimatePresence mode="wait">
@@ -139,8 +139,8 @@ export function ConsultingHero({ onGetAudit, onSeeHowItWorks }: ConsultingHeroPr
               {/* Placeholder for restaurant image */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
                 <div className="text-center p-8">
-                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                    <MapPin className="w-12 h-12 text-brand-primary" />
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-brand-accent/20 flex items-center justify-center">
+                    <MapPin className="w-12 h-12 text-brand-accent" />
                   </div>
                   <p className="text-text-muted text-sm">
                     [Restaurant interior photo]<br />

@@ -61,9 +61,9 @@ export function FAQSection() {
                     <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-brand-primary/10 flex items-center justify-center">
                         <HelpCircle className="w-6 h-6 text-brand-primary" />
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text">
+                    <h2 className="text-3xl md:text-5xl font-serif font-semibold mb-4 text-text">
                         Frequently Asked{' '}
-                        <span className="text-brand-accent">
+                        <span className="text-brand-accent italic">
                             Questions
                         </span>
                     </h2>
@@ -90,7 +90,7 @@ export function FAQSection() {
                                     ${openIndex === index ? 'bg-background-muted' : ''}
                                 `}
                             >
-                                <span className={`text-base font-medium pr-8 ${openIndex === index ? 'text-brand-accent' : 'text-text'}`}>
+                                <span className={`text-base font-serif font-medium pr-8 ${openIndex === index ? 'text-brand-accent' : 'text-text'}`}>
                                     {faq.question}
                                 </span>
                                 <motion.div
@@ -132,8 +132,8 @@ export function FAQSection() {
                 >
                     <p className="text-text-muted">
                         Still have questions?{' '}
-                        <a href="mailto:hello@indexable.pro" className="text-brand-accent font-medium hover:underline">
-                            Email us at hello@indexable.pro
+                        <a href="mailto:paul@indexable.pro" className="text-brand-accent font-medium hover:underline">
+                            Email us at paul@indexable.pro
                         </a>
                     </p>
                 </motion.div>

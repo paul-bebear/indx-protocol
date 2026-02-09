@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import { CalButton } from './CalButton';
 import { cn } from '../lib/utils';
+
+interface PricingSectionProps {
+  onOpenAuditModal?: () => void;
+}
 
 const tiers = [
   {
@@ -11,10 +16,11 @@ const tiers = [
       'Complete AI readability scan',
       'Lost customer estimate',
       'Specific fix recommendations',
-      'No obligation, no signup required'
+      'No obligation, no signup required',
     ],
     cta: 'Get Free Check',
-    featured: false
+    action: 'audit' as const,
+    featured: false,
   },
   {
     name: 'AI-Ready Setup',
@@ -27,10 +33,11 @@ const tiers = [
       'Menu and hours restructuring',
       'AI discovery files created',
       'Before/after testing',
-      'First month monitoring'
+      'First month monitoring',
     ],
     cta: 'Get Started',
-    featured: true
+    action: 'cal' as const,
+    featured: true,
   },
   {
     name: 'Full Growth Package',
@@ -42,16 +49,17 @@ const tiers = [
       '3 months of optimization',
       'Priority support (same-day)',
       'Quarterly strategy reviews',
-      'Competitor monitoring'
+      'Competitor monitoring',
     ],
     cta: 'Contact Us',
-    featured: false
-  }
+    action: 'cal' as const,
+    featured: false,
+  },
 ];
 
-export function PricingSection() {
+export function PricingSection({ onOpenAuditModal }: PricingSectionProps) {
   return (
-    <section className="section-padding bg-white" id="pricing">
+    <section className="section-padding bg-background-alt" id="pricing">
       <div className="container-max">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,12 +70,12 @@ export function PricingSection() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-accent/10 text-brand-accent text-sm font-medium mb-4">
             Simple Pricing
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-text">
+          <h2 className="text-3xl md:text-5xl font-serif font-semibold mb-4 text-text">
             Transparent Pricing
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto">
-            Most restaurants see return on investment within 2-4 weeks. 
-            Start with a free check to see your exact numbers.
+            Most restaurants see return on investment within 2-4 weeks. Start with a free
+            check to see your exact numbers.
           </p>
         </motion.div>
 
@@ -80,7 +88,7 @@ export function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               className={cn(
-                "relative p-6 rounded-2xl border bg-white flex flex-col",
+                'relative p-6 rounded-2xl border bg-white flex flex-col',
                 tier.featured
                   ? 'border-2 border-brand-accent shadow-xl scale-105 md:scale-110 z-10'
                   : 'border-border shadow-sm'
@@ -94,7 +102,9 @@ export function PricingSection() {
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-1 text-text">{tier.name}</h3>
+                <h3 className="text-lg font-serif font-semibold mb-1 text-text">
+                  {tier.name}
+                </h3>
                 <div className="text-4xl font-bold mb-1 text-text">{tier.price}</div>
                 <p className="text-sm text-text-muted">{tier.description}</p>
                 {tier.roi && (
@@ -114,17 +124,34 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <button
-                className={cn(
-                  "w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2",
-                  tier.featured
-                    ? 'bg-brand-accent text-white hover:bg-brand-accent-hover shadow-md hover:shadow-lg'
-                    : 'border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white'
-                )}
-              >
-                {tier.cta}
-                {tier.featured && <ArrowRight className="w-4 h-4" />}
-              </button>
+              {/* Button - Cal.com for paid tiers, regular button for free */}
+              {tier.action === 'audit' ? (
+                <button
+                  onClick={onOpenAuditModal}
+                  className={cn(
+                    'w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2',
+                    'border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white'
+                  )}
+                >
+                  {tier.cta}
+                </button>
+              ) : (
+                <CalButton
+                  calLink="indexable/15min"
+                  className={cn(
+                    'w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2',
+                    tier.featured
+                      ? 'bg-brand-accent text-white hover:bg-brand-accent-hover shadow-md hover:shadow-lg'
+                      : 'border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white'
+                  )}
+                  prefillData={{
+                    notes: `Interested in: ${tier.name} (${tier.price})`,
+                  }}
+                >
+                  {tier.cta}
+                  {tier.featured && <ArrowRight className="w-4 h-4" />}
+                </CalButton>
+              )}
             </motion.div>
           ))}
         </div>
@@ -143,7 +170,8 @@ export function PricingSection() {
             <p className="text-text">
               <span className="font-semibold">ROI Guarantee:</span>{' '}
               <span className="text-text-muted">
-                If you don't show up in AI queries within 30 days, we'll refund 100% of your fee.
+                If you don&apos;t show up in AI queries within 30 days, we&apos;ll refund 100%
+                of your fee.
               </span>
             </p>
           </div>

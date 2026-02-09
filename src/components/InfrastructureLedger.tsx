@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card } from './Card';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+
 import { BadgeCheck } from 'lucide-react';
 import type { LedgerItem } from '../types';
 
@@ -92,9 +92,9 @@ export function InfrastructureLedger({
             <div className="mb-6 flex items-center justify-between px-2">
                 <h3 className="text-sm font-medium text-gray-400 font-mono uppercase tracking-wider">{title}</h3>
                 {showViewAll && (
-                    <Link to="/ledger" className="text-xs text-brand-cyan hover:text-cyan-300 transition-colors">
+                    <span className="text-xs text-brand-cyan cursor-pointer hover:text-cyan-300 transition-colors">
                         View Full Registry &rarr;
-                    </Link>
+                    </span>
                 )}
             </div>
 
@@ -140,9 +140,9 @@ export function InfrastructureLedger({
                                             {row.latency}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <a href="#" className="text-gray-500 hover:text-white transition-colors underline decoration-dotted underline-offset-4">
+                                            <span className="text-gray-500 cursor-not-allowed underline decoration-dotted underline-offset-4">
                                                 View Manifest
-                                            </a>
+                                            </span>
                                         </td>
                                     </motion.tr>
                                 ))
