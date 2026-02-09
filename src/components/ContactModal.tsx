@@ -96,7 +96,7 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
 
     try {
       const response = await fetch(
-        '/webhook/contact',
+        'https://bernardine-nonneural-glacially.ngrok-free.dev/webhook/contact',
         {
           method: 'POST',
           headers: {

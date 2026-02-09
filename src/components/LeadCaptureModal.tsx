@@ -94,7 +94,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
         setIsLoading(true);
 
         try {
-            const response = await fetch('/webhook/audit-request', {
+            const response = await fetch('https://bernardine-nonneural-glacially.ngrok-free.dev/webhook/audit-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
