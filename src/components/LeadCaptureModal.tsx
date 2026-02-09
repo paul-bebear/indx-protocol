@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, Lock, Zap, Sparkles, ChevronDown } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { supabase } from '../lib/supabaseClient';
 
 interface LeadCaptureModalProps {
     isOpen: boolean;
@@ -95,25 +94,29 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
         setIsLoading(true);
 
         try {
-            if (supabase) {
-                const { error } = await supabase.from('leads').insert({
-                    business_name: formData.businessName.trim(),
-                    contact_name: formData.contactName.trim(),
+            const response = await fetch('https://bernardine-nonneural-glacially.ngrok-free.dev/webhook/audit-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    website: formData.websiteUrl.trim(),
                     email: formData.email.trim().toLowerCase(),
-                    website_url: formData.websiteUrl.trim(),
-                    business_type: formData.businessType,
-                    created_at: new Date().toISOString()
-                });
+                    businessName: formData.businessName.trim(),
+                    contactName: formData.contactName.trim(),
+                    businessType: formData.businessType,
+                    date: new Date().toISOString()
+                }),
+            });
 
-                if (error) {
-                    throw error;
-                }
+            if (response.ok) {
+                setIsSubmitted(true);
+            } else {
+                setSubmitError('Something went wrong. Please try again or email us at hello@indexable.pro');
             }
-
-            setIsSubmitted(true);
         } catch (error) {
             console.error('Error submitting lead:', error);
-            setSubmitError('Something went wrong. Please try again.');
+            setSubmitError('Connection error. Please email us at hello@indexable.pro');
         } finally {
             setIsLoading(false);
         }
