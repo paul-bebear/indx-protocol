@@ -13,7 +13,7 @@ interface FormErrors {
     businessName?: string;
     contactName?: string;
     email?: string;
-    websiteUrl?: string;
+    websiteUrl?: string; // kept for compatibility
 }
 
 export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureModalProps) {
@@ -25,7 +25,8 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
         businessName: '',
         contactName: '',
         email: '',
-        websiteUrl: initialUrl,
+        websiteProtocol: 'https://',
+        websiteDomain: initialUrl.replace(/^https?:\/\//, ''),
         businessType: 'Restaurant'
     });
 
@@ -35,7 +36,11 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
             setIsLoading(false);
             setSubmitError(null);
             setErrors({});
-            setFormData(prev => ({ ...prev, websiteUrl: initialUrl }));
+            setFormData(prev => ({ 
+                ...prev, 
+                websiteProtocol: 'https://',
+                websiteDomain: initialUrl.replace(/^https?:\/\//, '')
+            }));
         } else {
             const timer = setTimeout(() => {
                 setIsSubmitted(false);
@@ -52,8 +57,8 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
         return emailRegex.test(email);
     };
 
-    const validateUrl = (url: string): boolean => {
-        return url.startsWith('http://') || url.startsWith('https://');
+    const getFullUrl = (): string => {
+        return formData.websiteProtocol + formData.websiteDomain;
     };
 
     const validateForm = (): boolean => {
@@ -73,10 +78,8 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
             newErrors.email = 'Please enter a valid email';
         }
 
-        if (!formData.websiteUrl.trim()) {
-            newErrors.websiteUrl = 'Website URL is required';
-        } else if (!validateUrl(formData.websiteUrl)) {
-            newErrors.websiteUrl = 'URL must start with http:// or https://';
+        if (!formData.websiteDomain.trim()) {
+            newErrors.websiteUrl = 'Website domain is required';
         }
 
         setErrors(newErrors);
@@ -100,7 +103,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    website: formData.websiteUrl.trim(),
+                    website: getFullUrl(),
                     email: formData.email.trim().toLowerCase(),
                     businessName: formData.businessName.trim(),
                     contactName: formData.contactName.trim(),
@@ -187,7 +190,7 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                                                 Audit submitted! Check your email for results.
                                             </p>
                                             <p className="text-sm text-text-muted">
-                                                We'll analyze {formData.websiteUrl} and send your personalized AI readiness report.
+                                                We'll analyze {getFullUrl()} and send your personalized AI readiness report.
                                             </p>
 
                                             <button
@@ -262,13 +265,23 @@ export function LeadCaptureModal({ isOpen, onClose, initialUrl }: LeadCaptureMod
                                                 <label className="text-sm font-medium text-text">
                                                     Website URL <span className="text-red-500">*</span>
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    value={formData.websiteUrl}
-                                                    onChange={e => setFormData({ ...formData, websiteUrl: e.target.value })}
-                                                    placeholder="https://rossistrattoria.com"
-                                                    className={inputClassName(errors.websiteUrl)}
-                                                />
+                                                <div className="flex gap-2">
+                                                    <select
+                                                        value={formData.websiteProtocol}
+                                                        onChange={e => setFormData({ ...formData, websiteProtocol: e.target.value })}
+                                                        className="h-11 bg-white border border-border rounded-lg px-3 text-text focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all"
+                                                    >
+                                                        <option value="https://">https://</option>
+                                                        <option value="http://">http://</option>
+                                                    </select>
+                                                    <input
+                                                        type="text"
+                                                        value={formData.websiteDomain}
+                                                        onChange={e => setFormData({ ...formData, websiteDomain: e.target.value })}
+                                                        placeholder="rossistrattoria.com"
+                                                        className={cn(inputClassName(errors.websiteUrl), 'flex-1')}
+                                                    />
+                                                </div>
                                                 {errors.websiteUrl && (
                                                     <p className="text-xs text-red-500">{errors.websiteUrl}</p>
                                                 )}

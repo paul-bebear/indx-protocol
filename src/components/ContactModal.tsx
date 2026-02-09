@@ -12,7 +12,8 @@ interface ContactModalProps {
 interface FormData {
   name: string;
   email: string;
-  website: string;
+  websiteProtocol: string;
+  websiteDomain: string;
   message: string;
 }
 
@@ -26,7 +27,8 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    website: '',
+    websiteProtocol: 'https://',
+    websiteDomain: '',
     message: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
@@ -57,8 +59,8 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
     return emailRegex.test(email);
   };
 
-  const validateUrl = (url: string): boolean => {
-    return url.startsWith('http://') || url.startsWith('https://');
+  const getFullUrl = (): string => {
+    return formData.websiteProtocol + formData.websiteDomain;
   };
 
   const validateForm = (): boolean => {
@@ -74,10 +76,8 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
       newErrors.email = 'Please enter a valid email';
     }
 
-    if (!formData.website.trim()) {
-      newErrors.website = 'Website URL is required';
-    } else if (!validateUrl(formData.website)) {
-      newErrors.website = 'URL must start with http:// or https://';
+    if (!formData.websiteDomain.trim()) {
+      newErrors.website = 'Website domain is required';
     }
 
     setErrors(newErrors);
@@ -105,7 +105,7 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
           body: JSON.stringify({
             name: formData.name.trim(),
             email: formData.email.trim().toLowerCase(),
-            website: formData.website.trim(),
+            website: getFullUrl(),
             message: formData.message.trim() || getPrefilledMessage(),
             package_type: packageName,
             date: new Date().toISOString(),
@@ -130,7 +130,7 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
     onClose();
     // Reset form after close animation
     setTimeout(() => {
-      setFormData({ name: '', email: '', website: '', message: '' });
+      setFormData({ name: '', email: '', websiteProtocol: 'https://', websiteDomain: '', message: '' });
       setErrors({});
       setIsSubmitted(false);
       setSubmitError(null);
@@ -266,15 +266,27 @@ export function ContactModal({ isOpen, onClose, packageType }: ContactModalProps
                         <label className="text-sm font-medium text-text">
                           Restaurant Website <span className="text-red-500">*</span>
                         </label>
-                        <input
-                          type="text"
-                          value={formData.website}
-                          onChange={(e) =>
-                            setFormData({ ...formData, website: e.target.value })
-                          }
-                          placeholder="https://yourrestaurant.com"
-                          className={inputClassName(errors.website)}
-                        />
+                        <div className="flex gap-2">
+                          <select
+                            value={formData.websiteProtocol}
+                            onChange={(e) =>
+                              setFormData({ ...formData, websiteProtocol: e.target.value })
+                            }
+                            className="h-11 bg-white border border-border rounded-lg px-3 text-text focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all"
+                          >
+                            <option value="https://">https://</option>
+                            <option value="http://">http://</option>
+                          </select>
+                          <input
+                            type="text"
+                            value={formData.websiteDomain}
+                            onChange={(e) =>
+                              setFormData({ ...formData, websiteDomain: e.target.value })
+                            }
+                            placeholder="yourrestaurant.com"
+                            className={cn(inputClassName(errors.website), 'flex-1')}
+                          />
+                        </div>
                         {errors.website && (
                           <p className="text-xs text-red-500">{errors.website}</p>
                         )}

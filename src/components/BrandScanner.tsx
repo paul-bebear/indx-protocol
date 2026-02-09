@@ -20,9 +20,12 @@ type ScanStatus = 'idle' | 'scanning' | 'complete';
 
 export function BrandScanner() {
   const [status, setStatus] = useState<ScanStatus>('idle');
-  const [url, setUrl] = useState('');
+  const [protocol, setProtocol] = useState('https://');
+  const [domain, setDomain] = useState('');
   const [progress, setProgress] = useState(0);
   const [findings, setFindings] = useState<Finding[]>([]);
+
+  const getFullUrl = () => protocol + domain;
 
   // Progress animation during scanning
   useEffect(() => {
@@ -52,17 +55,17 @@ export function BrandScanner() {
   }, [progress, status]);
 
   const startScan = useCallback(() => {
-    if (!url) return;
+    if (!domain) return;
     setStatus('scanning');
     setProgress(0);
     setFindings([]);
-  }, [url]);
+  }, [domain]);
 
   const resetScan = useCallback(() => {
     setStatus('idle');
     setProgress(0);
     setFindings([]);
-    setUrl('');
+    setDomain('');
   }, []);
 
   const getScore = () => {
@@ -102,19 +105,29 @@ export function BrandScanner() {
                 <label className="block text-sm font-medium text-text mb-2">
                   Enter your restaurant website
                 </label>
-                <input
-                  type="text"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  placeholder="https://yourrestaurant.com"
-                  className="w-full h-14 border border-border rounded-lg px-4 text-text placeholder:text-text-light focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
-                />
+                <div className="flex gap-2">
+                  <select
+                    value={protocol}
+                    onChange={(e) => setProtocol(e.target.value)}
+                    className="h-14 bg-white border border-border rounded-lg px-3 text-text focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 focus:outline-none transition-all"
+                  >
+                    <option value="https://">https://</option>
+                    <option value="http://">http://</option>
+                  </select>
+                  <input
+                    type="text"
+                    value={domain}
+                    onChange={(e) => setDomain(e.target.value)}
+                    placeholder="yourrestaurant.com"
+                    className="flex-1 h-14 border border-border rounded-lg px-4 text-text placeholder:text-text-light focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                  />
+                </div>
               </div>
               <motion.button
                 onClick={startScan}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                disabled={!url}
+                disabled={!domain}
                 className="h-14 w-full rounded-lg bg-brand-accent text-white font-semibold hover:bg-brand-accent-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
               >
                 Check My Visibility
@@ -210,7 +223,7 @@ export function BrandScanner() {
                       Here&apos;s What We Found
                     </h3>
                     <p className="text-text-muted">
-                      {url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '')}
+                      {getFullUrl().replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/.*$/, '')}
                     </p>
                   </div>
                 </div>
@@ -264,7 +277,7 @@ export function BrandScanner() {
                     calLink="indexable/15min"
                     className="h-12 px-6 rounded-lg bg-brand-accent text-white font-semibold hover:bg-brand-accent-hover transition-all shadow-md hover:shadow-lg"
                     prefillData={{
-                      notes: `Website scanned: ${url}\nScore: ${score}/100\nFindings: ${findings.length} issues found`,
+                      notes: `Website scanned: ${getFullUrl()}\nScore: ${score}/100\nFindings: ${findings.length} issues found`,
                     }}
                   >
                     Schedule Free 15-Min Call
