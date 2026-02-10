@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
+import { BlogIndex, BlogPost } from './pages/blog';
 import { useState } from 'react';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 
@@ -20,6 +21,8 @@ function App() {
           <ErrorBoundary>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<Home onOpenModal={() => setIsModalOpen(true)} />} />
+              <Route path="/blog" element={<BlogIndex />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<Home onOpenModal={() => setIsModalOpen(true)} />} />
             </Routes>
           </ErrorBoundary>
