@@ -7,6 +7,7 @@ const roleIcons = [Flame, Wine, BellRing];
 const archivePhotos = [
     { src: '/about/bartender.png', label: 'Flaming Drinks at the Bar' },
     { src: '/about/cellar.png', label: 'Breaking Down Crates in the Paris Cellar' },
+    { src: '/about/outside-paris.png', label: 'Outside the Paris Bistro' },
     { src: '/about/kitchen-line.png', label: 'Two Cooks Working the Wok' },
     { src: '/about/kitchen-torch.png', label: 'Chef with the Blowtorch' },
 ];
@@ -27,13 +28,32 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
         <div className="flex flex-col w-full">
             {/* Hero */}
             <section className="py-24 md:py-32 border-b border-clay">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 italic">
-                        {t.about.heroHeadline}
-                    </h1>
-                    <p className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                        {t.about.heroSubtext}
-                    </p>
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        {/* Founder Photo */}
+                        <div className="flex flex-col items-center">
+                            <div className="relative">
+                                <div className="absolute -inset-1 bg-gradient-to-br from-brand-red/20 to-transparent rounded-2xl blur-sm" />
+                                <img
+                                    src="/about/founder-headshot.jpg"
+                                    alt="Paul Bébéar"
+                                    className="relative w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl shadow-lg border-2 border-clay"
+                                />
+                            </div>
+                            <p className="mt-6 text-sm font-bold text-carbon tracking-wide">Paul Bébéar</p>
+                            <p className="text-xs text-gray-400 uppercase tracking-widest">Founder, Indexable.pro</p>
+                        </div>
+
+                        {/* Quote */}
+                        <div className="text-center md:text-left">
+                            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-8 italic">
+                                {t.about.heroHeadline}
+                            </h1>
+                            <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+                                {t.about.heroSubtext}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
