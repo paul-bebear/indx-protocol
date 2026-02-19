@@ -1,71 +1,56 @@
-import { useRef } from 'react';
-import { PageWrapper } from '../components/PageWrapper';
-import { ConsultingHero } from '../components/ConsultingHero';
-import { ProblemSection } from '../components/ProblemSection';
-import { BrandScanner } from '../components/BrandScanner';
-import { HowItWorksSection } from '../components/HowItWorksSection';
-import { TestimonialSection } from '../components/TestimonialSection';
-import { PricingSection } from '../components/PricingSection';
-import { FAQSection } from '../components/FAQSection';
-import { FinalCTA } from '../components/FinalCTA';
+import { NewHero } from '../components/NewHero';
+import { DiscoveryPathsSection } from '../components/DiscoveryPathsSection';
+import { InvisibleGapSection } from '../components/InvisibleGapSection';
+import { OperationalROISection } from '../components/OperationalROISection';
+import { CommandCenterSection } from '../components/CommandCenterSection';
+import { RoadmapSection } from '../components/RoadmapSection';
+import { AuditCTASection } from '../components/AuditCTASection';
 
 interface HomeProps {
   onOpenModal?: () => void;
 }
 
 export function Home({ onOpenModal }: HomeProps) {
-  const howItWorksRef = useRef<HTMLDivElement>(null);
-
-  const scrollToHowItWorks = () => {
-    howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <PageWrapper className="flex flex-col items-center relative w-full">
+    <div className="flex flex-col items-center relative w-full">
       {/* Hero Section */}
       <section className="w-full">
-        <ConsultingHero
-          onGetAudit={onOpenModal}
-          onSeeHowItWorks={scrollToHowItWorks}
-        />
+        <NewHero onGetAudit={onOpenModal} />
       </section>
 
-      {/* Problem Section */}
+      {/* 5 Discovery Paths */}
       <section className="w-full">
-        <ProblemSection />
+        <DiscoveryPathsSection />
       </section>
 
-      {/* BrandScanner / AI Visibility Check */}
-      <section className="w-full bg-background-muted">
-        <div className="container-max py-8">
-          <BrandScanner />
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section ref={howItWorksRef} id="how-it-works" className="w-full">
-        <HowItWorksSection />
-      </section>
-
-      {/* Testimonials / Social Proof */}
+      {/* The Invisible Gap Defined */}
       <section className="w-full">
-        <TestimonialSection />
+        <InvisibleGapSection />
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="w-full">
-        <PricingSection onOpenAuditModal={onOpenModal} />
-      </section>
-
-      {/* FAQ Section */}
+      {/* Operational ROI Calculator */}
       <section className="w-full">
-        <FAQSection />
+        <OperationalROISection />
       </section>
 
-      {/* Final CTA Section */}
+      {/* Database Migration Pop */}
       <section className="w-full">
-        <FinalCTA onCTAClick={onOpenModal} />
+        <CommandCenterSection />
       </section>
-    </PageWrapper>
+
+      {/* Intelligence Roadmap */}
+      <section className="w-full">
+        <RoadmapSection />
+      </section>
+
+      {/* Final CTA */}
+      <section className="w-full">
+        <AuditCTASection onSubmit={(url) => {
+          console.log('Audit requested for:', url);
+          onOpenModal?.();
+        }} />
+      </section>
+    </div>
   );
 }
+

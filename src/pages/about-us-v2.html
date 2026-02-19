@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Founder | Indexable.pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Chosen Palette: Milanese Stone -->
+    <!-- Background: #F9F9F7 (Warm Limestone) -->
+    <!-- Text: #1C1C1E (Charcoal) -->
+    <!-- Accent: #D9534F (Burnt Clay) -->
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stone-bg': '#F9F9F7',
+                        'charcoal': '#1C1C1E',
+                        'accent': '#D9534F',
+                        'accent-hover': '#C04542',
+                        'clay-light': '#E5E5E0'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F9F9F7;
+            color: #1C1C1E;
+        }
+
+        .slider-container {
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .slider-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slide {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            width: 85%;
+            max-width: 450px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(28, 28, 30, 0.05);
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans overflow-x-hidden">
+
+    <!-- Application Structure Plan:
+         1. Header: Matches landing page branding.
+         2. Hero: Direct mission statement ("I've worked your shift").
+         3. Role Philosophy: Connecting Bartender/Chef/Host experience to tech features.
+         4. Global Resume: 5 Cities, 4 Countries grid.
+         5. Archive Gallery: Sliding photos at the bottom of the content flow.
+         6. Footer: Short mission blurb.
+    -->
+
+    <!-- Header -->
+    <header class="border-b border-clay-light bg-stone-bg/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <a href="indexable_final_web.html"
+                    class="text-2xl font-serif font-bold tracking-tight text-charcoal">Indexable<span
+                        class="text-accent">.pro</span></a>
+            </div>
+            <a href="indexable_final_web.html"
+                class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">Back
+                to Main</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-24 md:py-32 border-b border-clay-light">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8 italic text-charcoal">"I've worked your shift."
+            </h1>
+            <p class="text-xl text-lux-gray leading-relaxed max-w-2xl mx-auto">
+                My journey wasn't built in a boardroom. It was built behind the bar, on the line, and at the host stand
+                across **5 global cities** and **4 countries.**
+            </p>
+        </div>
+    </section>
+
+    <!-- The "Every Role" Philosophy -->
+    <section class="py-24 bg-charcoal text-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-[0.3em] text-accent mb-4 block">Battle
+                        Tested</span>
+                    <h2 class="text-4xl font-serif font-bold mb-8">Systems built by a <span
+                            class="text-accent">Peer.</span></h2>
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+                        I’ve been your chef, your bartender, your server, and your host. I didn't learn hospitality from
+                        a textbook; I learned it in the weeds. Indexable is the digital brain I wish I had during every
+                        service I ever worked.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-5">
+                            <div
+                                class="w-12 h-12 rounded-xl border border-accent/30 flex items-center justify-center flex-shrink-0 text-accent bg-accent/5">
+                                <i class="fa-solid fa-fire-burner"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">The Chef's Logic</h4>
+                                <p class="text-sm text-gray-400">If the menu isn't updated instantly when a dish runs
+                                    out, the kitchen suffers the friction. I built systems that sync POS to Web in
+                                    real-time.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-5">
+                            <div
+                                class="w-12 h-12 rounded-xl border border-accent/30 flex items-center justify-center flex-shrink-0 text-accent bg-accent/5">
+                                <i class="fa-solid fa-wine-glass"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">The Bartender's Speed</h4>
+                                <p class="text-sm text-gray-400">Stock levels should be a voice command away. I built
+                                    the "Staff Bot" so you never have to leave the floor to check a vintage.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-5">
+                            <div
+                                class="w-12 h-12 rounded-xl border border-accent/30 flex items-center justify-center flex-shrink-0 text-accent bg-accent/5">
+                                <i class="fa-solid fa-bell-concierge"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">The Host's First Impression</h4>
+                                <p class="text-sm text-gray-400">Every guest who couldn't find your menu on ChatGPT is a
+                                    lost cover. I solve the "Invisibility Gap" at the root.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-accent rounded-3xl blur-[80px] opacity-10"></div>
+                    <div class="glass-panel p-12 rounded-3xl text-center relative z-10">
+                        <i class="fa-solid fa-quote-left text-4xl text-accent mb-6"></i>
+                        <p class="text-2xl font-serif italic mb-8 leading-relaxed text-white">
+                            "Whether I was in Miami or Oostende, the problem was the same: Independent restaurant groups
+                            are invisible to the modern world. I built this to change that."
+                        </p>
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-gray-500">— Founder,
+                            Indexable.pro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Grid: 5 Cities, 4 Countries -->
+    <section class="py-24 bg-stone-bg border-b border-clay-light">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 text-center">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-accent">Pattern Recognition</span>
+                <h2 class="text-3xl font-serif font-bold mt-4 text-charcoal">5 Global Hubs. 4 Countries. One Core
+                    Problem.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- USA -->
+                <div class="p-8 bg-white border border-clay-light rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-1 text-charcoal">USA</h3>
+                    <p class="text-[10px] text-accent font-bold uppercase mb-4 tracking-widest">NYC & Miami</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">High-volume startups and elite bars taught me that
+                        tech must be invisible to be effective.</p>
+                </div>
+                <!-- Samoa -->
+                <div class="p-8 bg-white border border-clay-light rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-1 text-charcoal">Samoa</h3>
+                    <p class="text-[10px] text-accent font-bold uppercase mb-4 tracking-widest">Apia</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Resort hospitality taught me the value of the 'warm
+                        welcome'—and why tech should support it, not replace it.</p>
+                </div>
+                <!-- Belgium -->
+                <div class="p-8 bg-white border border-clay-light rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-1 text-charcoal">Belgium</h3>
+                    <p class="text-[10px] text-accent font-bold uppercase mb-4 tracking-widest">Oostende</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Seaside pubs and street food proved that even small
+                        venues suffer from manual data leakage.</p>
+                </div>
+                <!-- France -->
+                <div class="p-8 bg-white border border-clay-light rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-1 text-charcoal">France</h3>
+                    <p class="text-[10px] text-accent font-bold uppercase mb-4 tracking-widest">Paris</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">Fine dining coffee shops and bistros instilled the
+                        need for absolute data precision in a digital age.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Slider Section (Moved to Bottom) -->
+    <section class="py-24 bg-stone-bg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-end justify-between mb-12">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-gray-400">The Archive</span>
+                    <h3 class="text-3xl font-serif font-bold mt-2 text-charcoal italic">"In the Weeds"</h3>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="scrollSlider(-400)"
+                        class="w-12 h-12 rounded-full border border-clay-light flex items-center justify-center hover:bg-white transition-colors text-charcoal"><i
+                            class="fa-solid fa-arrow-left"></i></button>
+                    <button onclick="scrollSlider(400)"
+                        class="w-12 h-12 rounded-full border border-clay-light flex items-center justify-center hover:bg-white transition-colors text-charcoal"><i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div id="photo-slider" class="slider-container flex space-x-6 overflow-x-auto pb-12">
+                <!-- Placeholder for Image 1 -->
+                <div
+                    class="slide bg-clay-light rounded-3xl aspect-[4/5] flex flex-col items-center justify-center relative overflow-hidden group border border-clay-light shadow-inner">
+                    <div class="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/20 transition-all"></div>
+                    <i class="fa-solid fa-camera text-4xl text-gray-400 mb-4"></i>
+                    <span class="text-charcoal/40 text-xs font-bold uppercase tracking-widest">Add NYC/Miami
+                        Photo</span>
+                    <!-- <img src="URL" class="absolute inset-0 w-full h-full object-cover"> -->
+                </div>
+                <!-- Placeholder for Image 2 -->
+                <div
+                    class="slide bg-clay-light rounded-3xl aspect-[4/5] flex flex-col items-center justify-center relative overflow-hidden group border border-clay-light shadow-inner">
+                    <div class="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/20 transition-all"></div>
+                    <i class="fa-solid fa-camera text-4xl text-gray-400 mb-4"></i>
+                    <span class="text-charcoal/40 text-xs font-bold uppercase tracking-widest">Add Paris Photo</span>
+                </div>
+                <!-- Placeholder for Image 3 -->
+                <div
+                    class="slide bg-clay-light rounded-3xl aspect-[4/5] flex flex-col items-center justify-center relative overflow-hidden group border border-clay-light shadow-inner">
+                    <div class="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/20 transition-all"></div>
+                    <i class="fa-solid fa-camera text-4xl text-gray-400 mb-4"></i>
+                    <span class="text-charcoal/40 text-xs font-bold uppercase tracking-widest">Add Samoa Photo</span>
+                </div>
+                <!-- Placeholder for Image 4 -->
+                <div
+                    class="slide bg-clay-light rounded-3xl aspect-[4/5] flex flex-col items-center justify-center relative overflow-hidden group border border-clay-light shadow-inner">
+                    <div class="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/20 transition-all"></div>
+                    <i class="fa-solid fa-camera text-4xl text-gray-400 mb-4"></i>
+                    <span class="text-charcoal/40 text-xs font-bold uppercase tracking-widest">Add Belgium Photo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <p class="text-lg font-serif italic text-gray-400 leading-relaxed mb-8">
+                "From NYC kitchens to Paris bistros and Samoa beach bars, I’ve worked every role in the house. I built
+                Indexable to be the digital brain I wish I had during those 2 AM closes—so you can stop fighting
+                spreadsheets and get back to the art of service."
+            </p>
+            <div
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 uppercase tracking-widest font-bold">
+                <p>&copy; 2026 Indexable.pro | Milan | Paris</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <span>NYC</span> <span>MIAMI</span> <span>APIA</span> <span>OOSTENDE</span> <span>PARIS</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollSlider(amount) {
+            const slider = document.getElementById('photo-slider');
+            slider.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+
+</html>

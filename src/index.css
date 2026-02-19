@@ -1,36 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  /* Professional Cyan & Dark Navy Palette */
-  --color-background: #fafaf9;
+  /* Milanese Stone Palette */
+  --color-paper: #F9F9F7;
+  --color-carbon: #1C1C1E;
+  --color-clay: #E5E5E0;
+  --color-brand-amber: #F59E0B;
+  --color-brand-red: #D9534F;
+
+  /* Backward-compat aliases used by blog/prose pages */
+  --color-background: #F9F9F7;
   --color-background-alt: #ffffff;
   --color-background-muted: #f4f4f5;
-  --color-border: #e4e4e7;
-  --color-text: #1f2937;
+  --color-border: #E5E5E0;
+  --color-text: #1C1C1E;
   --color-text-muted: #6b7280;
   --color-text-light: #9ca3af;
-  
-  /* Primary: Dark Navy (Professional, Trustworthy) */
-  --color-brand-primary: #0f172a;
-  --color-brand-primary-hover: #020617;
-  
-  /* Accent: Cyan (Modern, Energetic, Pops) */
-  --color-brand-accent: #0891b2;
-  --color-brand-accent-hover: #0e7490;
-  
-  /* Supporting */
+  --color-brand-primary: #1C1C1E;
+  --color-brand-primary-hover: #000000;
+  --color-brand-accent: #D9534F;
+  --color-brand-accent-hover: #C04542;
   --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+  --color-warning: #F59E0B;
+  --color-danger: #D9534F;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
   font-family: var(--font-sans);
-  background-color: var(--color-background);
+  background-color: var(--color-paper);
   color: var(--color-text);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -39,14 +40,12 @@
 }
 
 @layer components {
-  /* Primary Button - Coral for action */
   .btn-primary {
-    @apply h-12 px-8 rounded-lg bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-hover transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center;
+    @apply h-12 px-8 rounded-full bg-brand-red text-white font-semibold text-sm hover:bg-brand-accent-hover transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center;
   }
 
-  /* Secondary Button - Navy for trust */
   .btn-secondary {
-    @apply h-12 px-8 rounded-lg border-2 border-brand-primary text-brand-primary font-semibold text-sm hover:bg-brand-primary hover:text-white transition-all active:scale-95 cursor-pointer flex items-center justify-center bg-white;
+    @apply h-12 px-8 rounded-full border border-clay text-carbon font-semibold text-sm hover:bg-clay transition-all active:scale-95 cursor-pointer flex items-center justify-center bg-white;
   }
 
   .section-padding {
@@ -54,26 +53,25 @@
   }
 
   .container-max {
-    @apply max-w-6xl mx-auto;
+    @apply max-w-7xl mx-auto;
   }
 
   .card {
-    @apply bg-white rounded-xl border border-border shadow-sm p-6;
+    @apply bg-white rounded-xl border border-clay shadow-sm p-6;
   }
 
   .card-highlighted {
-    @apply bg-white rounded-xl border-2 border-brand-accent shadow-lg p-6 relative;
+    @apply bg-white rounded-xl border-2 border-brand-red shadow-lg p-6 relative;
   }
-  
-  /* Score display for audit */
+
   .score-high {
     @apply text-success;
   }
-  
+
   .score-medium {
     @apply text-warning;
   }
-  
+
   .score-low {
     @apply text-danger;
   }
@@ -82,36 +80,62 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--color-background);
-  /* Subtle paper texture overlay */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-blend-mode: soft-light;
-  background-size: 200px 200px;
+  background-color: var(--color-paper);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Elegant serif headings */
+/* Glass card effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Hero gradient */
+.hero-gradient {
+  background: radial-gradient(circle at top right, #fff5f5 0%, #fdfdfb 100%);
+}
+
+/* Nav link style */
+.nav-link-style {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6B7280;
+  transition: color 0.3s;
+}
+
+.nav-link-style:hover {
+  color: #EF4444;
+}
+
+/* Slide-up animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Serif headings */
 .font-serif {
   font-family: var(--font-serif);
 }
 
-/* Gradient backgrounds */
-.bg-warm-gradient {
-  background: linear-gradient(135deg, #fafaf9 0%, #f4f4f5 50%, #e4e4e7 100%);
-}
-
-.bg-primary-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-.bg-accent-gradient {
-  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-}
-
-/* Markdown Content Styles */
+/* Markdown Content Styles (preserved for blog pages) */
 .prose h2 {
   font-size: 1.75rem;
   font-weight: 600;
@@ -133,7 +157,8 @@ html {
   line-height: 1.75;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   margin-bottom: 1.25rem;
   padding-left: 1.5rem;
 }

@@ -1,44 +1,20 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useI18n } from '../i18n';
 
 export function Footer() {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const scrollToSection = (sectionId: string) => {
-        if (location.pathname !== '/') {
-            navigate('/');
-            setTimeout(() => {
-                const element = document.getElementById(sectionId);
-                element?.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        } else {
-            const element = document.getElementById(sectionId);
-            element?.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    const { t } = useI18n();
 
     return (
-        <footer className="py-12 px-6 border-t border-border bg-background-muted">
-            <div className="container-max">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-2">
-                        <span className="text-lg font-serif font-semibold text-brand-primary">Indexable</span>
-                        <span className="text-xs text-text-muted font-medium bg-white px-2 py-0.5 rounded-full border border-border">Pro</span>
-                    </div>
-
-                    <div className="flex items-center gap-6 text-sm text-text-muted">
-                        <button onClick={() => scrollToSection('how-it-works')} className="hover:text-text transition-colors">
-                            How It Works
-                        </button>
-                        <button onClick={() => scrollToSection('pricing')} className="hover:text-text transition-colors">
-                            Pricing
-                        </button>
-                        <a href="mailto:paul@indexable.pro" className="hover:text-text transition-colors">Contact</a>
-                    </div>
-
-                    <p className="text-sm text-text-muted">
-                        © {new Date().getFullYear()} Indexable.Pro
-                    </p>
+        <footer className="bg-carbon text-white py-20">
+            <div className="max-w-4xl mx-auto px-6 text-center">
+                <h2 className="text-3xl font-serif italic mb-6">{t.footer.quote}</h2>
+                <p className="text-sm uppercase tracking-widest text-brand-red font-bold mb-10">{t.footer.missionLabel}</p>
+                <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                    <p>&copy; {new Date().getFullYear()} {t.footer.copyright}</p>
+                    <NavLink to="/about" className="text-gray-400 hover:text-brand-red transition-colors uppercase tracking-widest font-bold">
+                        {t.footer.missionLabel}
+                    </NavLink>
+                    <p>{t.footer.tagline}</p>
                 </div>
             </div>
         </footer>

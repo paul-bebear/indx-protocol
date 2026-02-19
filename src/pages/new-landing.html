@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indexable.pro | AI-Ready Systems for Elite Restaurant Groups</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#FDFDFB',
+                        'carbon': '#121212',
+                        'clay': '#E5E7EB',
+                        'brand-amber': '#F59E0B',
+                        'brand-red': '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 320px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #fff5f5 0%, #fdfdfb 100%);
+        }
+
+        .nav-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6B7280;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #EF4444;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-paper text-carbon font-sans">
+
+    <!-- Application Structure Plan:
+         1. Hero: The "Invisible 50%" value prop + Direct CTA.
+         2. The Reality Check: Explaining the 5 Paths of Discovery (ChatGPT, TikTok, etc.).
+         3. Operational ROI: The "Labor Leakage" calculator for GMs.
+         4. The Command Center: Modern Database vs. Chaos comparison.
+         5. The Roadmap: 3 Steps to dominance.
+         6. The Massive CTA: Final conversion push for the audit.
+    -->
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-paper/90 border-b border-clay backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-carbon flex items-center justify-center rounded-lg">
+                    <span class="text-white font-bold text-xl">I</span>
+                </div>
+                <span class="text-2xl font-serif font-bold tracking-tight">Indexable<span
+                        class="text-brand-red">.pro</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#discovery" class="nav-link">The 5 Paths</a>
+                <a href="#ops" class="nav-link">Operations</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+            </nav>
+            <a href="#audit"
+                class="bg-carbon text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-brand-red transition-all">
+                Get Your Free Audit
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-20 md:py-32 border-b border-clay overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 animate-slide">
+                <div
+                    class="inline-flex items-center space-x-2 bg-brand-red/10 text-brand-red px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Built for Milan & Paris Restaurant Groups</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-6">
+                    Stop being <span class="text-brand-red">Invisible</span> to 50% of your guests.
+                </h1>
+                <p class="text-xl text-gray-600 leading-relaxed mb-10 max-w-2xl">
+                    While you focus on the kitchen, the way guests find you has changed forever. If your menu isn't
+                    readable by AI and your stock isn't real-time, you're losing the battle for the next generation of
+                    diners.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#audit"
+                        class="bg-brand-red text-white text-center px-8 py-5 rounded-full font-bold uppercase tracking-widest hover:shadow-2xl hover:scale-105 transition-all text-sm">
+                        Request a Free Visibility Audit
+                    </a>
+                    <a href="#ops"
+                        class="bg-white border border-clay text-carbon text-center px-8 py-5 rounded-full font-bold uppercase tracking-widest hover:bg-clay transition-all text-sm">
+                        See the ROI Calculator
+                    </a>
+                </div>
+                <p class="mt-6 text-xs text-gray-400 font-medium">
+                    <i class="fa-solid fa-location-dot mr-1"></i> Trusted by elite venues in Brera, Navigli, and Le
+                    Marais.
+                </p>
+            </div>
+            <div class="lg:col-span-5 relative">
+                <div class="glass-card p-8 rounded-3xl shadow-2xl relative z-10">
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="font-bold text-gray-400 uppercase tracking-widest text-xs">Market Shift 2025</h3>
+                        <span class="text-brand-red font-bold text-xs">+52% Search Volume</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="heroChart"></canvas>
+                    </div>
+                    <div class="mt-8 p-4 bg-carbon text-white rounded-2xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] uppercase text-gray-400">Monthly Revenue Leakage</p>
+                            <p class="text-xl font-bold">€4,250 <span class="text-brand-red text-xs font-normal">Est.
+                                    Loss</span></p>
+                        </div>
+                        <i class="fa-solid fa-chart-line text-2xl text-brand-red"></i>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-amber rounded-full blur-3xl opacity-20"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 5 Paths Section -->
+    <section id="discovery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-4xl font-serif font-bold mb-6 italic">The New Guest Journey</h2>
+                <p class="text-gray-500 text-lg">
+                    Diners no longer just "Google it." They use a multi-channel discovery engine. If your data isn't
+                    structured for these 5 paths, you are effectively offline.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <!-- LLM -->
+                <div class="p-8 border border-clay rounded-3xl hover:border-brand-red transition-all group">
+                    <div
+                        class="w-12 h-12 bg-stone-100 rounded-2xl flex items-center justify-center text-brand-red mb-6 group-hover:bg-brand-red group-hover:text-white transition-all">
+                        <i class="fa-solid fa-robot text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">AI Engines</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">ChatGPT and Perplexity now answer: "Where should I
+                        take a client for a quiet lunch in Milan?"</p>
+                </div>
+                <!-- Visual -->
+                <div class="p-8 border border-clay rounded-3xl hover:border-brand-red transition-all group">
+                    <div
+                        class="w-12 h-12 bg-stone-100 rounded-2xl flex items-center justify-center text-brand-red mb-6 group-hover:bg-brand-red group-hover:text-white transition-all">
+                        <i class="fa-brands fa-tiktok text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Visual Proof</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">TikTok and Reels are used for the "Vibe Check."
+                        Search is now visual and high-speed.</p>
+                </div>
+                <!-- Siri -->
+                <div class="p-8 border border-clay rounded-3xl hover:border-brand-red transition-all group">
+                    <div
+                        class="w-12 h-12 bg-stone-100 rounded-2xl flex items-center justify-center text-brand-red mb-6 group-hover:bg-brand-red group-hover:text-white transition-all">
+                        <i class="fa-solid fa-microphone text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Voice Context</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Siri and Apple Intelligence queries while walking:
+                        "Find a table for 4 near me right now."</p>
+                </div>
+                <!-- Curation -->
+                <div class="p-8 border border-clay rounded-3xl hover:border-brand-red transition-all group">
+                    <div
+                        class="w-12 h-12 bg-stone-100 rounded-2xl flex items-center justify-center text-brand-red mb-6 group-hover:bg-brand-red group-hover:text-white transition-all">
+                        <i class="fa-solid fa-gem text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Digital Elite</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Substack and niche newsletters that high-spending
+                        diners trust over reviews.</p>
+                </div>
+                <!-- Concierge -->
+                <div class="p-8 border border-clay rounded-3xl hover:border-brand-red transition-all group">
+                    <div
+                        class="w-12 h-12 bg-stone-100 rounded-2xl flex items-center justify-center text-brand-red mb-6 group-hover:bg-brand-red group-hover:text-white transition-all">
+                        <i class="fa-solid fa-concierge-bell text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">AI Agents</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">Digital assistants that handle the entire booking
+                        process for the guest automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational ROI Section -->
+    <section id="ops" class="py-24 bg-carbon text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-4xl font-serif font-bold mb-8">Reclaim <span class="text-brand-red">14+ Hours</span>
+                        Every Week.</h2>
+                    <p class="text-gray-400 text-lg mb-10">
+                        General Managers in mid-sized groups spend an average of 14 hours a week manually syncing POS
+                        data, updating website menus, and fighting reservation overlaps.
+                        <br><br>
+                        Indexable automates the friction, turning your data into a self-updating engine.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <p class="text-3xl font-bold text-brand-red mb-1">€60k</p>
+                            <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Annual Labor Loss</p>
+                        </div>
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <p class="text-3xl font-bold text-brand-amber mb-1">95%</p>
+                            <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Data Accuracy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white text-carbon p-10 rounded-3xl shadow-2xl">
+                    <h3 class="font-bold text-xl mb-6 flex items-center"><i
+                            class="fa-solid fa-calculator mr-3 text-brand-red"></i> Operational Audit</h3>
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">Number
+                                of Locations</label>
+                            <input type="range" id="locInput" min="1" max="10" value="3"
+                                class="w-full h-2 bg-clay rounded-lg appearance-none cursor-pointer accent-brand-red">
+                            <p class="text-right font-bold text-brand-red mt-2" id="locDisplay">3 Locations</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">Manager
+                                Salary (Avg)</label>
+                            <select id="salaryInput"
+                                class="w-full bg-stone-50 border border-clay p-3 rounded-xl font-bold focus:outline-none focus:ring-2 ring-brand-red/20">
+                                <option value="45000">€45,000 / Year</option>
+                                <option value="55000" selected>€55,000 / Year</option>
+                                <option value="75000">€75,000 / Year</option>
+                            </select>
+                        </div>
+                        <div class="pt-6 border-t border-clay flex justify-between items-center">
+                            <div>
+                                <p class="text-xs text-gray-400 font-bold uppercase">Estimated Yearly Savings</p>
+                                <p class="text-4xl font-black text-carbon" id="saveDisplay">€0</p>
+                            </div>
+                            <i class="fa-solid fa-piggy-bank text-4xl text-brand-amber opacity-20"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute -top-20 -right-20 w-80 h-80 bg-brand-red rounded-full blur-[120px] opacity-10"></div>
+    </section>
+
+    <!-- The Command Center (Database Shift) -->
+    <section class="py-24 bg-paper">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold mb-4 italic">The Intelligence Command Center</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Move from "Checking Sheets" to "Instant Insight." Our
+                    Supabase-backed systems act as a 24/7 digital brain for your operations.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Manual Chaos -->
+                <div class="bg-white p-10 border border-clay rounded-3xl relative">
+                    <span
+                        class="absolute top-6 right-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Old
+                        World</span>
+                    <h4 class="font-bold text-lg mb-6 flex items-center"><i
+                            class="fa-solid fa-circle-xmark text-red-400 mr-2"></i> Manual Friction</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            <p class="text-xs font-mono text-gray-400"># GM asks: "Do we have Gaja 2018 in stock?"</p>
+                            <p class="text-xs font-mono text-red-400 italic"># Floor Mgr spends 5 mins checking cellar
+                                and clipboard...</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            <p class="text-xs font-mono text-gray-400"># Guest finds old menu on a PDF search...</p>
+                            <p class="text-xs font-mono text-red-400 italic"># Frustration at the table: "We don't have
+                                that dish today."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indexable Intelligence -->
+                <div class="bg-carbon p-10 rounded-3xl relative text-white shadow-2xl">
+                    <div class="absolute inset-0 bg-brand-amber/5 opacity-20 pointer-events-none"></div>
+                    <span
+                        class="absolute top-6 right-8 text-[10px] font-bold text-brand-amber uppercase tracking-widest">Modern
+                        World</span>
+                    <h4 class="font-bold text-lg mb-6 flex items-center text-brand-amber"><i
+                            class="fa-solid fa-circle-check text-green-400 mr-2"></i> Real-time Insight</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                            <p class="text-xs font-mono text-gray-400"># GM texts Indexable Staff Bot:</p>
+                            <p class="text-sm font-bold mt-1">"Stock status: Gaja 2018?"</p>
+                            <p class="text-xs font-mono text-green-400 mt-2">"Bot: 12 bottles available in Brera.
+                                Website updated. 4 reserved for tonight."</p>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                            <p class="text-xs font-mono text-gray-400"># Google/Siri scans your AI-Ready data:</p>
+                            <p class="text-xs font-mono text-green-400 mt-2">"Siri: Yes, they have truffles today. Table
+                                for 2 at 8:00 PM?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Roadmap (Phase 1-3) -->
+    <section id="roadmap" class="py-24 bg-white border-t border-clay">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-serif font-bold text-center mb-20">The Intelligence Roadmap</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="text-8xl font-serif font-bold text-stone-100 absolute -top-10 -left-4 -z-10">01</div>
+                    <h3 class="text-xl font-bold mb-4">Phase 1: Visibility</h3>
+                    <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+                        We inject **Schema Markup** and clean data into your site, making your menu instantly readable
+                        by ChatGPT, Google AI, and Apple Maps.
+                    </p>
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-brand-red">
+                        <p class="text-xs font-bold text-carbon">Key Outcome:</p>
+                        <p class="text-xs text-gray-500 italic">"Stop being invisible to AI searchers."</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="text-8xl font-serif font-bold text-stone-100 absolute -top-10 -left-4 -z-10">02</div>
+                    <h3 class="text-xl font-bold mb-4">Phase 2: Intelligence</h3>
+                    <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+                        We migrate your analog chaos to a **Real-Time Supabase Database**. Inventory, reservations, and
+                        POS sync in one central brain.
+                    </p>
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-brand-amber">
+                        <p class="text-xs font-bold text-carbon">Key Outcome:</p>
+                        <p class="text-xs text-gray-500 italic">"Save 14 hours of management time."</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="text-8xl font-serif font-bold text-stone-100 absolute -top-10 -left-4 -z-10">03</div>
+                    <h3 class="text-xl font-bold mb-4">Phase 3: Autonomy</h3>
+                    <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+                        We deploy **AI Booking Agents** and predictive ordering. Your system now anticipates guest needs
+                        before they even arrive.
+                    </p>
+                    <div class="bg-stone-50 p-4 rounded-xl border-l-4 border-carbon">
+                        <p class="text-xs font-bold text-carbon">Key Outcome:</p>
+                        <p class="text-xs text-gray-500 italic">"Total operational freedom."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section id="audit" class="py-32 bg-brand-red relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-serif font-bold text-white mb-8">
+                Is your restaurant group invisible?
+            </h2>
+            <p class="text-white/80 text-xl mb-12 max-w-2xl mx-auto">
+                We’ll run a comprehensive technical scan of your brand to see how you appear to the world's most
+                powerful AI engines. No cost. No obligation.
+            </p>
+            <div
+                class="bg-white p-2 rounded-full flex flex-col md:flex-row shadow-2xl max-w-lg mx-auto overflow-hidden">
+                <input type="text" placeholder="Enter your website URL (e.g. bistro-paris.com)"
+                    class="flex-grow px-6 py-4 text-carbon focus:outline-none">
+                <button
+                    class="bg-carbon text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-black transition-all">
+                    Start Free Audit
+                </button>
+            </div>
+            <p class="mt-8 text-white/60 text-xs font-medium uppercase tracking-widest italic">
+                Scanning sites in Brera, Navigli, Le Marais & 11th Arr. daily.
+            </p>
+        </div>
+        <div class="absolute inset-0 bg-black opacity-10 pointer-events-none"></div>
+        <div class="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-white opacity-5 rounded-full blur-[100px]">
+        </div>
+    </section>
+
+    <!-- Founder Story Footer -->
+    <footer class="bg-paper border-t border-clay py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="max-w-2xl mx-auto mb-16">
+                <div class="w-16 h-1 bg-brand-red mx-auto mb-8"></div>
+                <h3 class="text-2xl font-serif italic text-gray-600 leading-relaxed mb-6">
+                    "I started as a dishwasher in Navigli and spent a decade managing floors in Le Marais. I built
+                    Indexable because I saw how manual stress kills the art of hospitality. We aren't here to give you
+                    more software; we're here to give you your life back."
+                </h3>
+                <p class="font-bold text-xs uppercase tracking-widest text-carbon">The Indexable Mission</p>
+            </div>
+            <div
+                class="flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-400 uppercase tracking-widest font-bold border-t border-clay pt-10">
+                <p>&copy; 2026 Indexable Systems | Milan | Paris</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-brand-red">Privacy</a>
+                    <a href="#" class="hover:text-brand-red">Terms</a>
+                    <a href="#" class="hover:text-brand-red">Expert Strategy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Calculator Logic ---
+        function runCalculator() {
+            const locs = parseInt(document.getElementById('locInput').value);
+            const salary = parseInt(document.getElementById('salaryInput').value);
+
+            // Display update
+            document.getElementById('locDisplay').innerText = `${locs} Location${locs > 1 ? 's' : ''}`;
+
+            // Math: 
+            // 14 hours per location per week wasted.
+            // (14 hours * 52 weeks * rate) * locations
+            const rate = salary / 2080;
+            const savings = Math.round((14 * 52 * rate) * locs);
+
+            document.getElementById('saveDisplay').innerText = "€" + savings.toLocaleString();
+        }
+
+        // --- Charts ---
+        function initCharts() {
+            const ctx = document.getElementById('heroChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Google Search', 'AI Discovery (GPT/Siri/TikTok)'],
+                    datasets: [{
+                        data: [42, 58],
+                        backgroundColor: ['#E5E7EB', '#EF4444'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    },
+                    scales: {
+                        y: { display: false, beginAtZero: true, max: 100 },
+                        x: { grid: { display: false }, ticks: { font: { weight: 'bold', size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        // --- Event Listeners ---
+        window.onload = () => {
+            initCharts();
+            runCalculator();
+
+            document.getElementById('locInput').addEventListener('input', runCalculator);
+            document.getElementById('salaryInput').addEventListener('change', runCalculator);
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        };
+    </script>
+</body>
+
+</html>
