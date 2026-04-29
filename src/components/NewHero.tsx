@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import { Zap, MapPin } from 'lucide-react';
 import { useI18n } from '../i18n';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
@@ -19,6 +20,7 @@ interface NewHeroProps {
 export function NewHero({ onGetAudit }: NewHeroProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
     const { t } = useI18n();
+    const navigate = useNavigate();
 
     useEffect(() => {
         sectionRef.current?.classList.add('animate-slide');
@@ -73,12 +75,18 @@ export function NewHero({ onGetAudit }: NewHeroProps) {
                         {t.hero.subtext}
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                         <button
                             onClick={onGetAudit}
                             className="bg-brand-red text-white text-center px-8 py-5 rounded-full font-bold uppercase tracking-widest hover:shadow-2xl hover:scale-105 transition-all text-sm cursor-pointer"
                         >
                             {t.hero.ctaPrimary}
+                        </button>
+                        <button
+                            onClick={() => navigate('/simulation')}
+                            className="bg-carbon text-white text-center px-8 py-5 rounded-full font-bold uppercase tracking-widest hover:bg-gray-800 transition-all text-sm cursor-pointer"
+                        >
+                            Try AI Simulation
                         </button>
                         <button
                             onClick={scrollToOps}

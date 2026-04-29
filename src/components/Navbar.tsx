@@ -93,6 +93,17 @@ export function Navbar({ onOpenModal }: NavbarProps) {
                         </button>
                     ))}
                     <RouterNavLink
+                        to="/simulation"
+                        className={({ isActive }) => cn(
+                            "font-serif italic text-sm border-b-2 pb-0.5 transition-all cursor-pointer",
+                            isActive
+                                ? "text-brand-red border-brand-red"
+                                : "text-brand-red/70 border-transparent hover:border-brand-red hover:text-brand-red"
+                        )}
+                    >
+                        Try AI Simulation
+                    </RouterNavLink>
+                    <RouterNavLink
                         to="/about"
                         className={({ isActive }) => cn(
                             "font-serif italic text-sm border-b-2 pb-0.5 transition-all cursor-pointer",
@@ -174,6 +185,13 @@ export function Navbar({ onOpenModal }: NavbarProps) {
                                 </button>
                             ))}
 
+                            <RouterNavLink
+                                to="/simulation"
+                                onClick={() => setIsOpen(false)}
+                                className="py-2 border-b border-clay text-left text-brand-red font-serif italic hover:opacity-80 cursor-pointer"
+                            >
+                                Try AI Simulation →
+                            </RouterNavLink>
                             <RouterNavLink
                                 to="/about"
                                 onClick={() => setIsOpen(false)}

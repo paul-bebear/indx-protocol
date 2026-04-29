@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { AboutUs } from './pages/AboutUs';
 import { BlogIndex, BlogPost } from './pages/blog';
+import { AiSimulation } from './pages/AiSimulation';
 import { useState } from 'react';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="/about" element={<AboutUs onOpenModal={() => setIsModalOpen(true)} />} />
               <Route path="/blog" element={<BlogIndex />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/simulation" element={<AiSimulation onOpenModal={() => setIsModalOpen(true)} />} />
               <Route path="*" element={<Home onOpenModal={() => setIsModalOpen(true)} />} />
             </Routes>
           </ErrorBoundary>
