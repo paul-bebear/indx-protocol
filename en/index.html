@@ -46,13 +46,15 @@ p{margin:0 0 1rem}
 
 /* header: the logo is a Madrid street plaque */
 .top{position:sticky;top:0;z-index:10;background:rgba(244,245,242,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid transparent}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:4.25rem}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:5.25rem}
 .plaque-logo{display:inline-flex;flex-direction:column;align-items:center;text-decoration:none;background:var(--white);color:var(--cobalt);
-  border:2.5px solid var(--cobalt);border-radius:7px;padding:.2rem .75rem .25rem;box-shadow:inset 0 0 0 2px var(--white),inset 0 0 0 3.5px var(--cobalt)}
-.plaque-logo b{font:400 1.15rem/1 var(--serif)}
-.plaque-logo span{font-size:.6rem;letter-spacing:.04em;margin-top:.15rem;color:var(--muted)}
+  border:3px solid var(--cobalt);border-radius:9px;padding:.4rem 1.15rem .45rem;box-shadow:inset 0 0 0 3px var(--white),inset 0 0 0 5px var(--cobalt),0 6px 16px -10px rgba(30,63,143,.5)}
+.plaque-logo b{font:400 1.6rem/1 var(--serif)}
+.plaque-logo span{font-size:.72rem;letter-spacing:.06em;margin-top:.25rem;color:var(--muted)}
 .top nav{display:flex;align-items:center;gap:1.1rem}
-.top nav a.lang{color:var(--muted);font-size:.92rem;text-decoration:none}
+.top nav a.lang{color:var(--muted);font-size:.92rem;font-weight:500;text-decoration:none}
+.lang .short{display:none}
+@media (max-width:520px){.lang .full{display:none}.lang .short{display:inline}}
 .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.25rem;border-radius:12px;font-weight:600;text-decoration:none;border:2px solid var(--cobalt);line-height:1.2;transition:background .15s}
 .btn svg{width:1.15rem;height:1.15rem;flex:none}
 .btn.primary{background:var(--cobalt);color:var(--white)}
@@ -105,7 +107,7 @@ section.block{padding:4.5rem 0 0}
 .head p{color:var(--muted);margin-top:.9rem;font-size:1.05rem}
 
 /* pricing: set like a carta, framed like a street tile */
-.tile{background:var(--cobalt);color:var(--white);border-radius:24px;padding:2.5rem 1.5rem 2rem;max-width:46rem;
+.tile{background:var(--cobalt);color:var(--white);border-radius:24px;padding:2.5rem 1.5rem 2rem;
   box-shadow:inset 0 0 0 8px var(--cobalt),inset 0 0 0 10px rgba(255,255,255,.85),0 30px 60px -35px rgba(21,48,111,.7)}
 .tile h2{text-align:center;color:var(--white);font-size:clamp(1.7rem,4.5vw,2.3rem);margin-bottom:2rem}
 .item+.item{margin-top:2rem}
@@ -116,9 +118,11 @@ section.block{padding:4.5rem 0 0}
 .tile .fine{margin:2.25rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.3);font-size:.95rem;color:rgba(255,255,255,.82)}
 .launch{display:inline-block;margin-top:.8rem;background:var(--white);color:var(--cobalt);padding:.5rem .85rem;border-radius:10px;font-weight:600;font-size:.95rem}
 @media (min-width:640px){.tile{padding:3rem 3rem 2.5rem}}
+@media (min-width:860px){.items{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem}.items .item+.item{margin-top:0}.tile{padding:3.5rem 3.5rem 2.75rem}.tile .fine{text-align:center}}
+@media (min-width:900px){.split{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:start}.split .head{position:sticky;top:7rem}}
 
 /* steps */
-.steps{display:grid;gap:1rem;list-style:none;margin:0;padding:0;counter-reset:s;max-width:60rem}
+.steps{display:grid;gap:1rem;list-style:none;margin:0;padding:0;counter-reset:s}
 .steps li{counter-increment:s;background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.4rem 1.2rem}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--cobalt-soft);color:var(--cobalt);font:400 1.05rem var(--serif);margin-bottom:.9rem}
 .steps h3{font-size:1.2rem;margin-bottom:.45rem}
@@ -175,7 +179,7 @@ footer a{color:var(--muted)}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media (max-width:480px){.tile .row{flex-wrap:wrap;row-gap:.1rem}.tile .leader{display:none}.tile .amount{width:100%;font-size:1.15rem;opacity:.9}}
-@media (max-width:420px){.top nav a.lang{display:none}.l-rows li{grid-template-columns:4.8rem 1fr}}
+@media (max-width:420px){.plaque-logo b{font-size:1.35rem}.plaque-logo{padding:.35rem .9rem .4rem}.top nav{gap:.8rem}.l-rows li{grid-template-columns:4.8rem 1fr}}
 </style>
 </head>
 <body>
@@ -183,7 +187,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <a class="plaque-logo" href="/en/" aria-label="Indexable, home"><b>Indexable</b><span>Malasaña</span></a>
     <nav>
-      <a class="lang" href="/" hreflang="es" lang="es">Español</a>
+      <a class="lang" href="/" hreflang="es" lang="es"><span class="full">Español</span><span class="short">ES</span></a>
       <a class="btn primary small" href="#contacto">Get in touch</a>
     </nav>
   </div>
@@ -224,13 +228,14 @@ footer a{color:var(--muted)}
 <section class="block" id="precios" aria-labelledby="precios-t">
   <div class="tile">
     <h2 id="precios-t">What I do and what it costs</h2>
-    <div class="item">
+    <div class="items"><div class="item">
       <div class="row"><span>Setup</span><span class="leader" aria-hidden="true"></span><span class="amount">€250</span></div>
       <p>I review and correct your Google listing: hours, category, photos, menu, attributes and review replies. I build you an online menu in Spanish and English that loads fast on a phone and is easy for Google and assistants like ChatGPT to read. QR codes for your tables and hosting included.</p>
     </div>
     <div class="item">
       <div class="row"><span>Monthly upkeep</span><span class="leader" aria-hidden="true"></span><span class="amount">€50 a month</span></div>
       <p>Menu and price changes, holiday hours, new photos and draft replies to reviews. Up to four changes a month, done within 48 hours. Send them to me on WhatsApp.</p>
+    </div>
     </div>
     <p class="fine">VAT not included. No contract: stop whenever you like.<br><span class="launch">Launch pricing for the first places in the neighbourhood. Ask me.</span></p>
   </div>
@@ -275,7 +280,7 @@ footer a{color:var(--muted)}
   </div>
 </section>
 
-<section class="block" aria-labelledby="no">
+<section class="block split" aria-labelledby="no">
   <div class="head"><h2 id="no">What I don’t do</h2><p>If you’ve ever had a cold call promising to “get you to the top of Google”, read this.</p></div>
   <ul class="nots">
     <li><span><b>I don’t ask for passwords.</b> You give me manager access and can remove it whenever you like.</span></li>
