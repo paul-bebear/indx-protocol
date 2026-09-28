@@ -1,8 +1,16 @@
 {
-  "rewrites": [
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

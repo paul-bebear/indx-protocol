@@ -1,21 +1,327 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
-    rel="stylesheet">
-  <title>Indexable.pro | AI-Ready Systems for Elite Restaurant Groups</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Indexable | Ficha de Google y carta online para bares y restaurantes en Malasaña</title>
+<meta name="description" content="Pongo al día la ficha de Google y la carta online (español e inglés, con QR) de bares, cafés y restaurantes de Malasaña. Precio cerrado, entrega en una semana, sin permanencia.">
+<meta name="theme-color" content="#F4F5F2">
+<link rel="canonical" href="https://indexable.pro/">
+<link rel="alternate" hreflang="es" href="https://indexable.pro/">
+<link rel="alternate" hreflang="en" href="https://indexable.pro/en/">
+<link rel="alternate" hreflang="x-default" href="https://indexable.pro/">
+<meta property="og:title" content="Indexable | Que Google diga lo mismo que tu pizarra">
+<meta property="og:description" content="Ficha de Google y carta online para bares, cafés y restaurantes de Malasaña.">
+<meta property="og:url" content="https://indexable.pro/">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='1' y='4' width='30' height='24' rx='4' fill='white' stroke='%231E3F8F' stroke-width='2.5'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='15' fill='%231E3F8F' text-anchor='middle'%3EIx%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://indexable.pro/#business","name":"Indexable","url":"https://indexable.pro/",
+"description":"Puesta a punto de la ficha de Google y carta online en español e inglés para bares, cafés y restaurantes de Malasaña, Madrid.",
+"email":"pbebear@icloud.com","telephone":"+13476092094","areaServed":{"@type":"Place","name":"Malasaña, Madrid"},"availableLanguage":["es","en","fr"],
+"founder":{"@type":"Person","name":"Paul Bébéar","knowsLanguage":["es","en","fr"]},
+"makesOffer":[
+{"@type":"Offer","name":"Puesta a punto","description":"Revisión de la ficha de Google, carta web en español e inglés, código QR y alojamiento. Entrega en una semana.","priceSpecification":{"@type":"PriceSpecification","price":250,"priceCurrency":"EUR","valueAddedTaxIncluded":false}},
+{"@type":"Offer","name":"Mantenimiento mensual","description":"Hasta cuatro cambios al mes, hechos en 48 horas. Sin permanencia.","priceSpecification":{"@type":"UnitPriceSpecification","price":50,"priceCurrency":"EUR","unitText":"mes","valueAddedTaxIncluded":false}}]}
+</script>
+<style>
+:root{
+  --paper:#F4F5F2; --white:#FFFFFF; --ink:#1F2229; --muted:#5B6170; --line:#DCDFE4;
+  --cobalt:#1E3F8F; --cobalt-deep:#15306F; --cobalt-soft:#E7ECF7; --ochre:#A5701A; --ochre-soft:#F7EEDC; --green:#2F6B4F;
+  --serif:"Young Serif",Georgia,"Times New Roman",serif;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--sans)}
+a{color:var(--cobalt)}
+:focus-visible{outline:3px solid var(--ochre);outline-offset:3px;border-radius:6px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1;margin:0;letter-spacing:-.01em}
+p{margin:0 0 1rem}
+
+/* header: the logo is a Madrid street plaque */
+.top{position:sticky;top:0;z-index:10;background:rgba(244,245,242,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid transparent}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:4.25rem}
+.plaque-logo{display:inline-flex;flex-direction:column;align-items:center;text-decoration:none;background:var(--white);color:var(--cobalt);
+  border:2.5px solid var(--cobalt);border-radius:7px;padding:.2rem .75rem .25rem;box-shadow:inset 0 0 0 2px var(--white),inset 0 0 0 3.5px var(--cobalt)}
+.plaque-logo b{font:400 1.15rem/1 var(--serif)}
+.plaque-logo span{font-size:.6rem;letter-spacing:.04em;margin-top:.15rem;color:var(--muted)}
+.top nav{display:flex;align-items:center;gap:1.1rem}
+.top nav a.lang{color:var(--muted);font-size:.92rem;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.25rem;border-radius:12px;font-weight:600;text-decoration:none;border:2px solid var(--cobalt);line-height:1.2;transition:background .15s}
+.btn svg{width:1.15rem;height:1.15rem;flex:none}
+.btn.primary{background:var(--cobalt);color:var(--white)}
+.btn.primary:hover{background:var(--cobalt-deep);border-color:var(--cobalt-deep)}
+.btn.ghost{color:var(--cobalt);background:transparent}
+.btn.ghost:hover{background:var(--cobalt-soft)}
+.btn.small{padding:.5rem .85rem;font-size:.9rem;border-radius:10px}
+
+/* hero */
+.hero{display:grid;gap:2.75rem;padding:2.5rem 0 1rem}
+.hero h1{font-size:clamp(2.35rem,8.5vw,4.1rem);max-width:13ch}
+.hero .lead{font-size:1.15rem;color:#3A3F4B;margin-top:1.25rem;max-width:36rem}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.meta{margin-top:1.4rem;color:var(--muted);font-size:.92rem;display:flex;flex-wrap:wrap;gap:.35rem 1.25rem}
+.meta span{display:inline-flex;align-items:center;gap:.4rem}
+.meta span::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--green)}
+@media (min-width:940px){.hero{grid-template-columns:1.05fr .95fr;align-items:center;padding:4.5rem 0 2rem;gap:4rem}}
+
+/* the before/after listing: the one moving part */
+.listing{background:var(--white);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 60px -35px rgba(30,63,143,.45);overflow:hidden;max-width:30rem;width:100%;justify-self:center}
+.switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:5px;margin:1rem 1rem 0;background:var(--paper);border-radius:12px}
+.switch button{font:600 .95rem var(--sans);border:0;border-radius:9px;padding:.55rem;background:transparent;color:var(--muted);cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.l-head{padding:1.1rem 1.25rem .9rem;border-bottom:1px solid var(--line)}
+.l-head h3{font-size:1.45rem}
+.l-sub{display:flex;flex-wrap:wrap;gap:.3rem .8rem;margin-top:.35rem;font-size:.9rem;color:var(--muted)}
+.stars{color:#C98A12;letter-spacing:.05em}
+.l-rows{list-style:none;margin:0;padding:.35rem 1.25rem 1rem}
+.l-rows li{display:grid;grid-template-columns:5.6rem 1fr;gap:.75rem;padding:.7rem 0;border-bottom:1px solid #EEF0F3;font-size:.95rem;align-items:start}
+.l-rows li:last-child{border-bottom:0}
+.l-rows .k{color:var(--muted)}
+.v{position:relative;display:grid}
+.v>span{grid-area:1/1;transition:opacity .35s ease,transform .35s ease}
+.v .b{color:var(--ochre)}
+.v .a{color:var(--ink)}
+.v .a::before{content:"";display:inline-block;width:.9rem;height:.9rem;margin-right:.45rem;vertical-align:-.1rem;border-radius:50%;
+  background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/100% no-repeat}
+.v small{display:block;font-size:.8rem;color:var(--muted)}
+.listing[data-state="before"] .v .a,.listing[data-state="after"] .v .b{opacity:0;transform:translateY(4px);pointer-events:none}
+.listing[data-state="before"] .l-status::after{content:"Cerrado ahora";color:#B3261E}
+.listing[data-state="after"] .l-status::after{content:"Abierto ahora";color:var(--green)}
+.listing:not([data-state]) .v .b{display:none}
+.listing:not([data-state]) .switch{display:none}
+.l-foot{padding:.8rem 1.25rem;background:var(--paper);font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+
+/* sections */
+section.block{padding:4.5rem 0 0}
+.block>h2,.head h2{font-size:clamp(1.85rem,5vw,2.6rem)}
+.head{max-width:40rem;margin-bottom:2rem}
+.head p{color:var(--muted);margin-top:.9rem;font-size:1.05rem}
+
+/* pricing: set like a carta, framed like a street tile */
+.tile{background:var(--cobalt);color:var(--white);border-radius:24px;padding:2.5rem 1.5rem 2rem;max-width:46rem;
+  box-shadow:inset 0 0 0 8px var(--cobalt),inset 0 0 0 10px rgba(255,255,255,.85),0 30px 60px -35px rgba(21,48,111,.7)}
+.tile h2{text-align:center;color:var(--white);font-size:clamp(1.7rem,4.5vw,2.3rem);margin-bottom:2rem}
+.item+.item{margin-top:2rem}
+.row{display:flex;align-items:baseline;gap:.6rem;font-family:var(--serif);font-size:clamp(1.3rem,4vw,1.6rem)}
+.leader{flex:1;min-width:1.5rem;border-bottom:2px dotted rgba(255,255,255,.5);transform:translateY(-.35rem)}
+.amount{white-space:nowrap}
+.item p{margin:.6rem 0 0;color:rgba(255,255,255,.88);font-size:1rem;max-width:36rem}
+.tile .fine{margin:2.25rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.3);font-size:.95rem;color:rgba(255,255,255,.82)}
+.launch{display:inline-block;margin-top:.8rem;background:var(--white);color:var(--cobalt);padding:.5rem .85rem;border-radius:10px;font-weight:600;font-size:.95rem}
+@media (min-width:640px){.tile{padding:3rem 3rem 2.5rem}}
+
+/* steps */
+.steps{display:grid;gap:1rem;list-style:none;margin:0;padding:0;counter-reset:s;max-width:60rem}
+.steps li{counter-increment:s;background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.4rem 1.2rem}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--cobalt-soft);color:var(--cobalt);font:400 1.05rem var(--serif);margin-bottom:.9rem}
+.steps h3{font-size:1.2rem;margin-bottom:.45rem}
+.steps p{margin:0;color:var(--muted);font-size:.98rem}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+
+/* sample menu */
+.sample{display:grid;gap:2.5rem;align-items:center}
+@media (min-width:860px){.sample{grid-template-columns:1fr auto;gap:4rem}}
+.phone{width:290px;height:590px;border:11px solid #1C1F26;border-radius:46px;background:#FBFBF9;overflow:hidden;justify-self:center;box-shadow:0 40px 70px -35px rgba(30,63,143,.5)}
+.m-head{background:#233F35;color:#fff;padding:2.4rem 1.1rem 1.1rem}
+.m-head b{display:block;font:400 1.35rem/1.1 var(--serif)}
+.m-head span{font-size:.72rem;opacity:.85}
+.m-lang{float:right;font-size:.66rem;border:1px solid rgba(255,255,255,.5);border-radius:99px;padding:.1rem .45rem;margin-top:.15rem}
+.m-nav{display:flex;gap:.9rem;padding:.6rem 1.1rem;border-bottom:1px solid #E3E5E0;font-size:.72rem;font-weight:600;color:#233F35;white-space:nowrap;overflow:hidden;background:#fff}
+.m-nav span:first-child{border-bottom:2px solid #233F35;padding-bottom:.2rem}
+.m-sec{padding:.1rem 1.1rem}
+.m-sec h4{margin:.95rem 0 .15rem;font:400 .95rem var(--serif);color:#233F35}
+.m-dish{padding:.5rem 0;border-bottom:1px solid #ECEEE9;font-size:.78rem}
+.m-dish .r{display:flex;gap:.4rem;align-items:baseline;font-weight:600}
+.m-dish .r i{flex:1;border-bottom:1.5px dotted #B9BEB6}
+.m-dish small{display:block;color:#6A716A;font-size:.68rem;margin-top:.1rem}
+.m-dish em{font-style:normal;font-size:.6rem;color:#233F35;border:1px solid #233F35;border-radius:99px;padding:0 .35rem;margin-left:.3rem}
+.checks{list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:.7rem}
+.checks li{display:flex;gap:.7rem;align-items:flex-start}
+.checks li::before{content:"";flex:none;width:1.25rem;height:1.25rem;margin-top:.2rem;border-radius:50%;
+  background:var(--cobalt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/100% no-repeat}
+
+/* not-doing */
+.nots{list-style:none;margin:0;padding:0;display:grid;gap:.75rem;max-width:46rem}
+.nots li{display:flex;gap:.9rem;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem}
+.nots li::before{content:"";flex:none;width:1.25rem;height:1.25rem;margin-top:.2rem;border-radius:50%;background:#FBE9E7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 5l6 6M11 5l-6 6' stroke='%23B3261E' stroke-width='1.8'/%3E%3C/svg%3E") center/100% no-repeat}
+.nots b{font-weight:600}
+
+/* who */
+.who{display:grid;gap:1.75rem;align-items:start;max-width:52rem}
+@media (min-width:700px){.who{grid-template-columns:auto 1fr;gap:2.5rem}}
+.photo{width:8.5rem;height:8.5rem;border-radius:50%;background:var(--cobalt-soft);display:grid;place-items:center;overflow:hidden;
+  box-shadow:0 0 0 5px var(--white),0 0 0 7px var(--cobalt)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo span{font:400 3rem var(--serif);color:var(--cobalt)}
+.who h2{font-size:clamp(1.85rem,5vw,2.6rem);margin-bottom:1rem}
+.who p{color:#3A3F4B;max-width:40rem}
+.langs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.langs span{font-size:.85rem;background:var(--white);border:1px solid var(--line);border-radius:99px;padding:.25rem .75rem}
+
+/* closing */
+.close{margin:5rem 0 0;background:var(--white);border:1px solid var(--line);border-radius:28px;padding:2.75rem 1.5rem;text-align:center}
+.close h2{font-size:clamp(2rem,6vw,3rem);max-width:18ch;margin:0 auto}
+.close p{color:var(--muted);max-width:32rem;margin:1rem auto 0}
+.close .actions{justify-content:center}
+footer{padding:2.5rem 0 3rem;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer a{color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:480px){.tile .row{flex-wrap:wrap;row-gap:.1rem}.tile .leader{display:none}.tile .amount{width:100%;font-size:1.15rem;opacity:.9}}
+@media (max-width:420px){.top nav a.lang{display:none}.l-rows li{grid-template-columns:4.8rem 1fr}}
+</style>
 </head>
-
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+<header class="top">
+  <div class="wrap">
+    <a class="plaque-logo" href="/" aria-label="Indexable, inicio"><b>Indexable</b><span>Malasaña</span></a>
+    <nav>
+      <a class="lang" href="/en/" hreflang="en" lang="en">English</a>
+      <a class="btn primary small" href="#contacto">Hablamos</a>
+    </nav>
+  </div>
+</header>
 
+<main class="wrap">
+<div class="hero">
+  <div>
+    <h1>Que Google diga lo mismo que tu pizarra.</h1>
+    <p class="lead">Pongo al día la ficha de Google y la carta online de bares, cafés y restaurantes de Malasaña. Para que lo que el cliente ve en el móvil sea lo que hay en tu barra.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://wa.me/13476092094?text=Hola%20Paul%2C%20tengo%20un%20local%20en%20Malasa%C3%B1a%20y%20me%20interesa%20lo%20de%20la%20ficha%20de%20Google."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Escríbeme por WhatsApp</a>
+      <a class="btn ghost" href="#precios">Ver precios</a>
+    </div>
+    <p class="meta"><span>Precio cerrado</span><span>Listo en una semana</span><span>Sin permanencia</span></p>
+  </div>
+
+  <figure class="listing" id="listing" style="margin:0" aria-label="Ejemplo de una ficha de Google antes y después">
+    <div class="switch" role="group" aria-label="Ver la ficha">
+      <button type="button" data-set="before" aria-pressed="false">Antes</button>
+      <button type="button" data-set="after" aria-pressed="true">Después</button>
+    </div>
+    <div class="l-head">
+      <h3>Bar La Muestra</h3>
+      <div class="l-sub"><span><span class="stars" aria-hidden="true">★★★★★</span> 4,6 (212)</span><span>Bar de tapas</span><span class="l-status"></span></div>
+    </div>
+    <ul class="l-rows">
+      <li><span class="k">Horario</span><span class="v"><span class="b">Martes: cerrado<small>Abres los martes desde marzo</small></span><span class="a">Martes a domingo, 13:00 a 00:00</span></span></li>
+      <li><span class="k">Carta</span><span class="v"><span class="b">Croquetas 8,00 €<small>En tu pizarra: 9,50 €</small></span><span class="a">Carta completa, en español e inglés</span></span></li>
+      <li><span class="k">Fotos</span><span class="v"><span class="b">3 fotos<small>La última, de 2019</small></span><span class="a">Fotos de la barra y los platos de ahora</span></span></li>
+      <li><span class="k">Reseñas</span><span class="v"><span class="b">14 sin responder</span><span class="a">Todas respondidas, con tu tono</span></span></li>
+      <li><span class="k">Web</span><span class="v"><span class="b">Enlace roto</span><span class="a">Enlazada a tu carta, con QR en las mesas</span></span></li>
+    </ul>
+    <figcaption class="l-foot">Ejemplo con un bar inventado. Así suelen estar las fichas del barrio.</figcaption>
+  </figure>
+</div>
+
+<section class="block" id="precios" aria-labelledby="precios-t">
+  <div class="tile">
+    <h2 id="precios-t">Lo que hago y lo que cuesta</h2>
+    <div class="item">
+      <div class="row"><span>Puesta a punto</span><span class="leader" aria-hidden="true"></span><span class="amount">250 €</span></div>
+      <p>Reviso y corrijo tu ficha de Google: horario, categoría, fotos, carta, características y respuestas a reseñas. Te hago una carta web en español e inglés, rápida en el móvil y fácil de leer para Google y para asistentes como ChatGPT. Código QR para las mesas y alojamiento incluidos.</p>
+    </div>
+    <div class="item">
+      <div class="row"><span>Mantenimiento</span><span class="leader" aria-hidden="true"></span><span class="amount">50 € al mes</span></div>
+      <p>Cambios de carta y precios, horarios de festivos, fotos nuevas y borradores de respuesta a reseñas. Hasta cuatro cambios al mes, hechos en 48 horas. Me los mandas por WhatsApp.</p>
+    </div>
+    <p class="fine">IVA no incluido. Sin permanencia: lo dejas cuando quieras.<br><span class="launch">Precio de lanzamiento para los primeros locales del barrio. Pregúntame.</span></p>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="como">
+  <div class="head"><h2 id="como">Cómo funciona</h2><p>Tú no tienes que aprender nada ni instalar nada.</p></div>
+  <ol class="steps">
+    <li><h3>Me das acceso</h3><p>Me añades como gestor de tu ficha de Google. Tú sigues siendo el propietario y nunca necesito tu contraseña.</p></li>
+    <li><h3>Me pasas la carta</h3><p>Una foto de la carta que tienes vale. Los alérgenos los confirmas tú antes de publicar nada.</p></li>
+    <li><h3>En una semana, listo</h3><p>Todo publicado y el QR en tus mesas. A partir de ahí, los cambios me los mandas por WhatsApp.</p></li>
+  </ol>
+</section>
+
+<section class="block" aria-labelledby="carta">
+  <div class="sample">
+    <div>
+      <div class="head" style="margin-bottom:0"><h2 id="carta">Una carta que se lee bien en el móvil</h2>
+      <p>Lo que ve tu cliente al escanear el QR de la mesa. Nada de PDFs que hay que ampliar con los dedos.</p></div>
+      <ul class="checks">
+        <li>En español e inglés, para los turistas del barrio</li>
+        <li>Alérgenos claros en cada plato</li>
+        <li>Carga al instante, incluso con mala cobertura</li>
+        <li>Si cambias un precio, lo cambio yo en 48 horas</li>
+      </ul>
+      <div class="actions"><a class="btn ghost" href="/ejemplo/">Abrir la carta de ejemplo</a></div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="m-head"><span class="m-lang">ES | EN</span><b>Bar La Muestra</b><span>Abierto hoy de 13:00 a 00:00</span></div>
+      <div class="m-nav"><span>Para picar</span><span>Raciones</span><span>Postres</span><span>Bebidas</span></div>
+      <div class="m-sec"><h4>Para picar</h4>
+        <div class="m-dish"><div class="r">Patatas bravas<i></i>6,50 €</div><small>Salsa brava y alioli. Contiene: huevo</small></div>
+        <div class="m-dish"><div class="r">Croquetas caseras<i></i>9,50 €</div><small>De jamón ibérico, 6 uds. Contiene: gluten, leche, huevo</small></div>
+        <div class="m-dish"><div class="r">Pimientos de Padrón <em>vegano</em><i></i>7,00 €</div><small>Con sal en escamas</small></div>
+        <div class="m-dish"><div class="r">Gilda<i></i>2,50 €</div><small>Aceituna, anchoa y guindilla. Contiene: pescado</small></div>
+      </div>
+      <div class="m-sec"><h4>Raciones</h4>
+        <div class="m-dish"><div class="r">Tortilla de patata<i></i>12,00 €</div><small>Entera, poco hecha. Contiene: huevo</small></div>
+        <div class="m-dish"><div class="r">Calamares a la andaluza<i></i>13,00 €</div><small>Con limón. Contiene: gluten, moluscos</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="no">
+  <div class="head"><h2 id="no">Lo que no hago</h2><p>Si te han llamado alguna vez para "posicionarte en Google", esto te interesa.</p></div>
+  <ul class="nots">
+    <li><span><b>No te pido contraseñas.</b> Me das acceso de gestor y lo puedes quitar cuando quieras.</span></li>
+    <li><span><b>No prometo el primer puesto en Google.</b> Nadie puede prometerlo, y quien lo hace te está vendiendo humo.</span></li>
+    <li><span><b>No toco tu TPV ni tu sistema de reservas.</b> Lo que funciona, se queda como está.</span></li>
+    <li><span><b>No compro reseñas ni escribo reseñas falsas.</b> Google las detecta y la ficha la pagas tú.</span></li>
+    <li><span><b>No cambio el nombre ni la dirección de tu ficha sin hablarlo.</b> Google puede pedir verificarla otra vez o suspenderla.</span></li>
+  </ul>
+</section>
+
+<section class="block" aria-labelledby="quien">
+  <div class="who">
+    <div class="photo"><span aria-hidden="true">P</span><!-- replace with: <img src="/paul.jpg" alt="Paul Bébéar"> --></div>
+    <div>
+      <h2 id="quien">Soy Paul, vecino de Malasaña.</h2>
+      <p>He trabajado en hostelería en Nueva York, Miami, París y Bélgica: en barra, en cocina y recibiendo en sala. Sé lo que es subir un precio un viernes por la noche y que la web siga enseñando el antiguo durante meses.</p>
+      <p>Por eso hago esto, y por eso lo hago en mi barrio: si algo falla, estoy a cinco minutos andando.</p>
+      <div class="langs"><span>Español</span><span>English</span><span>Français</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="contacto" aria-labelledby="contacto-t">
+  <h2 id="contacto-t">¿Echamos un vistazo a tu ficha?</h2>
+  <p>Escríbeme y me paso por tu local cuando te venga bien, mejor fuera del servicio. Te enseño cómo está tu ficha en diez minutos, sin compromiso.</p>
+  <div class="actions">
+    <a class="btn primary" href="https://wa.me/13476092094?text=Hola%20Paul%2C%20tengo%20un%20local%20en%20Malasa%C3%B1a%20y%20me%20interesa%20lo%20de%20la%20ficha%20de%20Google."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Escríbeme por WhatsApp</a>
+    <a class="btn ghost" href="mailto:pbebear@icloud.com">pbebear@icloud.com</a>
+  </div>
+</section>
+</main>
+
+<footer class="wrap"><span>Indexable. Malasaña, Madrid.</span><a href="/en/" hreflang="en">English</a></footer>
+
+<script>
+(function(){
+  var l=document.getElementById('listing'); if(!l) return;
+  var btns=l.querySelectorAll('.switch button');
+  function set(s){l.setAttribute('data-state',s);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===s)})}
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;set(b.dataset.set)})});
+  var auto=true, reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){set('after');return}
+  set('before');
+  var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();setTimeout(function(){if(auto)set('after')},1600)}},{threshold:.6});
+  io.observe(l);
+})();
+</script>
+</body>
 </html>

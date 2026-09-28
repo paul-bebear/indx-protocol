@@ -1,0 +1,35 @@
+{
+  "slug": "ejemplo",
+  "name": "Bar La Muestra",
+  "tagline_es": "Bar de barrio en Malasaña",
+  "tagline_en": "Neighbourhood bar in Malasaña",
+  "hours_es": "Martes a domingo, de 13:00 a 00:00",
+  "hours_en": "Tuesday to Sunday, 1 pm to midnight",
+  "updated": "2026-09-28",
+  "demo": true,
+  "color": "#24473A",
+  "sections": [
+    {"es": "Para picar", "en": "To share", "items": [
+      {"es": "Patatas bravas", "en": "Fried potatoes, spicy brava sauce and aioli", "price": 6.50, "allergens": ["huevo"]},
+      {"es": "Croquetas caseras de jamón (6 uds.)", "en": "Homemade Iberian ham croquetas (6 pcs)", "price": 9.50, "allergens": ["gluten", "leche", "huevo"]},
+      {"es": "Pimientos de Padrón", "en": "Blistered Padrón peppers, sea salt", "price": 7.00, "allergens": [], "vegan": true},
+      {"es": "Gilda", "en": "Olive, anchovy and pickled pepper skewer", "price": 2.50, "allergens": ["pescado", "sulfitos"]}
+    ]},
+    {"es": "Raciones", "en": "Plates", "items": [
+      {"es": "Tortilla de patata (entera)", "en": "Spanish omelette, runny centre (whole)", "price": 12.00, "allergens": ["huevo"]},
+      {"es": "Calamares a la andaluza", "en": "Fried squid with lemon", "price": 13.00, "allergens": ["gluten", "moluscos"]},
+      {"es": "Oreja a la plancha", "en": "Griddled pig's ear with brava sauce", "price": 9.00, "allergens": []},
+      {"es": "Ensalada de tomate de temporada", "en": "Seasonal tomatoes, olive oil and spring onion", "price": 8.50, "allergens": [], "vegan": true}
+    ]},
+    {"es": "Postres", "en": "Desserts", "items": [
+      {"es": "Torrija casera", "en": "Homemade Spanish-style French toast", "price": 5.50, "allergens": ["gluten", "leche", "huevo"]},
+      {"es": "Flan de huevo", "en": "Egg custard with caramel", "price": 4.50, "allergens": ["leche", "huevo"]}
+    ]},
+    {"es": "Bebidas", "en": "Drinks", "items": [
+      {"es": "Caña", "en": "Small draught beer", "price": 2.20, "allergens": ["gluten"]},
+      {"es": "Vermut de grifo", "en": "Vermouth on tap", "price": 3.50, "allergens": ["sulfitos"]},
+      {"es": "Copa de vino tinto o blanco", "en": "Glass of red or white wine", "price": 3.50, "allergens": ["sulfitos"]},
+      {"es": "Café con leche", "en": "Coffee with milk", "price": 1.80, "allergens": ["leche"]}
+    ]}
+  ]
+}
