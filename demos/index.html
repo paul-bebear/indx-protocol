@@ -15,7 +15,7 @@
 var DEMOS = [
   { handle: "necr0lin333sss", name: "necr0lin333sss", instagram: "necr0lin333sss_" },
   { handle: "bricetattooer",  name: "bricetattooer",  instagram: "bricetattooer" },
-  { handle: "naotis",         name: "nao.tis",        instagram: "nao.tis" },
+  { handle: "naotis",         name: "nao.tis",        instagram: "nao.tis", care: "aftercare.html" },
   { handle: "hachasketch",    name: "hachasketch",    instagram: "hachasketch" }
 ];
 </script>
@@ -58,7 +58,7 @@ h1{font:400 clamp(2rem,8vw,3rem)/1.1 var(--serif);margin:0 0 .5rem}
     li.querySelector('p').textContent='@'+d.instagram;
     var a=li.querySelectorAll('a');
     a[0].href='/demos/'+d.handle+'/'; a[0].textContent='Abrir demo';
-    a[1].href='/demos/'+d.handle+'/cuidados.html'; a[1].textContent='Cuidados';
+    a[1].href='/demos/'+d.handle+'/'+(d.care||'cuidados.html'); a[1].textContent='Cuidados';
     ul.appendChild(li);
   });
 })();
