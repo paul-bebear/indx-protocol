@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="style-bold">
+<html lang="es" class="style-bold layout-gallery">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -130,10 +130,10 @@ p{margin:0 0 1em;max-width:60ch}
 @media (prefers-reduced-motion:no-preference){
   .hero-media{animation:unveil 1.5s cubic-bezier(.7,0,.2,1) both}
   .hero-media img{animation:slide 18s linear infinite both;animation-delay:calc(var(--i) * 6s)}
-  .wordmark span{animation:rise 1.1s var(--ease) both}
-  .wordmark span:nth-child(1){animation-delay:.35s}.wordmark span:nth-child(2){animation-delay:.5s}
-  .tag{animation:fade 1s .8s var(--ease) both}
-  .paths{animation:fade 1s .95s var(--ease) both}
+  .hero .wordmark span{animation:rise 1.1s var(--ease) both}
+  .hero .wordmark span:nth-child(1){animation-delay:.35s}.hero .wordmark span:nth-child(2){animation-delay:.5s}
+  .hero .tag{animation:fade 1s .8s var(--ease) both}
+  .hero .paths{animation:fade 1s .95s var(--ease) both}
   .star{animation:fade 1s 1.2s both,spin 30s linear infinite}
   @keyframes unveil{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
   @keyframes slide{0%{opacity:0;transform:scale(1.14)}6%{opacity:1}33%{opacity:1}41%{opacity:0;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
@@ -305,6 +305,93 @@ footer .wrap a:hover{color:var(--acid-text)}
 .style-fine .flash .btn:hover{background:transparent;color:var(--acid-text)}
 .style-fine .marquee div{animation-duration:70s}
 .style-fine .tbd{border-bottom-width:1px}
+
+/* ===== Layout: gallery (theme.layout = "gallery") =====
+   Work-first, museum feel for large-format artists: the page opens on a sideways wall of pieces with
+   museum labels, then the name and pitch. Builds on style.part.css; only overrides what changes. */
+
+/* nav: quiet museum signage */
+.layout-gallery .nav .mark{font:600 .95rem/1 var(--body);letter-spacing:.22em;text-transform:uppercase}
+@media (min-width:768px){.layout-gallery .nav .mark{font-size:1rem}}
+
+/* ---------- the wall (it is the gallery: filters + lightbox still work on it) ---------- */
+.wall{padding:var(--space-xl) 0 var(--space-2xl)}
+.wall .head{margin-bottom:var(--space-lg);align-items:center}
+@media (max-width:767px){ /* one swipeable row of filters so the first piece stays high on the screen */
+  .wall .filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);width:calc(100% + 2 * var(--gutter))}
+  .wall .filters::-webkit-scrollbar{display:none}
+  .wall .filters button{flex:none}
+}
+.wall h2{font-size:clamp(1rem,1.4vw,1.15rem);font-family:var(--body);font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ash)}
+.wall .grid{display:flex;gap:clamp(.75rem,2vw,2rem);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+  padding:0 var(--gutter) var(--space-sm);scroll-padding-inline:var(--gutter);scrollbar-width:none;position:relative;
+  /* full-bleed: the wall runs edge to edge even though it sits inside .wrap */
+  margin-inline:calc(50% - 50vw);width:100vw}
+.wall .grid::-webkit-scrollbar{display:none}
+.wall .grid button{flex:0 0 auto;width:min(82vw,520px);aspect-ratio:auto;overflow:visible;background:none;scroll-snap-align:start;display:flex;flex-direction:column;gap:var(--space-sm)}
+.wall .grid button.wide{grid-column:auto;aspect-ratio:auto;width:min(92vw,760px)}
+.wall .grid img{position:static;inset:auto;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:var(--panel);margin-bottom:var(--space-sm)}
+.wall .grid button.wide img{aspect-ratio:5/4}
+.wall .grid button:hover img{transform:none}
+.wall .grid button:hover{opacity:.92}
+@media (min-width:1024px){.wall .grid button{width:clamp(360px,31vw,560px)}}
+/* museum label under each piece */
+.wall .grid .cap{position:static;order:2;background:none;color:var(--acid-text);padding:0;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;border:0}
+.wall .grid button:hover .cap,.wall .grid button:focus-visible .cap{background:none;color:var(--acid-text)}
+.wall .grid .no{order:1;font:600 .78rem/1 var(--body);letter-spacing:.18em;color:var(--ash);border-top:1px solid var(--line);padding-top:var(--space-md);display:block}
+.wall .grid .cap-long{order:3;color:var(--bone);font-size:.98rem;line-height:1.45;max-width:42ch;white-space:normal}
+@media (prefers-reduced-motion:no-preference){
+  .js .wall .grid .rv{transform:translateX(48px)}
+  .js .wall .grid .rv.in{transform:none}
+}
+.wall-ctrl{display:flex;align-items:center;gap:var(--space-md);margin-top:var(--space-xl)}
+.wall-ctrl button{width:var(--tap);height:var(--tap);flex:none;display:grid;place-items:center;font:400 1.6rem/1 var(--body);color:var(--bone);background:transparent;border:1px solid var(--line);border-radius:999px;transition:background-color var(--t),color var(--t),border-color var(--t),opacity var(--t)}
+.wall-ctrl button:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.wall-ctrl button[aria-disabled="true"]{opacity:.35;cursor:default}
+.wall-ctrl button[aria-disabled="true"]:hover{background:transparent;color:var(--bone);border-color:var(--line)}
+.dots{display:flex;gap:6px;flex:1;justify-content:center}
+.dots i{display:block;height:2px;flex:0 1 28px;background:var(--line);transition:background-color var(--t)}
+.dots i.on{background:var(--acid-text)}
+.wall .more{margin-top:var(--space-lg)}
+
+/* ---------- statement: name + pitch, after the work ---------- */
+.statement{border-top:1px solid var(--line)}
+.statement .wrap{display:grid;gap:var(--space-xl)}
+.statement .wordmark{font-size:clamp(3.2rem,13vw,9.5rem);line-height:.88;letter-spacing:.01em}
+.statement .tag{margin-top:0;padding-top:var(--space-lg);border-top:2px solid var(--acid-text)}
+@media (min-width:1024px){.statement .wrap{grid-template-columns:1.25fr 1fr;align-items:end;gap:var(--space-3xl)}}
+
+/* ---------- flash: a framed card instead of a colour band ---------- */
+.layout-gallery .flash{background:transparent;color:var(--bone);padding:0 0 var(--section)}
+.layout-gallery .flash .wrap{border:1px solid var(--acid-text);padding:clamp(1.75rem,5vw,3.5rem)}
+.layout-gallery .flash h2{color:var(--acid-text)}
+.layout-gallery .flash .btn{background:var(--acid);color:var(--on-acid);border-color:var(--acid)}
+.layout-gallery .flash .btn:hover{background:transparent;color:var(--acid-text)}
+
+/* ---------- about: text first, piece second ---------- */
+.layout-gallery .about{border-top:1px solid var(--line)}
+@media (min-width:768px){
+  .layout-gallery .about .wrap{grid-template-columns:6fr 5fr}
+  .layout-gallery .about .about-img{order:2}
+}
+
+/* ---------- booking: one centred column, steps in a row ---------- */
+.layout-gallery .book .wrap{grid-template-columns:1fr;max-width:860px}
+.layout-gallery .book .wrap>div:first-child{position:static}
+@media (min-width:768px){
+  .layout-gallery .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);border-top:1px solid var(--line)}
+  .layout-gallery .steps li{grid-template-columns:1fr;border:0;padding:var(--space-lg) 0 0}
+  .layout-gallery .steps li:last-child{border:0}
+  .layout-gallery .steps li::before{grid-row:auto;margin-bottom:var(--space-sm)}
+}
+
+/* ---------- footer: outlined wordmark ---------- */
+.layout-gallery .giant span{color:transparent;-webkit-text-stroke:1px var(--acid-text)}
+.layout-gallery .giant:hover span{color:var(--acid-text)}
+
+/* ---------- aftercare page ---------- */
+.layout-gallery .page-h1{letter-spacing:.01em}
+.layout-gallery .timeline div{border-top:2px solid var(--acid-text)}
 </style>
 </head>
 <body>
@@ -392,6 +479,26 @@ footer .wrap a:hover{color:var(--acid-text)}
   const fitMark=()=>{if(!mk)return;mk.style.fontSize='';let s=parseFloat(getComputedStyle(mk).fontSize);while(mk.scrollWidth>mk.clientWidth+1&&s>13){s-=.5;mk.style.fontSize=s+'px';}};
   const fitAll=()=>{fit();fitMark();};
   fitAll();addEventListener('resize',fitAll);document.fonts&&document.fonts.ready.then(fitAll);
+  // gallery layout: the wall (sideways gallery) gets numbering, position bar and prev/next
+  const wall=document.querySelector('.wall .grid');
+  if(wall){
+    const dots=document.querySelector('.wall .dots'),prev=document.querySelector('.wall-prev'),next=document.querySelector('.wall-next');
+    const shown=()=>[...wall.children].filter(b=>!b.hidden);
+    const idx=()=>{const v=shown(),x=wall.scrollLeft;let best=0,d=Infinity;v.forEach((b,i)=>{const e=Math.abs(b.offsetLeft-parseFloat(getComputedStyle(wall).scrollPaddingLeft||0)-x);if(e<d){d=e;best=i;}});return best;};
+    const sync=()=>{const v=shown(),i=idx(),end=wall.scrollLeft+wall.clientWidth>=wall.scrollWidth-2;
+      [...dots.children].forEach((d,k)=>d.classList.toggle('on',end?k===v.length-1:k===i));
+      prev.setAttribute('aria-disabled',i===0&&wall.scrollLeft<2);next.setAttribute('aria-disabled',end);};
+    const render=()=>{const v=shown(),n=String(v.length).padStart(2,'0');
+      v.forEach((b,i)=>{const no=b.querySelector('.no');if(no)no.textContent=String(i+1).padStart(2,'0')+' / '+n;});
+      dots.innerHTML=v.map(()=>'<i></i>').join('');wall.scrollLeft=0;sync();};
+    const go=s=>{const v=shown(),t=v[Math.max(0,Math.min(v.length-1,idx()+s))];
+      wall.scrollTo({left:t.offsetLeft-parseFloat(getComputedStyle(wall).scrollPaddingLeft||0),behavior:still?'auto':'smooth'});};
+    prev.addEventListener('click',()=>go(-1));next.addEventListener('click',()=>go(1));
+    wall.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1);}if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}});
+    let raf=0;wall.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(sync);},{passive:true});
+    document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>setTimeout(render)));
+    addEventListener('resize',sync);render();
+  }
 })();
 </script>
 <script>
