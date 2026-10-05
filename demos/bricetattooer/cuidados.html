@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" class="style-fine">
+<html lang="fr" class="style-fine layout-catalogue">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,25 +7,25 @@
 <meta name="description" content="Comment soigner un tatouage neuf jour après jour, les produits utiles et ceux dont vous pouvez vous passer. Le guide de bricetattooer, tatoueur à Paris.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
 <style>
 /* Shared by index and cuidados. Direction: simple, clean, cinematic. See design-system/necr0lin333sss/MASTER.md. Mobile-first. */
 
 /* ===== THEME TOKENS: values come from content.json > theme ===== */
 :root{
-  --ink:#F2F0EB;
+  --ink:#F3EFE6;
   --acid:#6B4F36;        /* brand color */
   --acid-deep:#4A3625;   /* pressed states */
-  --bone:#1B1B1A;        /* body text */
-  --ash:#6E6B64;        /* secondary text */
-  --line:#D9D5CC;        /* hairlines */
-  --panel:#FAF9F6;       /* form card, bands */
-  --field:#CFCAC0;       /* input borders */
-  --display:"Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
-  --body:"Work Sans", "Segoe UI", system-ui, sans-serif;
+  --bone:#1D1A16;        /* body text */
+  --ash:#665F55;        /* secondary text */
+  --line:#D8D0C2;        /* hairlines */
+  --panel:#FBF8F2;       /* form card, bands */
+  --field:#B9B0A0;       /* input borders */
+  --display:"IM Fell English", "EB Garamond", Garamond, Georgia, serif;
+  --body:"EB Garamond", Garamond, Georgia, serif;
   --acid-wash:rgba(107,79,54,.1);
   --acid-text:#6B4F36;  /* accent as text/focus on the page bg (optional, for dark accents) */
-  --on-acid:#F2F0EB;       /* text on accent backgrounds (optional) */
+  --on-acid:#F3EFE6;       /* text on accent backgrounds (optional) */
   /* shared system tokens */
   --space-xs:.25rem;--space-sm:.5rem;--space-md:1rem;--space-lg:1.5rem;--space-xl:2rem;--space-2xl:3rem;--space-3xl:4rem;
   --section:clamp(4.5rem,11vw,9rem);
@@ -130,10 +130,10 @@ p{margin:0 0 1em;max-width:60ch}
 @media (prefers-reduced-motion:no-preference){
   .hero-media{animation:unveil 1.5s cubic-bezier(.7,0,.2,1) both}
   .hero-media img{animation:slide 18s linear infinite both;animation-delay:calc(var(--i) * 6s)}
-  .wordmark span{animation:rise 1.1s var(--ease) both}
-  .wordmark span:nth-child(1){animation-delay:.35s}.wordmark span:nth-child(2){animation-delay:.5s}
-  .tag{animation:fade 1s .8s var(--ease) both}
-  .paths{animation:fade 1s .95s var(--ease) both}
+  .hero .wordmark span{animation:rise 1.1s var(--ease) both}
+  .hero .wordmark span:nth-child(1){animation-delay:.35s}.hero .wordmark span:nth-child(2){animation-delay:.5s}
+  .hero .tag{animation:fade 1s .8s var(--ease) both}
+  .hero .paths{animation:fade 1s .95s var(--ease) both}
   .star{animation:fade 1s 1.2s both,spin 30s linear infinite}
   @keyframes unveil{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
   @keyframes slide{0%{opacity:0;transform:scale(1.14)}6%{opacity:1}33%{opacity:1}41%{opacity:0;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
@@ -305,6 +305,123 @@ footer .wrap a:hover{color:var(--acid-text)}
 .style-fine .flash .btn:hover{background:transparent;color:var(--acid-text)}
 .style-fine .marquee div{animation-duration:70s}
 .style-fine .tbd{border-bottom-width:1px}
+
+/* ===== Layout: catalogue (theme.layout = "catalogue") =====
+   An engraving catalogue for fine-line / micro-realism artists: a book spread for the hero, numbered plates
+   with plate marks, centred headings with a fleuron, a colophon footer. Builds on style.part.css. */
+
+.layout-catalogue{--head-w:400;--gutter:1.25rem}
+@media (min-width:768px){.layout-catalogue{--gutter:2.5rem}}
+.layout-catalogue body{font-size:1.1875rem;line-height:1.6}
+.layout-catalogue .wrap{max-width:1120px}
+.layout-catalogue h1,.layout-catalogue h2,.layout-catalogue h3{font-weight:400;letter-spacing:0;line-height:1.02}
+.layout-catalogue h2{font-size:clamp(2.6rem,7vw,4.6rem);color:var(--bone)}
+.layout-catalogue h3{font-size:clamp(1.6rem,3vw,2rem)}
+
+/* fleuron above centred section heads (decorative) */
+.layout-catalogue .head h2::before,.layout-catalogue .about h2::before,.layout-catalogue .book h2::before,.layout-catalogue .teaser h2::before,.layout-catalogue .cta-band h2::before,.layout-catalogue .flash h2::before{
+  content:"❦" / "";display:block;font-size:1.4rem;color:var(--acid-text);margin-bottom:var(--space-md);line-height:1}
+
+/* small caps for labels and buttons */
+.layout-catalogue .btn{font:500 1.05rem/1.1 var(--body);font-variant:small-caps;letter-spacing:.08em;border-radius:0;padding:.8rem 1.5rem}
+.layout-catalogue .nav nav a,.layout-catalogue .lang{font-variant:small-caps;letter-spacing:.08em;font-size:1.05rem}
+.layout-catalogue .nav .mark{font:italic 400 1.5rem/1 var(--display)}
+.layout-catalogue .nav{background:color-mix(in srgb,var(--ink) 92%,transparent)}
+
+/* plate: the image sits inside a paper margin with a pressed plate-mark rule */
+.layout-catalogue .plate,.layout-catalogue .grid button{background:var(--panel);border:1px solid var(--line);padding:clamp(14px,2.2vw,26px)}
+.layout-catalogue .plate img,.layout-catalogue .grid img{outline:1px solid color-mix(in srgb,var(--bone) 35%,transparent);outline-offset:7px}
+
+/* ---------- frontispiece: a book spread (plate left, title page right) ---------- */
+.frontis{padding:clamp(2rem,6vw,4rem) 0 var(--section)}
+.frontis .wrap{display:grid;gap:var(--space-2xl);align-items:center}
+.frontis-plate{margin:0;max-width:440px;width:100%;justify-self:center;order:2}
+.frontis-plate img{width:100%;height:auto}
+.title-page{text-align:center;order:1}
+.title-page::before{content:"❦" / "";display:block;font:1.6rem/1 var(--display);color:var(--acid-text);margin-bottom:var(--space-lg)}
+.title-page .wordmark{font-size:clamp(3.6rem,17vw,8.5rem);line-height:.92;letter-spacing:0;font-weight:400}
+.title-page .tag{font-style:italic;margin:var(--space-lg) auto var(--space-xl);max-width:30ch;font-size:clamp(1.2rem,2vw,1.45rem)}
+.title-page .tag::after{content:"";display:block;width:4rem;height:1px;background:var(--acid-text);margin:var(--space-lg) auto 0}
+.title-page .paths{justify-content:center;text-align:center;grid-template-columns:minmax(0,320px)}
+@media (min-width:560px){.title-page .paths{grid-template-columns:none}}
+.title-page .path .btn{width:100%}
+@media (min-width:560px){.title-page .path .btn{width:auto}}
+.title-page .path{align-items:center}
+@media (min-width:900px){
+  .frontis .wrap{grid-template-columns:1fr 1fr;gap:0;min-height:calc(100svh - 10rem);align-items:stretch;border:1px solid var(--line);background:var(--panel);
+    /* the spine of the open book */
+    background-image:linear-gradient(to right,transparent calc(50% - 28px),rgba(0,0,0,.06) 50%,transparent calc(50% + 28px))}
+  .layout-catalogue .frontis-plate{order:1;align-self:center;justify-self:center;max-width:calc(100% - 2 * clamp(2rem,4vw,3.5rem));margin:clamp(2rem,4vw,3.5rem);background:var(--ink)}
+  .frontis-plate img{max-height:calc(100svh - 20rem);width:auto;max-width:100%;margin:auto}
+  .title-page{order:2;display:flex;flex-direction:column;justify-content:center;padding:clamp(2rem,4vw,4rem)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .frontis-plate{animation:fade 1.2s .1s var(--ease) both}
+  .title-page>*{animation:fade 1.1s var(--ease) both}
+  .title-page .wordmark{animation-delay:.25s}.title-page .tag{animation-delay:.45s}.title-page .paths{animation-delay:.6s}
+}
+
+/* ---------- plates (the gallery, restyled; filters + lightbox unchanged) ---------- */
+.layout-catalogue .work .head{flex-direction:column;align-items:center;text-align:center;margin-bottom:var(--space-2xl)}
+.layout-catalogue .filters{justify-content:center;gap:0 var(--space-xs)}
+.layout-catalogue .filters button{border:0;border-radius:0;padding:0 .7rem;font:400 1.1rem/1 var(--body);font-variant:small-caps;letter-spacing:.08em;color:var(--ash);text-underline-offset:.35em}
+.layout-catalogue .filters button:hover{color:var(--bone);background:none}
+.layout-catalogue .filters button[aria-pressed="true"]{background:none;color:var(--bone);text-decoration:underline;text-decoration-color:var(--acid-text);text-decoration-thickness:1px}
+.layout-catalogue .grid{grid-template-columns:1fr;gap:clamp(2rem,5vw,4rem) clamp(1.5rem,4vw,3.5rem);counter-reset:pl;align-items:start}
+@media (min-width:768px){.layout-catalogue .grid{grid-template-columns:1fr 1fr}.layout-catalogue .grid button:nth-child(even){margin-top:clamp(2rem,6vw,5rem)}}
+.layout-catalogue .grid button,.layout-catalogue .grid button.wide{aspect-ratio:auto;grid-column:auto;overflow:visible;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-xs);counter-increment:pl}
+.layout-catalogue .grid img{position:static;width:100%;height:auto;margin-bottom:var(--space-lg);transition:none}
+.layout-catalogue .grid button:hover img{transform:none}
+.layout-catalogue .grid button:hover{border-color:var(--acid-text)}
+.layout-catalogue .grid .pl{order:1;font:400 .95rem/1.2 var(--body);font-variant:small-caps;letter-spacing:.14em;color:var(--acid-text)}
+.layout-catalogue .grid .pl::after{content:" " counter(pl,upper-roman)}
+.layout-catalogue .grid .cap-long{order:2;font:italic 400 1.2rem/1.35 var(--display);color:var(--bone);max-width:30ch;white-space:normal}
+.layout-catalogue .grid .cap,.layout-catalogue .grid button:hover .cap,.layout-catalogue .grid button:focus-visible .cap{position:static;order:3;background:none;color:var(--ash);padding:0;font:400 .9rem/1.2 var(--body);font-variant:small-caps;letter-spacing:.1em;border:0}
+.layout-catalogue .more{text-align:center;margin-inline:auto;margin-top:var(--space-2xl)}
+.layout-catalogue .more a{color:var(--acid-text)}
+
+/* ---------- flash: a loose leaf ---------- */
+.layout-catalogue .flash{background:none;border:0;padding:0 0 var(--section)}
+.layout-catalogue .flash .wrap{max-width:760px;text-align:center;grid-template-columns:1fr;justify-items:center;background:var(--panel);border:1px solid var(--line);outline:1px solid var(--line);outline-offset:-10px;padding:clamp(2.5rem,6vw,4rem) clamp(1.5rem,5vw,3.5rem)}
+.layout-catalogue .flash h2{font-size:clamp(2.2rem,5vw,3.4rem);max-width:none;color:var(--bone)}
+.layout-catalogue .flash .btn{justify-self:center}
+
+/* ---------- about: oval medallion + centred text ---------- */
+.layout-catalogue .about{border-top:1px solid var(--line)}
+.layout-catalogue .about .wrap{grid-template-columns:1fr;justify-items:center;text-align:center;max-width:760px}
+.layout-catalogue .about-img{width:min(68vw,300px);border-radius:50%;padding:12px;border:1px solid var(--line);background:var(--panel);overflow:visible}
+.layout-catalogue .about-img img{border-radius:50%;aspect-ratio:4/5}
+.layout-catalogue .about p{margin-inline:auto}
+.layout-catalogue .about p:first-of-type{font-style:italic}
+.layout-catalogue .styles{justify-content:center}
+.layout-catalogue .styles li{border-radius:0;border:0;border-bottom:1px solid var(--line);font-variant:small-caps;letter-spacing:.08em;padding:.2rem .5rem}
+
+/* ---------- booking: centred, letter-style form ---------- */
+.layout-catalogue .book{background:none}
+.layout-catalogue .book .wrap{grid-template-columns:1fr;max-width:760px}
+.layout-catalogue .book .wrap>div:first-child{position:static;text-align:center}
+.layout-catalogue .steps{text-align:left;counter-reset:s}
+.layout-catalogue .steps li::before{content:counter(s,upper-roman) ".";font:italic 400 1.6rem/1 var(--display)}
+.layout-catalogue .policy{margin-inline:auto}
+.layout-catalogue form{background:var(--panel);border:1px solid var(--line);box-shadow:none}
+.layout-catalogue input,.layout-catalogue select,.layout-catalogue textarea{background:transparent;border:0;border-bottom:1px solid var(--ash);padding-inline:.2rem}
+.layout-catalogue input:hover,.layout-catalogue select:hover,.layout-catalogue textarea:hover{border-bottom-color:var(--bone)}
+.layout-catalogue textarea{border:1px solid var(--ash)}
+.layout-catalogue .mode label{border-color:var(--line);background:var(--ink)}
+
+/* ---------- teaser, footer as a colophon ---------- */
+.layout-catalogue .teaser .wrap,.layout-catalogue .cta-band .wrap{flex-direction:column;align-items:center;text-align:center}
+.layout-catalogue .teaser p{margin-inline:auto}
+.layout-catalogue footer .wrap{flex-direction:column;justify-content:center;text-align:center;gap:0}
+.layout-catalogue .giant{text-align:center;color:var(--acid-text)}
+.layout-catalogue .giant span{font-weight:400}
+
+/* ---------- aftercare page ---------- */
+.layout-catalogue .care-head{text-align:center}
+.layout-catalogue .page-h1{margin-inline:auto;font-weight:400}
+.layout-catalogue .care .intro{margin-inline:auto;font-style:italic}
+.layout-catalogue .timeline div::before{content:counter(t,upper-roman);font:italic 400 1.4rem/1 var(--display);letter-spacing:0}
+.layout-catalogue .warn{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acid-text)}
 </style>
 </head>
 <body>
@@ -392,6 +509,26 @@ footer .wrap a:hover{color:var(--acid-text)}
   const fitMark=()=>{if(!mk)return;mk.style.fontSize='';let s=parseFloat(getComputedStyle(mk).fontSize);while(mk.scrollWidth>mk.clientWidth+1&&s>13){s-=.5;mk.style.fontSize=s+'px';}};
   const fitAll=()=>{fit();fitMark();};
   fitAll();addEventListener('resize',fitAll);document.fonts&&document.fonts.ready.then(fitAll);
+  // gallery layout: the wall (sideways gallery) gets numbering, position bar and prev/next
+  const wall=document.querySelector('.wall .grid');
+  if(wall){
+    const dots=document.querySelector('.wall .dots'),prev=document.querySelector('.wall-prev'),next=document.querySelector('.wall-next');
+    const shown=()=>[...wall.children].filter(b=>!b.hidden);
+    const idx=()=>{const v=shown(),x=wall.scrollLeft;let best=0,d=Infinity;v.forEach((b,i)=>{const e=Math.abs(b.offsetLeft-parseFloat(getComputedStyle(wall).scrollPaddingLeft||0)-x);if(e<d){d=e;best=i;}});return best;};
+    const sync=()=>{const v=shown(),i=idx(),end=wall.scrollLeft+wall.clientWidth>=wall.scrollWidth-2;
+      [...dots.children].forEach((d,k)=>d.classList.toggle('on',end?k===v.length-1:k===i));
+      prev.setAttribute('aria-disabled',i===0&&wall.scrollLeft<2);next.setAttribute('aria-disabled',end);};
+    const render=()=>{const v=shown(),n=String(v.length).padStart(2,'0');
+      v.forEach((b,i)=>{const no=b.querySelector('.no');if(no)no.textContent=String(i+1).padStart(2,'0')+' / '+n;});
+      dots.innerHTML=v.map(()=>'<i></i>').join('');wall.scrollLeft=0;sync();};
+    const go=s=>{const v=shown(),t=v[Math.max(0,Math.min(v.length-1,idx()+s))];
+      wall.scrollTo({left:t.offsetLeft-parseFloat(getComputedStyle(wall).scrollPaddingLeft||0),behavior:still?'auto':'smooth'});};
+    prev.addEventListener('click',()=>go(-1));next.addEventListener('click',()=>go(1));
+    wall.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1);}if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}});
+    let raf=0;wall.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(sync);},{passive:true});
+    document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>setTimeout(render)));
+    addEventListener('resize',sync);render();
+  }
 })();
 </script>
 <script>
