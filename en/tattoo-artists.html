@@ -199,6 +199,17 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .5
 .ph{background:var(--ochre-soft);color:#6B4608;border-radius:6px;padding:0 .35rem;font-family:var(--sans);font-size:.9em;font-weight:600;white-space:nowrap}
 .tile .ph{background:var(--white);color:var(--cobalt-deep)}
 .other{margin-top:1.5rem;color:var(--muted);font-size:.95rem}
+
+/* examples (demo sites) */
+.demos{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.demos a{display:flex;flex-direction:column;gap:.15rem;text-decoration:none;color:var(--ink);border-radius:var(--r)}
+.demos img{width:100%;height:auto;aspect-ratio:560/1135;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 40px -28px rgba(30,63,143,.55);margin-bottom:.6rem;transition:transform .2s ease-out}
+.demos a:hover img{transform:translateY(-4px)}
+.demos b{font:400 1.15rem/1.2 var(--serif)}
+.demos span{color:var(--muted);font-size:.92rem}
+.demos-note{color:var(--muted);font-size:.92rem;margin-top:1.25rem}
+@media (min-width:940px){.demos{grid-template-columns:repeat(4,1fr);gap:1.5rem}}
+@media (prefers-reduced-motion:reduce){.demos img{transition:none}}
 </style>
 </head>
 <body>
@@ -220,10 +231,21 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .5
   <p class="lead">I build websites for independent tattoo artists: a portfolio with style filters, booking requests by WhatsApp and an aftercare page. In Spanish and English.</p>
   <div class="actions">
     <a class="btn primary" href="https://wa.me/13476092094?text=Hi%20Paul%2C%20I%20am%20a%20tattoo%20artist%20and%20I%20am%20interested%20in%20a%20website%20for%20my%20studio."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Message me on WhatsApp</a>
-    <a class="btn ghost" href="#precios">See prices</a>
+    <a class="btn ghost" href="#ejemplos">See examples</a>
   </div>
   <p class="meta"><span>Spanish and English</span><span>Built for the phone</span><span>You decide the bookings</span></p>
 </div>
+
+<section class="block" id="ejemplos" aria-labelledby="ejemplos-t">
+  <div class="head"><h2 id="ejemplos-t">Examples</h2><p>Each artist, their own style. Open them on your phone: that’s how your clients would see them.</p></div>
+  <ul class="demos">
+    <li><a href="/demos/hachasketch/"><img src="/assets/demos/hachasketch.jpg" width="560" height="1135" loading="lazy" alt="Example site for hachasketch on a phone"><b>hachasketch</b><span>Dark blackwork · Madrid</span></a></li>
+    <li><a href="/demos/naotis/"><img src="/assets/demos/naotis.jpg" width="560" height="1135" loading="lazy" alt="Example site for nao.tis on a phone"><b>nao.tis</b><span>Tribal and blackwork · Madrid</span></a></li>
+    <li><a href="/demos/necr0lin333sss/"><img src="/assets/demos/necr0lin333sss.jpg" width="560" height="1135" loading="lazy" alt="Example site for necr0lin333sss on a phone"><b>necr0lin333sss</b><span>Freehand and blackwork · Madrid</span></a></li>
+    <li><a href="/demos/bricetattooer/"><img src="/assets/demos/bricetattooer.jpg" width="560" height="1135" loading="lazy" alt="Example site for bricetattooer on a phone"><b>bricetattooer</b><span>Micro-realism and fine line · Paris</span></a></li>
+  </ul>
+  <p class="demos-note">These are sample sites, not client work: I built them from public Instagram photos to show what yours could look like.</p>
+</section>
 
 <section class="block" id="precios" aria-labelledby="precios-t">
   <div class="tile">
