@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://indexable.pro/</loc><lastmod>2026-09-28</lastmod>
+  <url><loc>https://indexable.pro/</loc><lastmod>2026-10-05</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/"/></url>
-  <url><loc>https://indexable.pro/en/</loc><lastmod>2026-09-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/"/></url>
+  <url><loc>https://indexable.pro/en/</loc><lastmod>2026-10-05</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/"/></url>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/"/></url>
+  <url><loc>https://indexable.pro/restaurantes</loc><lastmod>2026-10-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/restaurantes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/restaurants"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/restaurantes"/></url>
+  <url><loc>https://indexable.pro/en/restaurants</loc><lastmod>2026-10-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/restaurantes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/restaurants"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/restaurantes"/></url>
+  <url><loc>https://indexable.pro/tatuadores</loc><lastmod>2026-10-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/tatuadores"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/tattoo-artists"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/tatuadores"/></url>
+  <url><loc>https://indexable.pro/en/tattoo-artists</loc><lastmod>2026-10-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://indexable.pro/tatuadores"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://indexable.pro/en/tattoo-artists"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://indexable.pro/tatuadores"/></url>
 </urlset>

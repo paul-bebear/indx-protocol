@@ -5,3 +5,4 @@ src/
 .env.*
 .DS_Store
 .vercel/
+_tools/screens/
