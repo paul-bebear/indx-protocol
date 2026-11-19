@@ -24,8 +24,9 @@
 "email":"pbebear@icloud.com","telephone":"+13476092094","areaServed":{"@type":"Place","name":"Malasaña, Madrid"},"availableLanguage":["es","en","fr"],
 "founder":{"@type":"Person","name":"Paul Bébéar","knowsLanguage":["es","en","fr"]},
 "makesOffer":[
-{"@type":"Offer","name":"Puesta a punto","description":"Revisión de la ficha de Google, carta web en español e inglés, código QR y alojamiento. Entrega en una semana.","priceSpecification":{"@type":"PriceSpecification","price":250,"priceCurrency":"EUR","valueAddedTaxIncluded":false}},
-{"@type":"Offer","name":"Mantenimiento mensual","description":"Hasta cuatro cambios al mes, hechos en 48 horas. Sin permanencia.","priceSpecification":{"@type":"UnitPriceSpecification","price":50,"priceCurrency":"EUR","unitText":"mes","valueAddedTaxIncluded":false}}]}
+{"@type":"Offer","name":"Puesta a punto","description":"Revisión de la ficha de Google, carta web en español e inglés, código QR y alojamiento. Entrega en una semana.","priceSpecification":{"@type":"PriceSpecification","price":250,"priceCurrency":"EUR"}},
+{"@type":"Offer","name":"Mantenimiento mensual","description":"Hasta cuatro cambios al mes, hechos en 48 horas. Sin permanencia.","priceSpecification":{"@type":"UnitPriceSpecification","price":50,"priceCurrency":"EUR","unitText":"mes"}},
+{"@type":"Offer","name":"Pago único","description":"Puesta a punto pagada una sola vez, sin cuota mensual. Incluye dos cambios de mantenimiento al mes, hechos en 48 horas.","priceSpecification":{"@type":"PriceSpecification","price":600,"priceCurrency":"EUR"}}]}
 </script>
 <style>
 :root{
@@ -114,6 +115,7 @@ section.block{padding:4.5rem 0 0}
 .row{display:flex;align-items:baseline;gap:.6rem;font-family:var(--serif);font-size:clamp(1.3rem,4vw,1.6rem)}
 .leader{flex:1;min-width:1.5rem;border-bottom:2px dotted rgba(255,255,255,.5);transform:translateY(-.35rem)}
 .amount{white-space:nowrap}
+.amount small{display:block;text-align:right;font-size:.62em;color:rgba(255,255,255,.85);margin-top:.2rem}
 .item p{margin:.6rem 0 0;color:rgba(255,255,255,.88);font-size:1rem;max-width:36rem}
 .tile .fine{margin:2.25rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.3);font-size:.95rem;color:rgba(255,255,255,.82)}
 .launch{display:inline-block;margin-top:.8rem;background:var(--white);color:var(--cobalt);padding:.5rem .85rem;border-radius:10px;font-weight:600;font-size:.95rem}
@@ -257,15 +259,15 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .5
   <div class="tile">
     <h2 id="precios-t">Lo que hago y lo que cuesta</h2>
     <div class="items"><div class="item">
-      <div class="row"><span>Puesta a punto</span><span class="leader" aria-hidden="true"></span><span class="amount">250 €</span></div>
-      <p>Tu ficha de Google revisada y corregida. Una carta web en español e inglés, fácil de leer para Google y ChatGPT, con QR para las mesas. Lista en una semana.</p>
+      <div class="row"><span>Mensual</span><span class="leader" aria-hidden="true"></span><span class="amount">250 €<small>+ 50 € al mes</small></span></div>
+      <p>250 € de puesta a punto: tu ficha de Google revisada y corregida, y una carta web en español e inglés, fácil de leer para Google y ChatGPT, con QR para las mesas. Lista en una semana. Después, 50 € al mes de mantenimiento: cambios de carta, precios, horarios y fotos, y respuestas a reseñas. Hasta cuatro al mes, hechos en 48 horas.</p>
     </div>
     <div class="item">
-      <div class="row"><span>Mantenimiento</span><span class="leader" aria-hidden="true"></span><span class="amount">50 € al mes</span></div>
-      <p>Cambios de carta, precios, horarios y fotos, y respuestas a reseñas. Hasta cuatro al mes, hechos en 48 horas.</p>
+      <div class="row"><span>Pago único</span><span class="leader" aria-hidden="true"></span><span class="amount">600 €</span></div>
+      <p>La misma puesta a punto, pagada una sola vez y sin cuota mensual. Incluye dos cambios de mantenimiento al mes, hechos en 48 horas.</p>
     </div>
     </div>
-    <p class="fine">IVA no incluido. Sin permanencia: lo dejas cuando quieras.<br><span class="launch">Precio de lanzamiento para los primeros locales del barrio. Pregúntame.</span></p>
+    <p class="fine">La cuota mensual no tiene permanencia: la dejas cuando quieras.<br><span class="launch">Precio de lanzamiento para los primeros locales del barrio. Pregúntame.</span></p>
   </div>
 </section>
 

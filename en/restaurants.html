@@ -24,8 +24,9 @@
 "email":"pbebear@icloud.com","telephone":"+13476092094","areaServed":{"@type":"Place","name":"Malasaña, Madrid"},"availableLanguage":["es","en","fr"],
 "founder":{"@type":"Person","name":"Paul Bébéar","knowsLanguage":["es","en","fr"]},
 "makesOffer":[
-{"@type":"Offer","name":"Setup","description":"Google listing cleanup, online menu in Spanish and English, QR code and hosting. Delivered within a week.","priceSpecification":{"@type":"PriceSpecification","price":250,"priceCurrency":"EUR","valueAddedTaxIncluded":false}},
-{"@type":"Offer","name":"Monthly upkeep","description":"Up to four changes a month, done within 48 hours. No contract.","priceSpecification":{"@type":"UnitPriceSpecification","price":50,"priceCurrency":"EUR","unitText":"month","valueAddedTaxIncluded":false}}]}
+{"@type":"Offer","name":"Setup","description":"Google listing cleanup, online menu in Spanish and English, QR code and hosting. Delivered within a week.","priceSpecification":{"@type":"PriceSpecification","price":250,"priceCurrency":"EUR"}},
+{"@type":"Offer","name":"Monthly upkeep","description":"Up to four changes a month, done within 48 hours. No contract.","priceSpecification":{"@type":"UnitPriceSpecification","price":50,"priceCurrency":"EUR","unitText":"month"}},
+{"@type":"Offer","name":"One-time","description":"Setup paid once, with no monthly fee. Includes two upkeep changes a month, done within 48 hours.","priceSpecification":{"@type":"PriceSpecification","price":600,"priceCurrency":"EUR"}}]}
 </script>
 <style>
 :root{
@@ -114,6 +115,7 @@ section.block{padding:4.5rem 0 0}
 .row{display:flex;align-items:baseline;gap:.6rem;font-family:var(--serif);font-size:clamp(1.3rem,4vw,1.6rem)}
 .leader{flex:1;min-width:1.5rem;border-bottom:2px dotted rgba(255,255,255,.5);transform:translateY(-.35rem)}
 .amount{white-space:nowrap}
+.amount small{display:block;text-align:right;font-size:.62em;color:rgba(255,255,255,.85);margin-top:.2rem}
 .item p{margin:.6rem 0 0;color:rgba(255,255,255,.88);font-size:1rem;max-width:36rem}
 .tile .fine{margin:2.25rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.3);font-size:.95rem;color:rgba(255,255,255,.82)}
 .launch{display:inline-block;margin-top:.8rem;background:var(--white);color:var(--cobalt);padding:.5rem .85rem;border-radius:10px;font-weight:600;font-size:.95rem}
@@ -257,15 +259,15 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .5
   <div class="tile">
     <h2 id="precios-t">What I do and what it costs</h2>
     <div class="items"><div class="item">
-      <div class="row"><span>Setup</span><span class="leader" aria-hidden="true"></span><span class="amount">€250</span></div>
-      <p>Your Google listing checked and fixed. An online menu in Spanish and English, easy for Google and ChatGPT to read, with QR codes for your tables. Ready in a week.</p>
+      <div class="row"><span>Monthly</span><span class="leader" aria-hidden="true"></span><span class="amount">€250<small>+ €50 a month</small></span></div>
+      <p>€250 for setup: your Google listing checked and fixed, and an online menu in Spanish and English, easy for Google and ChatGPT to read, with QR codes for your tables. Ready in a week. Then €50 a month for upkeep: menu, price, hours and photo changes, plus review replies. Up to four a month, done within 48 hours.</p>
     </div>
     <div class="item">
-      <div class="row"><span>Monthly upkeep</span><span class="leader" aria-hidden="true"></span><span class="amount">€50 a month</span></div>
-      <p>Menu, price, hours and photo changes, plus review replies. Up to four a month, done within 48 hours.</p>
+      <div class="row"><span>One-time</span><span class="leader" aria-hidden="true"></span><span class="amount">€600</span></div>
+      <p>The same setup, paid once with no monthly fee. Includes two upkeep changes a month, done within 48 hours.</p>
     </div>
     </div>
-    <p class="fine">VAT not included. No contract: stop whenever you like.<br><span class="launch">Launch pricing for the first places in the neighbourhood. Ask me.</span></p>
+    <p class="fine">The monthly plan has no contract: stop whenever you like.<br><span class="launch">Launch pricing for the first places in the neighbourhood. Ask me.</span></p>
   </div>
 </section>
 
